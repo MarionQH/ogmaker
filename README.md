@@ -18,10 +18,10 @@ Open SQL CLI
 Windows or Linux: you will need to provide the password set during the installation unless you ran it as an administrator.
 
 ```sql
-CREATE DATABASE db_startado;
-CREATE USER user_startado WITH SUPERUSER PASSWORD 'password';
-GRANT ALL PRIVILEGES ON DATABASE db_startado TO user_startado;
-ALTER DATABASE db_startado OWNER TO user_startado;
+CREATE DATABASE db_ogmaker;
+CREATE USER user_ogmaker WITH SUPERUSER PASSWORD 'password';
+GRANT ALL PRIVILEGES ON DATABASE db_ogmaker TO user_ogmaker;
+ALTER DATABASE user_ogmaker OWNER TO user_ogmaker;
 
 ```
 
