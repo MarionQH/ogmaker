@@ -11,6 +11,9 @@ export default class OpenGraph extends BaseModel {
   declare lineTextId: number
 
   @column()
+  declare name: string
+
+  @column()
   declare ogUrl: string
 
   @column()
@@ -27,6 +30,9 @@ export default class OpenGraph extends BaseModel {
 
   @column()
   declare imgQuality: string
+
+  @column()
+  declare imgUrl: string
 
   @column()
   declare version: string
