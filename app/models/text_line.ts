@@ -14,13 +14,13 @@ export default class TextLine extends BaseModel {
   declare textPolice: string
 
   @column()
-  declare textHeight: string
+  declare textSize: string
 
   @column()
-  declare textwidth: string
+  declare textWeight: string
 
   @column()
-  declare textcolor: string
+  declare textColor: string
 
   @column()
   declare textLongitude: string

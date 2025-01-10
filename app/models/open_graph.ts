@@ -17,31 +17,7 @@ export default class OpenGraph extends BaseModel {
   declare ogUrl: string
 
   @column()
-  declare cardWidht: string
-
-  @column()
-  declare cardHeight: string
-
-  @column()
-  declare imgWidht: string
-
-  @column()
-  declare imgHeigh: string
-
-  @column()
-  declare imgQuality: string
-
-  @column()
-  declare imgUrl: string
-
-  @column()
-  declare version: string
-
-  @column()
-  declare folderName: string
-
-  @column()
-  declare fileName: string
+  declare prefixUrl: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
