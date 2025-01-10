@@ -1,11 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import OpenGraph from './open_graph.js'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class TextLine extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
+
+  @column()
+  declare openGhaphId: number
 
   @column()
   declare text: string
@@ -34,6 +37,6 @@ export default class TextLine extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @belongsTo(() => OpenGraph)
-  declare openGraph: BelongsTo<typeof OpenGraph>
+  @hasMany(() => OpenGraph)
+  declare openGraph: HasMany<typeof OpenGraph>
 }

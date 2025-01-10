@@ -6,6 +6,7 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').notNullable()
+      table.integer('open_graph_id').unsigned().references('open_graphs.id').notNullable()
       table.string('text ', 100).notNullable()
       table.string('text_police', 100).notNullable()
       table.string('text_size', 100).notNullable()
