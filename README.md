@@ -1,4 +1,4 @@
-# Jumpstart AdonisJS 6
+# OgMaker AdonisJS 6
 
 ## Prerequisites
 
