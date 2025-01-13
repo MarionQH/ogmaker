@@ -16,8 +16,9 @@ const RegisterController = () => import('#controllers/auth/register_controller')
 const ForgotPasswordController = () => import('#controllers/auth/forgot_password_controller')
 const ProfileController = () => import('#controllers/settings/profile_controller')
 const AccountController = () => import('#controllers/settings/account_controller')
+const HomeController = () => import('#controllers/home_controller')
 
-router.on('/').render('pages/home')
+router.get('/', [HomeController, 'index']).as('home')
 
 router.on('/jumpstart').render('pages/jumpstart').as('jumpstart')
 
