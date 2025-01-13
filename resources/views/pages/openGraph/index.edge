@@ -1,0 +1,45 @@
+@layout()
+
+<h1 class="text-3xl font-bold text-center text-gray-900 mt-4">OpenGraphs</h1>
+
+<form method="GET" action="{{ route('openGraphs.index') }}">
+  <div class="pt-4 max-w-7xl mx-auto flex gap-4">
+    <!-- Champ de recherche -->
+    <div class="flex-1">
+      @!form.input({
+        label: 'Title Search',
+        name: 'search',
+        type: 'search',
+        placeholder: 'search by name',
+        value: filters.search
+      })
+    </div>
+    
+    <!-- Champ de sélection (Sort) -->
+    <div class="flex-1">
+      @form.input({ type: 'select', label: 'Sort', name: 'sort' })
+      @each (item in movieSortOptions)
+        <option value="{{ item.id }}" {{ html.attrs({ selected: item.id == filters.sort }) }}>
+          {{ item.text }}
+        </option>
+      @endeach
+      @end
+    </div>
+  </div>
+</form>
+
+<!-- Contenu de la liste des OpenGraphs -->
+<div class="max-w-7xl mx-auto mt-8 px-4">
+  <div class="bg-white shadow-lg rounded-lg p-6">
+    <div class="flex flex-wrap -mx-3">
+      @each(openGraph in openGraphs)
+        <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0 mt-4">
+          <div class="bg-gray-100 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+            @!openGraph.card({openGraph})
+          </div>
+        </div>
+      @end
+    </div>
+  </div>
+</div>
+@end
