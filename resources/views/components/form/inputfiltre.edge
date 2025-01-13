@@ -1,0 +1,31 @@
+@let(valueOld = name ? old(name) : '')
+@let(value = $props.value || valueOld)
+
+<label class="flex flex-col">
+  @if ($slots.label || label)
+    <span class="text-sm font-bold">
+      @if ($slots.label)
+        {{{ await $slots.label() }}}
+      @else
+        {{ label }}
+      @endif
+    </span>
+  @endif
+  
+  @if(type === 'select')
+    <select name="{{ name || '' }}" class="py-3 px-4 block w-full border border-gray-200 rounded text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+      {{{ await $slots.main() }}}
+    </select>
+  @elseif(type === 'textarea')
+    <textarea name="{{ name || '' }}" class="py-3 px-4 block w-full border border-gray-200 rounded text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">{{ value || '' }} </textarea>
+  @else
+    <input type="{{ type || 'text' }}" name="{{ name || '' }}" value="{{ value || '' }}" class="py-3 px-4 block w-full border border-gray-200 rounded text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"/>
+  @endif
+  @if(name)
+    @inputError(name)
+      <p class="text-xs text-red-500">
+        {{ $messages.join(', ') }}
+      </p>
+    @end
+  @endif
+</label>
