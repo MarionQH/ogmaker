@@ -8,12 +8,11 @@ export default class extends BaseSeeder {
 
     await User.createMany([
       {
-        id: 1,
         fullName: 'user1',
         email: 'User1@test.com',
         password: '12345678',
       },
-      { id: 2, fullName: 'user2', email: 'User2@test.com', password: '12345678' },
+      { fullName: 'user2', email: 'User2@test.com', password: '12345678' },
     ])
 
     await OpenGraph.createMany([
