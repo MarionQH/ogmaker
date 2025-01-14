@@ -6,6 +6,7 @@
 
     <div class="max-w-7xl mx-auto mt-8 px-4">
       <form method="GET" action="{{ route('openGraphs.index') }}">
+        {{ csrfField() }}
         <div class="flex items-end gap-3 pt-4">
 
           @!form.inputfiltre({

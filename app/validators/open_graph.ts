@@ -1,7 +1,7 @@
 import { OpenGraphService } from '#services/open_graph_service'
 import vine from '@vinejs/vine'
 
-const OpenGraphsFilter = vine.object({
+const openGraphsFilter = vine.object({
   search: vine.string().optional(),
   sort: vine
     .string()
@@ -10,4 +10,4 @@ const OpenGraphsFilter = vine.object({
     })
     .optional(),
 })
-export const openGraphsFilterValidator = vine.compile(OpenGraphsFilter)
+export const openGraphsFilterValidator = vine.compile(openGraphsFilter)

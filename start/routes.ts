@@ -21,6 +21,12 @@ const HomeController = () => import('#controllers/home_controller')
 
 router.get('/', [HomeController, 'index']).as('home')
 
+// CREATE OPENGRAPH
+router.get('/openGraphs/create', [OpenGraphsController, 'create']).as('openGraphs.create')
+
+// STORE METHOD FOR CREATE OPENGRAPH
+router.post('/openGraphs/create', [OpenGraphsController, 'store']).as('openGraphs.store')
+
 // OPENGRAPHS
 router.get('/openGraphs', [OpenGraphsController, 'index']).as('openGraphs.index')
 
