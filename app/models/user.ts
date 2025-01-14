@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { Authenticator } from '@adonisjs/auth'
 import { Authenticators } from '@adonisjs/auth/types'
@@ -13,6 +13,8 @@ import db from '@adonisjs/lucid/services/db'
 import mail from '@adonisjs/mail/services/main'
 import app from '@adonisjs/core/services/app'
 import EmailHistory from '#models/email_history'
+import OpenGraph from './open_graph.js'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -38,6 +40,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+
+  @belongsTo(() => OpenGraph)
+  declare openGraph: BelongsTo<typeof OpenGraph>
 
   static async login(
     auth: Authenticator<Authenticators>,
