@@ -24,4 +24,8 @@ export class OpenGraphService {
       })
       .select('open_graphs.*')
   }
+  // static async getFormData() {
+  //   const name = await OpenGraph.query().orderBy('name')
+  //   return { name }
+  // }
 }

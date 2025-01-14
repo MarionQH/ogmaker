@@ -1,0 +1,60 @@
+@layout()
+  <div>
+    <h1 class="text-3xl font-bold text-center text-gray-900 mt-4">
+      Create OpenGraph
+    </h1>
+  </div>
+
+  <div class="bg-white shadow-lg rounded-lg p-6 mt-8 max-w-7xl mx-auto">
+    <form
+      id="opengraphForm"
+      enctype="multipart/form-data"
+      method="POST"
+      action="{{ route('openGraphs.store') }}"
+      class="flex flex-row justify-between"
+    >
+      {{ csrfField() }}
+        <!-- Card Name and URL -->
+        <div class="border-4 rounded border-slate-950 mx-auto p-2">
+            @!form.inputfiltre({
+                label: 'Card Name',
+                name: 'name',
+                type: 'Card Name',
+                placeholder: 'Put your Card`s Name',
+                value: name,
+            })
+
+            @!form.inputfiltre({
+                    label: 'Url Image',
+                    name: 'prefixUrl',
+                    type: 'Url',
+                    placeholder: 'Put your Image`s Url',
+                    value: prefixUrl,
+            })
+        </div>
+        {{-- <div class="border-4 rounded border-slate-950 mx-auto">
+            @!form.inputfiltre({
+                label: 'First Text',
+                name: 'name',
+                type: 'Card Name',
+                placeholder: 'Put your Card`s Name',
+                value: name,
+            })
+
+            @!form.inputfiltre({
+                label: 'Text Color',
+                name: 'prefixUrl',
+                type: 'Url',
+                placeholder: 'Put your Image`s Url',
+                value: prefixUrl,
+            })
+            <div class="mt-5">
+                @button({ type: 'submit'})
+                  Apply
+                @end
+            </div>
+        </div> --}}
+    </form>
+  </div>
+
+@end
