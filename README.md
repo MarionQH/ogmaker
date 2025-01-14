@@ -43,3 +43,9 @@ npm run dev
 Once the server is running, open your browser and navigate to:
 
 <http://localhost:3333>
+
+## Log in as User
+
+Email : <User1@test.com>"
+
+Password : 12345678
