@@ -1,37 +1,9 @@
 @layout()
   <div>
-    <h1 class="text-3xl font-bold text-center text-gray-900 mt-4">
-      OpenGraphs
+    <h1 class="mx-auto text-3xl font-black leading-none text-gray-900 select-none text-center mt-8">
+      Your openGraphs
     </h1>
-
     <div class="max-w-7xl mx-auto mt-8 px-4">
-      <form method="GET" action="{{ route('openGraphs.index') }}">
-        {{ csrfField() }}
-        <div class="flex items-end gap-3 pt-4">
-
-          @!form.inputfiltre({
-          label: 'Title Search',
-          name: 'search',
-          type: 'search',
-          placeholder: 'search by name',
-          value: filters.search,
-          })
-
-          @form.inputfiltre({ type: 'select', label: 'Sort', name: 'sort' })
-            @each (item in OpenGraphSortOption)
-              <option value="{{ item.id }}" {{ html.attrs({ selected: item.id == filters.sort }) }}>
-                {{ item.text }}
-              </option>
-            @endeach
-          @end
-          
-          
-          @button({ type: 'submit'})
-            Search
-          @end
-          
-        </div>
-      </form>
       <div class="bg-white shadow-lg rounded-lg p-6 mt-8">
 
         <div class="flex flex-wrap -mx-3">
