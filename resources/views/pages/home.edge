@@ -1,5 +1,5 @@
 @layout()
-  <h1 class="text-3xl font-bold text-center text-gray-900 mt-4">
+  <h1 class="mx-auto text-3xl font-black leading-none text-gray-900 select-none text-center mt-8">
     Home
   </h1>
   <div class="max-w-7xl mx-auto mt-8 px-4">
@@ -34,12 +34,22 @@
                   />
                 </svg>
               </a>
+              @if (await !auth.user)
               <a
                 href="{{ route('auth.login.show') }}"
                 class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg bg-pink-50 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
               >
                 Sign in
             </a>
+            @endif
+             @if (await auth.check())
+              <a
+                href="{{ route('openGraphs.index') }}"
+                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg bg-pink-50 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+              >
+                Your OpenGraphs
+            </a>
+            @endif
             </div>
             <div class="hidden lg:mt-0 lg:col-span-5 lg:flex border border-gray-200/70 mr-8">
               <img src="/app/public/img/img_home.jpg" alt="img_home"/>
