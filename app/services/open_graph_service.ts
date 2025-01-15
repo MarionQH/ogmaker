@@ -1,6 +1,6 @@
-import OpenGraph from '#models/open_graph'
-import { openGraphsValidator } from '#validators/graph'
-import { Infer } from '@vinejs/vine/types'
+// import OpenGraph from '#models/open_graph'
+// import { openGraphsValidator } from '#validators/graph'
+// import { Infer } from '@vinejs/vine/types'
 
 // export class OpenGraphService {
 //   static async syncTextline(
