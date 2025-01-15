@@ -20,22 +20,20 @@ export default class OpenGraphsController {
     return view.render('pages/openGraph/create', {})
   }
 
-  async store({ request, response, auth }: HttpContext) {
+  async store({ request, response, auth, session }: HttpContext) {
     if (!auth.user) {
       return response.unauthorized('You must be logged in to create an OpenGraph entry.')
     }
 
-    // Validez les données d'entrée
     const validatedData = await request.validateUsing(openGraphsValidator)
 
-    // Créez l'entrée OpenGraph sans passer par une variable intermédiaire "data"
     await OpenGraph.create({
       ...validatedData,
-      userId: auth.user.id, // Associez l'utilisateur connecté
-      ogUrl: await UrlMakerService.urlMakerWithoutText(validatedData), // Générez l'ogUrl
+      userId: auth.user.id,
+      ogUrl: await UrlMakerService.urlMakerWithoutText(validatedData),
     })
+    session.flash('success', 'OpenGraph successfully created !')
 
-    // Redirigez l'utilisateur après succès
     return response.redirect().toRoute('openGraphs.create')
   }
 

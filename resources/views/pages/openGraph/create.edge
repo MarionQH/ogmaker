@@ -3,6 +3,12 @@
     <h1 class="text-3xl font-bold text-center text-gray-900 mt-4">
       Create OpenGraph
     </h1>
+    @if(session.has('success'))
+  <div class="alert alert-success">
+    {{ session.get('success') }}
+  </div>
+@endif
+{{ inspect(flashMessages.all()) }}
   </div>
   <div class="bg-white shadow-lg rounded-lg p-6 mt-8 max-w-7xl mx-auto">
     <form
