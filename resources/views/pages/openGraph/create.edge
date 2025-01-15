@@ -15,7 +15,17 @@
     >
       {{ csrfField() }}
         <!-- Card Name and URL -->
+        
         <div class="border-4 rounded border-slate-950 mx-auto p-2">
+            <div>
+                @!form.inputfiltre({
+                label: 'Card Name',
+                name: 'name',
+                type: 'Card Name',
+                placeholder: 'Put your Card`s Name',
+                value: name,
+            })
+            </div>
             @!form.inputfiltre({
                 label: 'Card Name',
                 name: 'name',
@@ -32,28 +42,67 @@
                     value: prefixUrl,
             })
         </div>
-        {{-- <div class="border-4 rounded border-slate-950 mx-auto">
+        <div class="border-4 rounded border-slate-950 mx-auto p-2">
             @!form.inputfiltre({
                 label: 'First Text',
-                name: 'name',
-                type: 'Card Name',
-                placeholder: 'Put your Card`s Name',
-                value: name,
+                name: 'text',
+                type: 'text',
+                placeholder: 'Put your Card`s text',
+                value: text,
+            })
+
+            @!form.inputfiltre({
+                label: 'Text Police',
+                name: 'textPolice',
+                type: 'police',
+                placeholder: 'Change your Text`s police',
+                value: textPolice,
+            })
+
+            @!form.inputfiltre({
+                label: 'Text Size',
+                name: 'textSize',
+                type: 'size',
+                placeholder: 'Change your Text`s size',
+                value: textSize,
             })
 
             @!form.inputfiltre({
                 label: 'Text Color',
-                name: 'prefixUrl',
-                type: 'Url',
-                placeholder: 'Put your Image`s Url',
-                value: prefixUrl,
+                name: 'textColor',
+                type: 'color',
+                placeholder: 'Change your Text`s color',
+                value: textColor,
             })
+
+            @!form.inputfiltre({
+                label: 'Text Longitude',
+                name: 'textLongitude',
+                type: 'position x',
+                placeholder: 'Change your Text`s x position',
+                value: textLongitude,
+            })
+
+            @!form.inputfiltre({
+                label: 'Text Latitude',
+                name: 'textLatitude',
+                type: 'position y',
+                placeholder: 'Change your Text`s y position',
+                value: textLatitude,
+            })
+            <div>
             <div class="mt-5">
                 @button({ type: 'submit'})
                   Apply
                 @end
             </div>
-        </div> --}}
+            <div class="mt-5">
+                @button({ type: 'submit'})
+                  Apply
+                @end
+            </div>
+            </div>
+        </div>
     </form>
   </div>
 

@@ -22,10 +22,16 @@ const HomeController = () => import('#controllers/home_controller')
 router.get('/', [HomeController, 'index']).as('home')
 
 // CREATE OPENGRAPH
-router.get('/openGraphs/create', [OpenGraphsController, 'create']).as('openGraphs.create')
+router
+  .get('/openGraphs/create', [OpenGraphsController, 'create'])
+  .as('openGraphs.create')
+  .use(middleware.auth())
 
 // STORE METHOD FOR CREATE OPENGRAPH
-router.post('/openGraphs/create', [OpenGraphsController, 'store']).as('openGraphs.store')
+router
+  .post('/openGraphs/create', [OpenGraphsController, 'store'])
+  .as('openGraphs.store')
+  .use(middleware.auth())
 
 // OPENGRAPHS
 router.get('/openGraphs', [OpenGraphsController, 'index']).as('openGraphs.index')
