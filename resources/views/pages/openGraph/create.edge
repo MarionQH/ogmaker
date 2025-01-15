@@ -14,96 +14,126 @@
       class="flex flex-row justify-between"
     >
       {{ csrfField() }}
-        <!-- Card Name and URL -->
-        
-        <div class="border-4 rounded border-slate-950 mx-auto p-2">
-            <div>
-                @!form.inputfiltre({
-                label: 'Card Name',
-                name: 'name',
-                type: 'Card Name',
-                placeholder: 'Put your Card`s Name',
-                value: name,
-            })
-            </div>
-            @!form.inputfiltre({
-                label: 'Card Name',
-                name: 'name',
-                type: 'Card Name',
-                placeholder: 'Put your Card`s Name',
-                value: name,
-            })
+      <!-- Card Name and URL -->
 
-            @!form.inputfiltre({
+      <div class="border-4 rounded border-slate-950 mx-auto p-2">
+        <div>
+          <img />
+        </div>
+        @!form.inputfiltre({
+                label: 'Card Name',
+                name: 'name',
+                type: 'Card Name',
+                placeholder: 'Put your Card`s Name',
+                value: name,
+        })
+
+        @!form.inputfiltre({
                     label: 'Url Image',
                     name: 'prefixUrl',
                     type: 'Url',
                     placeholder: 'Put your Image`s Url',
                     value: prefixUrl,
-            })
-        </div>
+        })
+      </div>
+      <div
+        x-data="{ openGraphData: [{ 
+        name: '', 
+        imageUrl: '', 
+        text: '', 
+        textPolice: '', 
+        textSize: '', 
+        textColor: '', 
+        textLongitude: '', 
+        textLatitude: ''
+    }] }"
+      >
+
         <div class="border-4 rounded border-slate-950 mx-auto p-2">
-            @!form.inputfiltre({
-                label: 'First Text',
-                name: 'text',
-                type: 'text',
-                placeholder: 'Put your Card`s text',
-                value: text,
-            })
 
-            @!form.inputfiltre({
-                label: 'Text Police',
-                name: 'textPolice',
-                type: 'police',
-                placeholder: 'Change your Text`s police',
-                value: textPolice,
-            })
+          <label class="flex flex-col">
+            <span class="text-xs font-bold">Text</span>
+            <input
+              type="text"
+              name="text"
+              id="text"
+              placeholder="Put your Card`s text"
+              x-model="openGraphData[0].?text || ''"
+            />
+          </label>
 
-            @!form.inputfiltre({
-                label: 'Text Size',
-                name: 'textSize',
-                type: 'size',
-                placeholder: 'Change your Text`s size',
-                value: textSize,
-            })
+          <label class="flex flex-col">
+            <span class="text-xs font-bold">Text Police</span>
+            <input
+              type="text"
+              name="textPolice"
+              id="textPolice"
+              placeholder="Change your Text`s police"
+              x-model="openGraphData[0].textPolice || ''"
+            />
+          </label>
 
-            @!form.inputfiltre({
-                label: 'Text Color',
-                name: 'textColor',
-                type: 'color',
-                placeholder: 'Change your Text`s color',
-                value: textColor,
-            })
+          <label class="flex flex-col">
+            <span class="text-xs font-bold">Text Size</span>
+            <input
+              type="text"
+              name="textSize"
+              id="textSize"
+              placeholder="Change your Text`s size"
+              x-model="openGraphData[0].textSize || ''"
+            />
+          </label>
 
-            @!form.inputfiltre({
-                label: 'Text Longitude',
-                name: 'textLongitude',
-                type: 'position x',
-                placeholder: 'Change your Text`s x position',
-                value: textLongitude,
-            })
+          <label class="flex flex-col">
+            <span class="text-xs font-bold">Text Color</span>
+            <input type="text" name="textColor" id="textColor" x-model="openGraphData[0].textColor || ''" />
+          </label>
 
-            @!form.inputfiltre({
-                label: 'Text Latitude',
-                name: 'textLatitude',
-                type: 'position y',
-                placeholder: 'Change your Text`s y position',
-                value: textLatitude,
-            })
-            <div>
-            <div class="mt-5">
-                @button({ type: 'submit'})
-                  Apply
-                @end
-            </div>
-            <div class="mt-5">
-                @button({ type: 'submit'})
-                  Apply
-                @end
-            </div>
-            </div>
+          <label class="flex flex-col">
+            <span class="text-xs font-bold">Text Longitude</span>
+            <input
+              type="text"
+              name="textLongitude"
+              id="textLongitude"
+              placeholder="Change your Text`s x position"
+              x-model="openGraphData[0].textLongitude || ''"
+            />
+          </label>
+
+          <label class="flex flex-col">
+            <span class="text-xs font-bold">Text Latitude</span>
+            <input
+              type="text"
+              name="textLatitude"
+              id="textLatitude"
+              placeholder="Change your Text`s y position"
+              x-model="openGraphData[0].textLatitude || ''"
+            />
+          </label>
+          <button type="button" @click="openGraphData = openGraphData.filter((_, index) => index !== 0)">Remove</button>
+
         </div>
+        <button
+          type="button"
+          @click="openGraphData.push({name: '', imageUrl: '', text: '', textPolice: '', textSize: '', textColor: '', textLongitude: '', textLatitude: ''})"
+        >
+          Add OpenGraph</button>
+        <div>
+          {{-- <div class="mt-5">
+                @button({ type: 'submit'})
+                  Apply
+                @end
+          </div> --}}
+          <div class="mt-5">
+            @button({ type: 'submit'})
+              Save
+            @end
+          </div>
+        </div>
+      </div>
     </form>
   </div>
-
+  <script src="//unpkg.com/alpinejs" defer>
+    
+  </script>
 @end
