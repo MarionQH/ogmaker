@@ -49,3 +49,31 @@ Once the server is running, open your browser and navigate to:
 Email : <User1@test.com>"
 
 Password : 12345678
+
+## View all routes
+
+node ace list:routes
+
+## Create a unit test
+
+node ace make:test users/hash --suite=unit
+
+then copy/paste content from node ace make:test users/hash --suite=unit
+
+```ts
+import { test } from '@japa/runner'
+
+import hash from '@adonisjs/core/services/hash'
+import User from '#models/user'
+
+test('hashes user password when creating a new user', async ({ assert }) => {
+  const user = new User()
+  user.password = 'secret'
+  user.email = 'a@b.c'
+
+  await user.save()
+
+  assert.isTrue(hash.isValidHash(user.password))
+  assert.isTrue(await hash.verify(user.password, 'secret'))
+})
+```
