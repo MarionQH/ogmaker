@@ -1,10 +1,9 @@
 // import type { HttpContext } from '@adonisjs/core/http'
 
 import OpenGraph from '#models/open_graph'
-import { OpenGraphService } from '#services/open_graph_service'
+import { UrlMakerService } from '#services/url_maker_service'
 import { openGraphsValidator } from '#validators/graph'
 import { HttpContext } from '@adonisjs/core/http'
-import db from '@adonisjs/lucid/services/db'
 
 export default class OpenGraphsController {
   async index({ view, auth }: HttpContext) {
@@ -22,14 +21,30 @@ export default class OpenGraphsController {
   }
 
   async store({ request, response, auth }: HttpContext) {
-    const { textline, ...data } = await request.validateUsing(openGraphsValidator)
+    console.log(auth.user?.id)
+    const { ...data } = await request.validateUsing(openGraphsValidator)
+
     if (auth.user) {
       data.userId = auth.user.id
     }
-    await db.transaction(async (trx) => {
-      const opengraph = await OpenGraph.create(data, { client: trx })
-      await OpenGraphService.syncTextline(opengraph, textline)
-    })
+
+    data.ogUrl = await UrlMakerService.urlMakerWithoutText(data)
+    console.log(data)
+
+    await OpenGraph.create(data)
+
     return response.redirect().toRoute('openGraphs.create')
   }
+
+  // async store({ request, response, auth }: HttpContext) {
+  //   const { textline, ...data } = await request.validateUsing(openGraphsValidator)
+  //   if (auth.user) {
+  //     data.userId = auth.user.id
+  //   }
+  //   await db.transaction(async (trx) => {
+  //     const opengraph = await OpenGraph.create(data, { client: trx })
+  //     await OpenGraphService.syncTextline(opengraph, textline)
+  //   })
+  //   return response.redirect().toRoute('openGraphs.create')
+  // }
 }
