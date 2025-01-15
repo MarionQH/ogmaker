@@ -34,7 +34,10 @@ router
   .use(middleware.auth())
 
 // OPENGRAPHS
-router.get('/openGraphs', [OpenGraphsController, 'index']).as('openGraphs.index')
+router
+  .get('/openGraphs', [OpenGraphsController, 'index'])
+  .as('openGraphs.index')
+  .use(middleware.auth())
 
 router.on('/jumpstart').render('pages/jumpstart').as('jumpstart')
 

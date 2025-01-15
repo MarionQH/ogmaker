@@ -5,10 +5,14 @@ import { openGraphsValidator } from '#validators/graph'
 import { HttpContext } from '@adonisjs/core/http'
 
 export default class OpenGraphsController {
-  async index({ view }: HttpContext) {
-    const openGraphs = await OpenGraph.query().orderBy('name')
+  async index({ view, auth }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return view.render('pages/erreurs/403')
+    }
+    const openGraphs = await OpenGraph.query().orderBy('name').where('userId', user.id)
 
-    return view.render('pages/openGraph/index', { openGraphs })
+    return view.render('pages/openGraph/index', { openGraphs, user })
   }
 
   async create({ view }: HttpContext) {

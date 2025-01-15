@@ -26,9 +26,9 @@ export default class OpenGraph extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @belongsTo(() => TextLine)
-  declare textline: BelongsTo<typeof TextLine>
+  @hasMany(() => TextLine)
+  declare textline: HasMany<typeof TextLine>
 
-  @hasMany(() => User)
-  declare user: HasMany<typeof User>
+  @belongsTo(() => User)
+  declare user: BelongsTo<typeof User>
 }
