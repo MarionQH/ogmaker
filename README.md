@@ -21,7 +21,7 @@ Windows or Linux: you will need to provide the password set during the installat
 CREATE DATABASE db_ogmaker;
 CREATE USER user_ogmaker WITH SUPERUSER PASSWORD 'password';
 GRANT ALL PRIVILEGES ON DATABASE db_ogmaker TO user_ogmaker;
-ALTER DATABASE user_ogmaker OWNER TO user_ogmaker;
+ALTER DATABASE db_ogmaker OWNER TO user_ogmaker;
 
 ```
 
