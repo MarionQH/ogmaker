@@ -23,19 +23,19 @@ router.get('/', [HomeController, 'index']).as('home')
 
 // CREATE OPENGRAPH
 router
-  .get('/openGraphs/create', [OpenGraphsController, 'create'])
+  .get('/opengraphs/new', [OpenGraphsController, 'create'])
   .as('openGraphs.create')
   .use(middleware.auth())
 
 // STORE METHOD FOR CREATE OPENGRAPH
 router
-  .post('/openGraphs/create', [OpenGraphsController, 'store'])
+  .post('/opengraphs/new', [OpenGraphsController, 'store'])
   .as('openGraphs.store')
   .use(middleware.auth())
 
 // OPENGRAPHS
 router
-  .get('/openGraphs', [OpenGraphsController, 'index'])
+  .get('/opengraphs', [OpenGraphsController, 'index'])
   .as('openGraphs.index')
   .use(middleware.auth())
 
