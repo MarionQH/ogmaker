@@ -21,7 +21,7 @@ Windows or Linux: you will need to provide the password set during the installat
 CREATE DATABASE db_ogmaker;
 CREATE USER user_ogmaker WITH SUPERUSER PASSWORD 'password';
 GRANT ALL PRIVILEGES ON DATABASE db_ogmaker TO user_ogmaker;
-ALTER DATABASE user_ogmaker OWNER TO user_ogmaker;
+ALTER DATABASE db_ogmaker OWNER TO user_ogmaker;
 
 ```
 
@@ -46,6 +46,10 @@ Once the server is running, open your browser and navigate to:
 
 ## Log in as User
 
-Email : <User1@test.com>"
+Email : <user1@test.com>"
 
 Password : 12345678
+
+## Type of URL needed for the OpenGraph's images
+
+Not all URLs works for uploading a new graph with an image. To ensure it works, you have to use an URL from [Cloudinary](https://cloudinary.com)
