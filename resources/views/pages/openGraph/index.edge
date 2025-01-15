@@ -7,12 +7,16 @@
       <div class="bg-white shadow-lg rounded-lg p-6 mt-8">
 
         <div class="flex flex-wrap -mx-3">
+          @if (openGraphs.length === 0)
+            <p class="mx-auto text-xl font-black leading-none text-gray-900 select-none text-center mt-8">You don't have any opengraphs yet</p>
+          @end
           @each(openGraph in openGraphs)
             <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0 mt-4">
               <div class="bg-gray-100 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
                 @!openGraph.card({openGraph})
               </div>
             </div>
+           
           @end
         </div>
       </div>

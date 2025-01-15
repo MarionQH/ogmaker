@@ -12,7 +12,7 @@ export default class OpenGraphsController {
     }
     const openGraphs = await OpenGraph.query().orderBy('name').where('userId', user.id)
 
-    return view.render('pages/openGraph/index', { openGraphs })
+    return view.render('pages/openGraph/index', { openGraphs, user })
   }
 
   async create({ view }: HttpContext) {
