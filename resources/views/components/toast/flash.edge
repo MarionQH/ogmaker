@@ -1,4 +1,4 @@
-<div x-data="{ toastDuration: 5000 }" class="fixed bottom-4 right-4">
+<div x-data="{ toastDuration: 5000 }" class="fixed top-20 right-14">
   @if (flashMessages.has('info'))
     @!toast({ variant: 'info', text: flashMessages.get('info') })
   @elseif (flashMessages.has('success'))
