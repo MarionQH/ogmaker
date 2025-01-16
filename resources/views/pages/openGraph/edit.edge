@@ -1,91 +1,124 @@
 @layout()
-<div>
-  <h1 class="text-3xl font-bold text-center text-gray-900 mt-8">
-    Create OpenGraph
-  </h1>
-</div>
-<div class="bg-white shadow-xl rounded-lg p-8 mt-12 max-w-5xl mx-auto">
-  <div class="mb-6 text-center">
-    <img 
-      src="{{ openGraph.ogUrl }}" 
-      alt="OpenGraph Image" 
-       class=" h-40 object-contain mx-auto rounded-lg shadow-md"
-    >
+  <div>
+    <h1 class="text-3xl font-bold text-center text-gray-900 mt-8">
+      Create OpenGraph
+    </h1>
   </div>
-  <form
-    id="opengraphForm"
-    enctype="multipart/form-data"
-    method="POST"
-    action="{{ route('openGraphs.edit', { id: openGraph.id }) }}"
-    class="space-y-6"
-  >
-    {{ csrfField() }}
-
-    <!-- Card Name and URL -->
-    <div class="border border-gray-300 rounded-lg bg-gray-50 p-6 shadow-sm">
-      @!form.inputfiltre({
+  <div class="bg-white shadow-xl rounded-lg p-8 mt-12 max-w-5xl mx-auto">
+    <div class="mb-6 text-center">
+      <img
+        src="{{ openGraph.ogUrl }}"
+        alt="OpenGraph Image"
+        class=" h-40 object-contain mx-auto rounded-lg shadow-md"
+      />
+    </div>
+    <form
+      id="opengraphForm"
+      enctype="multipart/form-data"
+      method="POST"
+      action="{{ route('openGraphs.edit', { id: openGraph.id }) }}"
+      class="space-y-6"
+    >
+      {{ csrfField() }}
+      <!-- Card Name and URL -->
+      <div class="border border-gray-300 rounded-lg bg-gray-50 p-6 shadow-sm">
+        @!form.inputfiltre({
         label: 'Text',
         name: 'text',
         type: 'text',
         placeholder: 'Put your text',
         value: text,
         additionalClass: 'mb-4'
-      })
-      @!form.inputfiltre({
+        })
+        @!form.inputfiltre({
         label: 'Text police',
         name: 'textPolice',
         type: 'text',
         placeholder: 'Put your text police',
         value: textPolice,
         additionalClass: 'mb-4'
-      })
-      @!form.inputfiltre({
+        })
+        @!form.inputfiltre({
         label: 'Text Size (ex:px)',
         name: 'textSize',
         type: 'text',
         placeholder: '40',
         value: textSize,
         additionalClass: 'mb-4'
-      })
-      @!form.inputfiltre({
+        })
+        @form.inputfiltre({
         label: 'Text Weight',
         name: 'textWeight',
-        type: 'text',
+        type: 'select',
         placeholder: 'Put your text weight',
         value: textWeight,
-        additionalClass: 'mb-4'
-      })
-      @!form.inputfiltre({
+        additionalClass: 'mb-4 text-base'
+        })
+          <option value="normal" {{ textWeight == 'normal' ? 'selected' : '' }}>
+            Normal
+          </option>
+          <option value="bold" {{ textWeight == 'bold' ? 'selected' : '' }}>
+            Bold
+          </option>
+          <option value="100" {{ textWeight == '100' ? 'selected' : '' }}>
+            100
+          </option>
+          <option value="200" {{ textWeight == '200' ? 'selected' : '' }}>
+            200
+          </option>
+          <option value="300" {{ textWeight == '300' ? 'selected' : '' }}>
+            300
+          </option>
+          <option value="400" {{ textWeight == '400' ? 'selected' : '' }}>
+            400
+          </option>
+          <option value="500" {{ textWeight == '500' ? 'selected' : '' }}>
+            500
+          </option>
+          <option value="600" {{ textWeight == '600' ? 'selected' : '' }}>
+            600
+          </option>
+          <option value="700" {{ textWeight == '700' ? 'selected' : '' }}>
+            700
+          </option>
+          <option value="800" {{ textWeight == '800' ? 'selected' : '' }}>
+            800
+          </option>
+          <option value="900" {{ textWeight == '900' ? 'selected' : '' }}>
+            900
+          </option>
+        @end
+        @!form.inputfiltre({
         label: 'Text Color',
         name: 'textColor',
-        type: 'text',
+        type: 'color',
         placeholder: 'Put your text color',
         value: textColor,
         additionalClass: 'mb-4'
-      })
-      @!form.inputfiltre({
+        })
+        @!form.inputfiltre({
         label: 'Text Longitude',
         name: 'textLongitude',
         type: 'text',
         placeholder: 'Put your text longitude',
         value: textLongitude,
         additionalClass: 'mb-4'
-      })
-      @!form.inputfiltre({
+        })
+        @!form.inputfiltre({
         label: 'Text Latitude',
         name: 'textLatitude',
         type: 'text',
         placeholder: 'Put your text latitude',
         value: textLatitude,
         additionalClass: 'mb-4'
-      })
+        })
 
-      <div class="mt-6 text-center">
-        @button({ type: 'submit' })
-          Apply
-        @end
+        <div class="mt-6 text-center">
+          @button({ type: 'submit' })
+            Apply
+          @end
+        </div>
       </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 @end

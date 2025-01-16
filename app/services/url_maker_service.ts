@@ -50,4 +50,22 @@ export class UrlMakerService {
     // Return the suffix (starting from the version segment)
     return ogUrl.substring(versionMatch.index + 1)
   }
+
+  static hexToRgb(hex: string): string {
+    // Retirer le # du début
+    hex = hex.replace('#', '')
+
+    // Vérifier si la chaîne hexadécimale est valide
+    if (hex.length !== 6) {
+      throw new Error('La valeur hexadécimale doit être de 6 caractères.')
+    }
+
+    // Convertir les valeurs hexadécimales en valeurs RGB
+    const r: number = Number.parseInt(hex.substring(0, 2), 16)
+    const g: number = Number.parseInt(hex.substring(2, 4), 16)
+    const b: number = Number.parseInt(hex.substring(4, 6), 16)
+
+    // Retourner le format rgb:XXXXXX avec des zéros de remplissage et "rgb" en minuscule
+    return `rgb:${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toLowerCase()
+  }
 }
