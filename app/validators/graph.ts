@@ -4,6 +4,7 @@ export const openGraphsValidator = vine.compile(
   vine.object({
     name: vine.string(),
     prefixUrl: vine.string(),
+    suffixUrl: vine.string(),
     // userId: vine.number().isExists({ table: 'users', column: 'id' }),
     // ogUrl: vine.string(),
     // textline: vine
