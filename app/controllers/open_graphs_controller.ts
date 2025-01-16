@@ -55,6 +55,10 @@ export default class OpenGraphsController {
       ...validatedData,
       openGraphId: openGraph.id,
     })
+    const newOgUrl = await UrlMakerService.urlMaker(openGraph)
+    openGraph.merge({ ogUrl: newOgUrl })
+    await openGraph.save()
+
     session.flash('success', 'OpenGraph successfully modified !')
     return response.redirect().toRoute('openGraphs.index')
   }
