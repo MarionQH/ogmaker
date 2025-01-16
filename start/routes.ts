@@ -27,6 +27,14 @@ router
   .as('openGraphs.create')
   .use(middleware.auth())
 
+// CREATE TEXTLINES
+
+router
+  .post('/opengraph/edit', [OpenGraphsController, 'edit'])
+  .as('openGraphs.edit')
+  .use(middleware.auth())
+router.get('opengraph/:id', [OpenGraphsController, 'show']).as('opengraph.show')
+
 // STORE METHOD FOR CREATE OPENGRAPH
 router
   .post('/opengraphs/new', [OpenGraphsController, 'store'])

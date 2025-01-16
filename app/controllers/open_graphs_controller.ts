@@ -32,9 +32,24 @@ export default class OpenGraphsController {
       userId: auth.user.id,
       ogUrl: await UrlMakerService.urlMakerWithoutText(validatedData),
     })
-    session.flash('success', 'OpenGraph successfully created !')
+    session.flash(
+      'success',
+      'OpenGraph successfully created! Check your OpenGraphs to edit and add text to them. !'
+    )
 
     return response.redirect().toRoute('openGraphs.create')
+  }
+
+  async show({ view, params }: HttpContext) {
+    const openGraph = await OpenGraph.findOrFail(params.id)
+    console.log(openGraph)
+    return view.render('pages/openGraph/edit', { openGraph })
+  }
+
+  async edit({ response, session, request }: HttpContext) {
+    const validatedData = await request.validateUsing(openGraphsValidator)
+    session.flash('success', 'OpenGraph successfully modified !')
+    return response.redirect().toRoute('openGraphs.index')
   }
 
   // async store({ request, response, auth }: HttpContext) {
