@@ -27,6 +27,13 @@ router
   .as('openGraphs.create')
   .use(middleware.auth())
 
+// DESTROY OPENGRAPH
+
+router
+  .delete('/opengraph/:id', [OpenGraphsController, 'destroy'])
+  .as('openGraph.destroy')
+  .use(middleware.auth())
+
 // CREATE TEXTLINES
 
 router

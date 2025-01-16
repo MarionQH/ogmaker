@@ -3,6 +3,14 @@
   <img src="{{ openGraph.ogUrl }}" class="w-full h-48 object-cover"/>
   <div class="p-4">
     <h2 class="mb-2 text-xl font-semibold text-gray-800 tracking-tight">{{ openGraph.name }}</h2>
-    <a href="{{ route('opengraph.show', { id: openGraph.id }) }}"  class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-slate-950 hover:bg-slate-900">Edit OpenGraph</a>
+    <a href="{{ route('opengraph.show', { id: openGraph.id }) }}"  class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-slate-950 hover:bg-slate-700">Edit OpenGraph</a>
+    <form 
+            method="POST" 
+            action="{{ route('openGraph.destroy', { id: openGraph.id }, { qs: { _method: 'DELETE' }}) }}">
+              {{ csrfField() }}
+              <button type="submit" class="mt-4 inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-red-500 hover:bg-red-700">
+                Delete
+              </button>
+            </form>
   </div>
 </div>
