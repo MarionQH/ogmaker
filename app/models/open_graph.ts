@@ -20,6 +20,9 @@ export default class OpenGraph extends BaseModel {
   @column()
   declare prefixUrl: string
 
+  @column()
+  declare suffixUrl: string
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
