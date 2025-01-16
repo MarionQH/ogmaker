@@ -64,6 +64,14 @@ export default class OpenGraphsController {
     return response.redirect().toRoute('openGraphs.index')
   }
 
+  async destroy({ response, params }: HttpContext) {
+    const openGraph = await OpenGraph.findOrFail(params.id)
+
+    await openGraph.delete()
+
+    return response.redirect().back()
+  }
+
   // async store({ request, response, auth }: HttpContext) {
   //   const { textline, ...data } = await request.validateUsing(openGraphsValidator)
   //   if (auth.user) {
