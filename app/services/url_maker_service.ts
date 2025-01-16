@@ -20,7 +20,7 @@ export class UrlMakerService {
   static async urlMakerWithoutText(openGraph: Partial<OpenGraph>) {
     const baseUrl = `${openGraph.prefixUrl}`
     const part1 = `/c_scale,w_600,h_506,f_auto/w_1200%2Ch_830,q_100/`
-    const part2 = `v1723632861/alsohelp/alsohelp_default`
+    const part2 = `${openGraph.suffixUrl}`
     const url = `${baseUrl}${part1}${part2}`
     return url
   }

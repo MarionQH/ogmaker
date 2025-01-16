@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       table.string('og_url', 1000)
       table.string('name', 100).notNullable()
       table.string('prefix_url', 100).notNullable()
+      table.string('suffix_url', 100).notNullable()
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
