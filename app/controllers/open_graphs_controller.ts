@@ -55,6 +55,7 @@ export default class OpenGraphsController {
     await TextLine.create({
       ...validatedData,
       openGraphId: openGraph.id,
+      textColor: UrlMakerService.hexToRgb(validatedData.textColor),
     })
     const newOgUrl = await UrlMakerService.urlMaker(openGraph)
     openGraph.merge({ ogUrl: newOgUrl })
