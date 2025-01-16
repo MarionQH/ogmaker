@@ -5,46 +5,51 @@
     </h1>
   </div>
   <div class="bg-white shadow-lg rounded-lg p-6 mt-8 max-w-7xl mx-auto">
+    <div class="relative p-4 bg-gray-200 rounded-lg shadow-lg sm:p-5">
     <form
       id="opengraphForm"
       enctype="multipart/form-data"
       method="POST"
       action="{{ route('openGraphs.store') }}"
-      class="flex flex-row justify-between"
+      class="space-y-6"
     >
       {{ csrfField() }}
-        <!-- Card Name and URL -->
-        <div class="border-4 rounded border-slate-950 mx-auto p-2">
-            @!form.inputfiltre({
-                label: 'Card Name',
-                name: 'name',
-                type: 'Card Name',
-                placeholder: 'Put your Card`s Name',
-                value: name,
-            })
-            @!form.inputfiltre({
-                    label: 'Url Image',
-                    name: 'prefixUrl',
-                    type: 'Url',
-                    placeholder: 'Put your Image`s Url',
-                    value: prefixUrl,
-            })
-             @!form.inputfiltre({
-                    label: 'Image folder',
-                    name: 'suffixUrl',
-                    type: 'text',
-                    placeholder: 'image folder',
-                    value: suffixUrl,
-            })
-        </div>
-      <div class="border-4 rounded border-slate-950 mx-auto">
-          
-            <div class="mt-5">
-                @button({ type: 'submit'})
-                  Apply
-                @end
-            </div>
-        </div> 
+      <!-- Card Name and URL -->
+      <div class="grid gap-4 sm:grid-cols-2">
+        @!form.inputfiltre({
+        label: 'Card Name',
+        name: 'name',
+        type: 'Card Name',
+        placeholder: 'Put your Card`s Name',
+        value: name,
+        })
+
+        @!form.inputfiltre({
+        label: 'Url Image',
+        name: 'prefixUrl',
+        type: 'Url',
+        placeholder: 'Put your Image`s Url',
+        value: prefixUrl,
+        })
+
+        <!-- Image Folder -->
+        @!form.inputfiltre({
+        label: 'Image folder',
+        name: 'suffixUrl',
+        type: 'text',
+        placeholder: 'image folder',
+        value: suffixUrl,
+        })
+      </div>
+
+      <!-- Create in database Button -->
+      <div class="">
+        @button({ type: 'submit'})
+          Create
+        @end
+      </div>
     </form>
   </div>
+  </div>
+
 @end
