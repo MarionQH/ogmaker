@@ -46,8 +46,8 @@ export default class OpenGraphsController {
     return view.render('pages/openGraph/edit', { openGraph })
   }
 
-  async edit({ response, session, request }: HttpContext) {
-    const validatedData = await request.validateUsing(openGraphsValidator)
+  async edit({ response, session }: HttpContext) {
+    // const validatedData = await request.validateUsing(openGraphsValidator)
     session.flash('success', 'OpenGraph successfully modified !')
     return response.redirect().toRoute('openGraphs.index')
   }
