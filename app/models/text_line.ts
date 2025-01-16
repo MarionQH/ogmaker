@@ -8,7 +8,7 @@ export default class TextLine extends BaseModel {
   declare id: number
 
   @column()
-  declare openGhaphId: number
+  declare openGraphId: number
 
   @column()
   declare text: string

@@ -30,7 +30,7 @@ router
 // CREATE TEXTLINES
 
 router
-  .post('/opengraph/edit', [OpenGraphsController, 'edit'])
+  .post('/opengraph/edit/:id', [OpenGraphsController, 'edit'])
   .as('openGraphs.edit')
   .use(middleware.auth())
 router.get('opengraph/:id', [OpenGraphsController, 'show']).as('opengraph.show')

@@ -1,9 +1,13 @@
 import vine from '@vinejs/vine'
 
-export const openGraphsValidator = vine.compile(
+export const textValidator = vine.compile(
   vine.object({
-    name: vine.string(),
-    prefixUrl: vine.string(),
-    suffixUrl: vine.string(),
+    text: vine.string(),
+    textPolice: vine.string(),
+    textSize: vine.string(),
+    textWeight: vine.string(),
+    textColor: vine.string(),
+    textLongitude: vine.string(),
+    textLatitude: vine.string(),
   })
 )
