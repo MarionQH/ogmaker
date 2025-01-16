@@ -3,7 +3,7 @@
 
 <label class="flex flex-col">
   @if ($slots.label || label)
-    <span class="text-sm font-bold">
+    <span class="text-base font-bold">
       @if ($slots.label)
         {{{ await $slots.label() }}}
       @else
