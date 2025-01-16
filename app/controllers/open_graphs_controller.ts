@@ -32,7 +32,8 @@ export default class OpenGraphsController {
     await OpenGraph.create({
       ...validatedData,
       userId: auth.user.id,
-      ogUrl: await UrlMakerService.urlMakerWithoutText(validatedData),
+      prefixUrl: await UrlMakerService.urlPrefix(validatedData.ogUrl),
+      suffixUrl: await UrlMakerService.urlSuffix(validatedData.ogUrl),
     })
     session.flash(
       'success',

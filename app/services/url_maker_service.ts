@@ -24,4 +24,30 @@ export class UrlMakerService {
     const url = `${baseUrl}${part1}${part2}`
     return url
   }
+  private static uploadSegment = '/image/upload'
+  private static versionPattern = /\/v[0-9]+\// // Matches '/v<number>/'
+
+  // Extract the prefix part of the URL
+  static urlPrefix(ogUrl: string): string {
+    const uploadIndex = ogUrl.indexOf(this.uploadSegment)
+
+    if (uploadIndex === -1) {
+      throw new Error("Invalid Cloudinary URL: missing '/image/upload/' segment.")
+    }
+
+    // Return the prefix (up to and including the upload segment)
+    return ogUrl.substring(0, uploadIndex + this.uploadSegment.length)
+  }
+
+  // Extract the suffix part of the URL
+  static urlSuffix(ogUrl: string): string {
+    const versionMatch = ogUrl.match(this.versionPattern)
+
+    if (!versionMatch || versionMatch.index === undefined) {
+      throw new Error("Invalid Cloudinary URL: missing '/v<number>/' segment.")
+    }
+
+    // Return the suffix (starting from the version segment)
+    return ogUrl.substring(versionMatch.index + 1)
+  }
 }
