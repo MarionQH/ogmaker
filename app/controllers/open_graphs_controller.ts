@@ -1,9 +1,11 @@
 // import type { HttpContext } from '@adonisjs/core/http'
 
 import OpenGraph from '#models/open_graph'
+import TextLine from '#models/text_line'
 import { UrlMakerService } from '#services/url_maker_service'
 import { openGraphsValidator } from '#validators/graph'
 import { HttpContext } from '@adonisjs/core/http'
+import { textValidator } from '#validators/text'
 
 export default class OpenGraphsController {
   async index({ view, auth }: HttpContext) {
@@ -46,8 +48,13 @@ export default class OpenGraphsController {
     return view.render('pages/openGraph/edit', { openGraph })
   }
 
-  async edit({ response, session }: HttpContext) {
-    // const validatedData = await request.validateUsing(openGraphsValidator)
+  async edit({ response, session, request, params }: HttpContext) {
+    const openGraph = await OpenGraph.findOrFail(params.id)
+    const validatedData = await request.validateUsing(textValidator)
+    await TextLine.create({
+      ...validatedData,
+      openGraphId: openGraph.id,
+    })
     session.flash('success', 'OpenGraph successfully modified !')
     return response.redirect().toRoute('openGraphs.index')
   }

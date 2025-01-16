@@ -15,7 +15,7 @@
       id="opengraphForm"
       enctype="multipart/form-data"
       method="POST"
-      action="{{ route('openGraphs.edit') }}"
+      action="{{ route('openGraphs.edit', { id: openGraph.id }) }}"
       class="flex flex-row justify-between"
     >
       {{ csrfField() }}

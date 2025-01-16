@@ -9,12 +9,13 @@ export class UrlMakerService {
 
     const textJoin = textLines.map((textLine) => {
       return `l_text:${textLine.textPolice}_${textLine.textSize}_${textLine.textWeight}:${textLine.text},co_${textLine.textColor},c_fit,w_1400,h_240
-    /fl_layer_apply,g_south_west,x_${textLine.textLongitude},y_${textLine.textLatitude}:_150`
+    /fl_layer_apply,g_south_west,x_${textLine.textLongitude},y_${textLine.textLatitude}:_150/`
     })
 
     const part2 = textJoin.join('/')
+    const part3 = `${openGraph.suffixUrl}`
 
-    const url = `${baseUrl}${part1}${part2}`
+    const url = `${baseUrl}${part1}${part2}${part3}`
     return url
   }
   static async urlMakerWithoutText(openGraph: Partial<OpenGraph>) {
