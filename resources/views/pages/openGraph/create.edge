@@ -5,55 +5,58 @@
     </h1>
   </div>
   <div class="bg-white shadow-lg rounded-lg p-6 mt-8 max-w-7xl mx-auto">
-    <div class="relative p-4 bg-gray-200 rounded-lg shadow-lg sm:p-5">
-    <form
-      id="opengraphForm"
-      enctype="multipart/form-data"
-      method="POST"
-      action="{{ route('openGraphs.store') }}"
-      class="space-y-6"
-    >
-      {{ csrfField() }}
-      <!-- Card Name and URL -->
-      <div class="grid gap-4 sm:grid-cols-2">
-        @!form.inputfiltre({
-        label: 'Card Name',
-        name: 'name',
-        type: 'Card Name',
-        placeholder: 'Put your Card`s Name',
-        value: name,
-        })
+    <div class="relative max-w-3xl mx-auto p-4 bg-gray-200 rounded-lg shadow-lg sm:p-5">
+      <form
+        id="opengraphForm"
+        enctype="multipart/form-data"
+        method="POST"
+        action="{{ route('openGraphs.store') }}"
+        class="space-y-6"
+      >
+        {{ csrfField() }}
+        <!-- Card Name and URL -->
+        <div class="grid gap-4">
+          @!form.inputfiltre({
+          label: 'Card Name',
+          name: 'name',
+          type: 'Card Name',
+          placeholder: 'Put your Card`s Name',
+          value: name,
+          })
 
-        @!form.inputfiltre({
-        label: 'Url Image',
-        name: 'ogUrl',
-        type: 'Url',
-        placeholder: 'Your cloudinary image`s Url',
-        value: ogUrl,
-        })
-          <!-- Tooltip Icon -->
-          
-        </div>
-        <div class="top-0 right-0 mt-2 mr-4 group">
-          <span class="text-gray-500 hover:text-gray-700">
-            <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.008-3.018a1.502 1.502 0 0 1 2.522 1.159v.024a1.44 1.44 0 0 1-1.493 1.418 1 1 0 0 0-1.037.999V14a1 1 0 1 0 2 0v-.539a3.44 3.44 0 0 0 2.529-3.256 3.502 3.502 0 0 0-7-.255 1 1 0 0 0 2 .076c.014-.398.187-.774.48-1.044Zm.982 7.026a1 1 0 1 0 0 2H12a1 1 0 1 0 0-2h-.01Z" clip-rule="evenodd"/>
-            </svg>              
-          </span>
-          <!-- Tooltip Text -->
-          <div class="absolute mb-2 w-48 bg-gray-700 text-white text-sm rounded-lg px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-            To add an image, you have to create a cloudinary account, go to your Media Library. From here you can copy URL of already existing images, or upload new ones. 
+          @!form.inputfiltre({
+          label: 'Url Image',
+          name: 'ogUrl',
+          type: 'Url',
+          placeholder: 'Your cloudinary image`s Url',
+          value: ogUrl,
+          })
+            <!-- Tooltip Icon -->
+
+          </div>
+          <p class="text-gray-500 text-sm">Exemple of an image Url : https://res.cloudinary.com/drb6w1zat/image/upload/v1737015425/samples/balloons.jpg</p>
+          <div class="relative mt-2 mr-4 flex justify-end">
+            <span class="text-gray-500 hover:text-gray-700 group">
+              <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.008-3.018a1.502 1.502 0 0 1 2.522 1.159v.024a1.44 1.44 0 0 1-1.493 1.418 1 1 0 0 0-1.037.999V14a1 1 0 1 0 2 0v-.539a3.44 3.44 0 0 0 2.529-3.256 3.502 3.502 0 0 0-7-.255 1 1 0 0 0 2 .076c.014-.398.187-.774.48-1.044Zm.982 7.026a1 1 0 1 0 0 2H12a1 1 0 1 0 0-2h-.01Z" clip-rule="evenodd"/>
+              </svg>
+              <!-- Tooltip Text -->
+              <div class="absolute top-full mt-2 w-48 bg-gray-900 text-white text-base rounded-lg px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                To add an image, you have to create a cloudinary account, go to your Media Library. From here you can copy URL of already existing images, or upload new ones.
+              </div>
+            </span>
+          </div>
+
+          <div class="">
+            @button.createinput({ type: 'submit'})
+              Create
+            @end
           </div>
         </div>
-      </div>
 
-      <!-- Create in database Button -->
-      <div class="">
-        @button({ type: 'submit'})
-          Create
-        @end
-      </div>
-    </form>
-  </div>
+        <!-- Create in database Button -->
+
+      </form>
+    </div>
   </div>
 @end
