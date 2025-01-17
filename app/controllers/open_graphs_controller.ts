@@ -117,6 +117,10 @@ export default class OpenGraphsController {
       .preload('textline') // Charge les TextLine associés
       .firstOrFail()
 
+    openGraph.textline.forEach((textline) => {
+      textline.text = UrlMakerService.replacePercent20WithSpace(textline.text)
+    })
+
     return view.render('pages/textline/index', { openGraph })
   }
 
