@@ -30,6 +30,7 @@
         value: text,
         additionalClass: 'mb-4'
         })
+        {{-- Pour plus tard utiliser une ApI qui regroupe les font disponible sur google  https://fonts.google.com/ --}}
         @form.inputfiltre({
         label: 'Text police',
         name: 'textPolice',
@@ -47,6 +48,9 @@
           <option value="Courier New" {{ textWeight == 'Courier%20New' ? 'selected' : '' }}>
             Courier New
           </option>
+          <option value="Dancing Script" {{ textWeight == 'Dancing%20Script' ? 'selected' : '' }}>
+            Dancing Script
+          </option>
           <option value="Georgia" {{ textWeight == 'Georgia' ? 'selected' : '' }}>
             Georgia
           </option>
@@ -55,6 +59,12 @@
           </option>
           <option value="Impact" {{ textWeight == 'Impact' ? 'selected' : '' }}>
             Impact
+          </option>
+           <option value="Open Sans" {{ textWeight == 'Pacifico' ? 'selected' : '' }}>
+            Pacifico
+          </option>
+          <option value="Pacifico" {{ textWeight == 'Palatino' ? 'selected' : '' }}>
+            Palatino
           </option>
           <option value="Palatino" {{ textWeight == 'Palatino' ? 'selected' : '' }}>
             Palatino
@@ -68,6 +78,9 @@
           <option value="Times New Roman" {{ textWeight == 'Times%20New%20Roman' ? 'selected' : '' }}>
             Times New Roman
           </option>
+          <option value="Ubuntu" {{ textWeight == 'Ubuntu' ? 'selected' : '' }}>
+            Ubuntu
+          </option>
           <option value="Verdana" {{ textWeight == 'Verdana' ? 'selected' : '' }}>
             Verdana
           </option>
@@ -80,6 +93,7 @@
         value: textSize,
         additionalClass: 'mb-4'
         })
+        {{-- Pour plus tard utiliser une ApI qui regroupe les weight disponible sur google --}}
         @form.inputfiltre({
         label: 'Text Weight',
         name: 'textWeight',
@@ -136,16 +150,18 @@
     {{-- ajouter un bouton pour copier l'URL --}}
         </p>
         {{-- expliquer comment choisir longitude latitude --}}
+        {{-- La longitude est l'axe horizontale si = 1 on sera tout à gauche si =500 au milieu et =900 tout à droite--}}
         @!form.inputfiltre({
-        label: 'Text Longitude',
+        label: 'Text Longitude (choose an integer from 1 to 900: 1 is on the left and 900 is on the right)',
         name: 'textLongitude',
         type: 'text',
         placeholder: 'Put your text longitude',
         value: textLongitude,
         additionalClass: 'mb-4'
         })
+        {{-- La latitude est l'axe verticale si = 1 on sera tout en bas si =350 au milieu et =725 tout à droite--}}
         @!form.inputfiltre({
-        label: 'Text Latitude',
+        label: 'Text Latitude (choose an integer from 1 to 725: 1 is at the bottom and 725 is at the top )',
         name: 'textLatitude',
         type: 'text',
         placeholder: 'Put your text latitude',
