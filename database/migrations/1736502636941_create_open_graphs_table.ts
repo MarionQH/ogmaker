@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').notNullable()
       table.integer('user_id').unsigned().references('users.id').notNullable().onDelete('CASCADE')
-      table.string('og_url', 1000)
+      table.string('og_url', 3000)
       table.string('name', 100).notNullable()
       table.string('prefix_url', 100).notNullable()
       table.string('suffix_url', 100).notNullable()

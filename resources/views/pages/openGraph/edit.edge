@@ -30,22 +30,70 @@
         value: text,
         additionalClass: 'mb-4'
         })
-        @!form.inputfiltre({
+        {{-- Pour plus tard utiliser une ApI qui regroupe les font disponible sur google  https://fonts.google.com/ --}}
+        @form.inputfiltre({
         label: 'Text police',
         name: 'textPolice',
-        type: 'text',
+        type: 'select',
         placeholder: 'Put your text police',
         value: textPolice,
         additionalClass: 'mb-4'
         })
+          <option value="Arial" {{ textWeight == 'Arial' ? 'selected' : '' }}>
+            Arial
+          </option>
+          <option value="Courier" {{ textWeight == 'Courier' ? 'selected' : '' }}>
+            Courier
+          </option>
+          <option value="Courier New" {{ textWeight == 'Courier%20New' ? 'selected' : '' }}>
+            Courier New
+          </option>
+          <option value="Dancing Script" {{ textWeight == 'Dancing%20Script' ? 'selected' : '' }}>
+            Dancing Script
+          </option>
+          <option value="Georgia" {{ textWeight == 'Georgia' ? 'selected' : '' }}>
+            Georgia
+          </option>
+          <option value="Helvetica" {{ textWeight == 'Helvetica' ? 'selected' : '' }}>
+            Helvetica
+          </option>
+          <option value="Impact" {{ textWeight == 'Impact' ? 'selected' : '' }}>
+            Impact
+          </option>
+           <option value="Open Sans" {{ textWeight == 'Pacifico' ? 'selected' : '' }}>
+            Pacifico
+          </option>
+          <option value="Pacifico" {{ textWeight == 'Palatino' ? 'selected' : '' }}>
+            Palatino
+          </option>
+          <option value="Palatino" {{ textWeight == 'Palatino' ? 'selected' : '' }}>
+            Palatino
+          </option>
+          <option value="Roboto" {{ textWeight == 'Roboto' ? 'selected' : '' }}>
+            Roboto
+          </option>
+          <option value="Times" {{ textWeight == 'Times' ? 'selected' : '' }}>
+            Times
+          </option>
+          <option value="Times New Roman" {{ textWeight == 'Times%20New%20Roman' ? 'selected' : '' }}>
+            Times New Roman
+          </option>
+          <option value="Ubuntu" {{ textWeight == 'Ubuntu' ? 'selected' : '' }}>
+            Ubuntu
+          </option>
+          <option value="Verdana" {{ textWeight == 'Verdana' ? 'selected' : '' }}>
+            Verdana
+          </option>
+        @end
         @!form.inputfiltre({
-        label: 'Text Size (ex:px)',
+        label: 'Text Size (choose an integer from 10 to 300 (px))',
         name: 'textSize',
         type: 'text',
         placeholder: '40',
         value: textSize,
         additionalClass: 'mb-4'
         })
+        {{-- Pour plus tard utiliser une ApI qui regroupe les weight disponible sur google --}}
         @form.inputfiltre({
         label: 'Text Weight',
         name: 'textWeight',
@@ -96,16 +144,24 @@
         value: textColor,
         additionalClass: 'mb-4'
         })
+
+        <p class="url-description text-gray text-xl mb-2 mt-4 text-base font-bold" >
+          text location:
+    {{-- ajouter un bouton pour copier l'URL --}}
+        </p>
+        {{-- expliquer comment choisir longitude latitude --}}
+        {{-- La longitude est l'axe horizontale si = 1 on sera tout à gauche si =500 au milieu et =900 tout à droite--}}
         @!form.inputfiltre({
-        label: 'Text Longitude',
+        label: 'Text Longitude (choose an integer from 1 to 900: 1 is on the left and 900 is on the right)',
         name: 'textLongitude',
         type: 'text',
         placeholder: 'Put your text longitude',
         value: textLongitude,
         additionalClass: 'mb-4'
         })
+        {{-- La latitude est l'axe verticale si = 1 on sera tout en bas si =350 au milieu et =725 tout à droite--}}
         @!form.inputfiltre({
-        label: 'Text Latitude',
+        label: 'Text Latitude (choose an integer from 1 to 725: 1 is at the bottom and 725 is at the top )',
         name: 'textLatitude',
         type: 'text',
         placeholder: 'Put your text latitude',
@@ -117,8 +173,15 @@
           @button({ type: 'submit' })
             Apply
           @end
-        </div>
+          <div class="url-container bg-gray-100 border border-gray-300 rounded-lg shadow-md p-4 mt-6 mx-auto">
+            <p class="url-description text-gray-600 text-xl mb-2">
+              Here is your OpenGraph URL:
+    {{-- ajouter un bouton pour copier l'URL --}}
+            </p>
+            <p class="url-text text-gray-700 text-sm break-words">
+              {{ openGraph.ogUrl }}
+            </p>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-@end
+    @end

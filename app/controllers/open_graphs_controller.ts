@@ -62,7 +62,7 @@ export default class OpenGraphsController {
     await openGraph.save()
 
     session.flash('success', 'OpenGraph successfully modified !')
-    return response.redirect().toRoute('openGraphs.index')
+    return response.redirect().back()
   }
 
   async destroy({ response, params }: HttpContext) {
