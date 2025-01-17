@@ -30,14 +30,48 @@
         value: text,
         additionalClass: 'mb-4'
         })
-        @!form.inputfiltre({
+        @form.inputfiltre({
         label: 'Text police',
         name: 'textPolice',
-        type: 'text',
+        type: 'select',
         placeholder: 'Put your text police',
         value: textPolice,
         additionalClass: 'mb-4'
         })
+          <option value="Arial" {{ textWeight == 'Arial' ? 'selected' : '' }}>
+            Arial
+          </option>
+          <option value="Courier" {{ textWeight == 'Courier' ? 'selected' : '' }}>
+            Courier
+          </option>
+          <option value="Courier New" {{ textWeight == 'Courier%20New' ? 'selected' : '' }}>
+            Courier New
+          </option>
+          <option value="Georgia" {{ textWeight == 'Georgia' ? 'selected' : '' }}>
+            Georgia
+          </option>
+          <option value="Helvetica" {{ textWeight == 'Helvetica' ? 'selected' : '' }}>
+            Helvetica
+          </option>
+          <option value="Impact" {{ textWeight == 'Impact' ? 'selected' : '' }}>
+            Impact
+          </option>
+          <option value="Palatino" {{ textWeight == 'Palatino' ? 'selected' : '' }}>
+            Palatino
+          </option>
+          <option value="Roboto" {{ textWeight == 'Roboto' ? 'selected' : '' }}>
+            Roboto
+          </option>
+          <option value="Times" {{ textWeight == 'Times' ? 'selected' : '' }}>
+            Times
+          </option>
+          <option value="Times New Roman" {{ textWeight == 'Times%20New%20Roman' ? 'selected' : '' }}>
+            Times New Roman
+          </option>
+          <option value="Verdana" {{ textWeight == 'Verdana' ? 'selected' : '' }}>
+            Verdana
+          </option>
+        @end
         @!form.inputfiltre({
         label: 'Text Size (ex:px)',
         name: 'textSize',
@@ -96,6 +130,12 @@
         value: textColor,
         additionalClass: 'mb-4'
         })
+
+        <p class="url-description text-gray text-xl mb-2 mt-4 text-base font-bold" >
+          text location:
+    {{-- ajouter un bouton pour copier l'URL --}}
+        </p>
+        {{-- expliquer comment choisir longitude latitude --}}
         @!form.inputfiltre({
         label: 'Text Longitude',
         name: 'textLongitude',
@@ -117,8 +157,15 @@
           @button({ type: 'submit' })
             Apply
           @end
-        </div>
+          <div class="url-container bg-gray-100 border border-gray-300 rounded-lg shadow-md p-4 mt-6 mx-auto">
+            <p class="url-description text-gray-600 text-xl mb-2">
+              Here is your OpenGraph URL:
+    {{-- ajouter un bouton pour copier l'URL --}}
+            </p>
+            <p class="url-text text-gray-700 text-sm break-words">
+              {{ openGraph.ogUrl }}
+            </p>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-@end
+    @end
