@@ -1,7 +1,7 @@
 @layout()
   <div>
     <h1 class="text-3xl font-bold text-center text-gray-900 mt-8">
-      Create OpenGraph
+      Edit your OpenGraph
     </h1>
   </div>
   <div class="bg-white shadow-xl rounded-lg p-8 mt-12 max-w-5xl mx-auto">
@@ -170,18 +170,34 @@
         })
 
         <div class="mt-6 text-center">
-          @button({ type: 'submit' })
+          @button.createinput({ type: 'submit' })
             Apply
           @end
           <div class="url-container bg-gray-100 border border-gray-300 rounded-lg shadow-md p-4 mt-6 mx-auto">
             <p class="url-description text-gray-600 text-xl mb-2">
               Here is your OpenGraph URL:
-    {{-- ajouter un bouton pour copier l'URL --}}
             </p>
-            <p class="url-text text-gray-700 text-sm break-words">
+            <p class="url-text text-gray-700 text-sm break-words" id="ogUrl">
               {{ openGraph.ogUrl }}
             </p>
+            <div class="mt-4 text-center">
+              @button.createinput({ type: 'button', onclick: 'copyToClipboard()', class: 'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none' })
+                Copy URL
+              @end
+            </div>
           </div>
-        </form>
+          
+          <script>
+            function copyToClipboard() {
+              const ogUrlElement = document.getElementById('ogUrl'); // Select the URL text
+              const tempInput = document.createElement('input'); // Create a temporary input element
+              tempInput.value = ogUrlElement.textContent.trim(); // Get the URL text
+              document.body.appendChild(tempInput); // Append the input to the body
+              tempInput.select(); // Select the text in the input
+              document.execCommand('copy'); // Copy the text to the clipboard
+              document.body.removeChild(tempInput); // Remove the input element
+              alert('URL copied to clipboard!'); // Notify the user
+            }
+          </script>
       </div>
     @end
