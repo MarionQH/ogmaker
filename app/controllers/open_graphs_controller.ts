@@ -37,15 +37,17 @@ export default class OpenGraphsController {
     })
     session.flash(
       'success',
-      'OpenGraph successfully created! Check your OpenGraphs to edit and add text to them. !'
+      'OpenGraph successfully created! Check your OpenGraphs to edit and add text to them !'
     )
 
-    return response.redirect().toRoute('openGraphs.create')
+    return response.redirect().toRoute('openGraphs.index')
   }
 
   async show({ view, params }: HttpContext) {
-    const openGraph = await OpenGraph.findOrFail(params.id)
-    console.log(openGraph)
+    const openGraph = await OpenGraph.query()
+      .where('id', params.id)
+      .preload('textline') // Charge les TextLine associés
+      .firstOrFail()
     return view.render('pages/openGraph/edit', { openGraph })
   }
 
@@ -56,6 +58,7 @@ export default class OpenGraphsController {
       ...validatedData,
       openGraphId: openGraph.id,
       textColor: UrlMakerService.hexToRgb(validatedData.textColor),
+      text: UrlMakerService.replaceSpaces(validatedData.text),
     })
     const newOgUrl = await UrlMakerService.urlMaker(openGraph)
     openGraph.merge({ ogUrl: newOgUrl })
@@ -71,6 +74,30 @@ export default class OpenGraphsController {
     await openGraph.delete()
 
     return response.redirect().back()
+  }
+
+  async destroyTextLine({ response, params, session }: HttpContext) {
+    const openGraph = await OpenGraph.findOrFail(params.id)
+    const textline = await TextLine.findOrFail(params.id)
+
+    const newOgUrl = await UrlMakerService.removeTextLineFromUrl(openGraph, textline)
+    openGraph.merge({ ogUrl: newOgUrl })
+    await openGraph.save()
+
+    await textline.delete()
+
+    session.flash('success', 'TextLine successfully delete!')
+
+    return response.redirect().back()
+  }
+
+  async textlineIndex({ view, params }: HttpContext) {
+    const openGraph = await OpenGraph.query()
+      .where('id', params.id)
+      .preload('textline') // Charge les TextLine associés
+      .firstOrFail()
+
+    return view.render('pages/textline/index', { openGraph })
   }
 
   // async store({ request, response, auth }: HttpContext) {

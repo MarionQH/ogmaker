@@ -60,7 +60,7 @@
           <option value="Impact" {{ textWeight == 'Impact' ? 'selected' : '' }}>
             Impact
           </option>
-           <option value="Open Sans" {{ textWeight == 'Open%20Sans' ? 'selected' : '' }}>
+          <option value="Open Sans" {{ textWeight == 'Open%20Sans' ? 'selected' : '' }}>
             Open Sans
           </option>
           <option value="Pacifico" {{ textWeight == 'Pacifico' ? 'selected' : '' }}>
@@ -145,12 +145,12 @@
         additionalClass: 'mb-4'
         })
 
-        <p class="url-description text-gray text-xl mb-2 mt-4 text-base font-bold" >
+        <p class="url-description text-gray text-xl mb-2 mt-4 text-base font-bold">
           text location:
     {{-- ajouter un bouton pour copier l'URL --}}
         </p>
         {{-- expliquer comment choisir longitude latitude --}}
-        {{-- La longitude est l'axe horizontale si = 1 on sera tout à gauche si =500 au milieu et =900 tout à droite--}}
+        {{-- La longitude est l'axe horizontale si = 1 on sera tout à gauche si =500 au milieu et =900 tout à droite --}}
         @!form.inputfiltre({
         label: 'Text Longitude (choose an integer from 1 to 900: 1 is on the left and 900 is on the right)',
         name: 'textLongitude',
@@ -159,7 +159,7 @@
         value: textLongitude,
         additionalClass: 'mb-4'
         })
-        {{-- La latitude est l'axe verticale si = 1 on sera tout en bas si =350 au milieu et =725 tout à droite--}}
+        {{-- La latitude est l'axe verticale si = 1 on sera tout en bas si =350 au milieu et =725 tout à droite --}}
         @!form.inputfiltre({
         label: 'Text Latitude (choose an integer from 1 to 725: 1 is at the bottom and 725 is at the top )',
         name: 'textLatitude',
@@ -173,31 +173,35 @@
           @button.createinput({ type: 'submit' })
             Apply
           @end
-          <div class="url-container bg-gray-100 border border-gray-300 rounded-lg shadow-md p-4 mt-6 mx-auto">
-            <p class="url-description text-gray-600 text-xl mb-2">
-              Here is your OpenGraph URL:
-            </p>
-            <p class="url-text text-gray-700 text-sm break-words" id="ogUrl">
-              {{ openGraph.ogUrl }}
-            </p>
-            <div class="mt-4 text-center">
-              @button.createinput({ type: 'button', onclick: 'copyToClipboard()', class: 'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none' })
-                Copy URL
-              @end
-            </div>
+        </form>
+
+       <a href="{{ route('textLines.index', { id: openGraph.id }) }}"  class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-slate-950 hover:bg-slate-700">Edit textLine</a>
+
+        <div class="url-container bg-gray-100 border border-gray-300 rounded-lg shadow-md p-4 mt-6 mx-auto">
+          <p class="url-description text-gray-600 text-xl mb-2">
+            Here is your OpenGraph URL:
+          </p>
+          <p class="url-text text-gray-700 text-sm break-words" id="ogUrl">
+            {{ openGraph.ogUrl }}
+          </p>
+          <div class="mt-4 text-center">
+            @button.createinput({ type: 'button', onclick: 'copyToClipboard()', class: 'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none' })
+              Copy URL
+            @end
           </div>
-          
-          <script>
-            function copyToClipboard() {
-              const ogUrlElement = document.getElementById('ogUrl'); // Select the URL text
-              const tempInput = document.createElement('input'); // Create a temporary input element
-              tempInput.value = ogUrlElement.textContent.trim(); // Get the URL text
-              document.body.appendChild(tempInput); // Append the input to the body
-              tempInput.select(); // Select the text in the input
-              document.execCommand('copy'); // Copy the text to the clipboard
-              document.body.removeChild(tempInput); // Remove the input element
-              alert('URL copied to clipboard!'); // Notify the user
-            }
-          </script>
+        </div>
+
+        <script>
+          function copyToClipboard() {
+            const ogUrlElement = document.getElementById("ogUrl"); // Select the URL text
+            const tempInput = document.createElement("input"); // Create a temporary input element
+            tempInput.value = ogUrlElement.textContent.trim(); // Get the URL text
+            document.body.appendChild(tempInput); // Append the input to the body
+            tempInput.select(); // Select the text in the input
+            document.execCommand("copy"); // Copy the text to the clipboard
+            document.body.removeChild(tempInput); // Remove the input element
+            alert("URL copied to clipboard!"); // Notify the user
+          }
+        </script>
       </div>
     @end

@@ -1,0 +1,39 @@
+@layout()
+ <table class="table-auto border-collapse border border-gray-300 w-full text-left mt-4">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-2">
+                Text
+              </th>
+              <th class="border border-gray-300 px-4 py-2">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(textline in openGraph.textline)
+              <tr>
+                <td class="border border-gray-300 px-4 py-2">
+                  {{ textline.text }}
+                </td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <form
+                    method="POST"
+                    action="{{ route('textLine.destroy', { id: textline.id }, { qs: { _method: 'DELETE' }}) }} "
+                    onsubmit="return confirm('Do you really want to delete this textline ?');"
+                  >
+                   {{ csrfField() }}
+                    <button
+                      type="submit"
+                      class="mt-4 inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-red-500 hover:bg-red-700"
+                    >
+                      Delete
+              </button>
+                  </form>
+                </td>
+              </tr>
+            @endeach
+          </tbody>
+        </table>
+
+        @end
