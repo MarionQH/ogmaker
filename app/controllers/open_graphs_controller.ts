@@ -77,17 +77,37 @@ export default class OpenGraphsController {
   }
 
   async destroyTextLine({ response, params, session }: HttpContext) {
-    const openGraph = await OpenGraph.findOrFail(params.id)
-    const textline = await TextLine.findOrFail(params.id)
+    try {
+      // Récupérer la TextLine avec son OpenGraph associé
+      const textLine = await TextLine.query()
+        .where('id', params.id)
+        .preload('openGraph') // Charge l'OpenGraph lié
+        .firstOrFail()
 
-    const newOgUrl = await UrlMakerService.removeTextLineFromUrl(openGraph, textline)
-    openGraph.merge({ ogUrl: newOgUrl })
-    await openGraph.save()
+      // Vérifier si l'OpenGraph existe bien (préchargé via preload)
+      const openGraph = textLine.openGraph
+      if (!openGraph) {
+        session.flash('error', 'Associated OpenGraph not found.')
+        return response.redirect().back()
+      }
 
-    await textline.delete()
+      // Mettre à jour l'ogUrl de l'OpenGraph sans la TextLine supprimée
+      const newOgUrl = await UrlMakerService.removeTextLineFromUrl(openGraph, textLine)
+      openGraph.merge({ ogUrl: newOgUrl })
+      await openGraph.save()
 
-    session.flash('success', 'TextLine successfully delete!')
+      // Supprimer la TextLine
+      await textLine.delete()
 
+      // Message de succès
+      session.flash('success', 'TextLine successfully deleted!')
+    } catch (error) {
+      // Gestion des erreurs
+      console.error(error)
+      session.flash('error', 'An error occurred while deleting the TextLine.')
+    }
+
+    // Redirection vers la page précédente
     return response.redirect().back()
   }
 
