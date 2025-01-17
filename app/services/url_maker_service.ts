@@ -73,6 +73,10 @@ export class UrlMakerService {
     return input.replace(/ /g, '%20')
   }
 
+  static replacePercent20WithSpace(input: string): string {
+    return input.replace(/%20/g, ' ')
+  }
+
   static async removeTextLineFromUrl(
     openGraph: OpenGraph,
     textLineToRemove: TextLine
