@@ -42,6 +42,19 @@ router
   .use(middleware.auth())
 router.get('opengraph/:id', [OpenGraphsController, 'show']).as('opengraph.show')
 
+// TEXTLINES
+router
+  .get('/opengraph/textlines/:id', [OpenGraphsController, 'textlineIndex'])
+  .as('textLines.index')
+  .use(middleware.auth())
+
+// DESTROY TEXTLINES
+
+router
+  .delete('/textline/:id', [OpenGraphsController, 'destroyTextLine'])
+  .as('textLine.destroy')
+  .use(middleware.auth())
+
 // STORE METHOD FOR CREATE OPENGRAPH
 router
   .post('/opengraphs/new', [OpenGraphsController, 'store'])

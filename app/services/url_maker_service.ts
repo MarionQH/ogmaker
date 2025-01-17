@@ -68,4 +68,33 @@ export class UrlMakerService {
     // Retourner le format rgb:XXXXXX avec des zéros de remplissage et "rgb" en minuscule
     return `rgb:${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toLowerCase()
   }
+
+  static replaceSpaces(input: string): string {
+    return input.replace(/ /g, '%20')
+  }
+
+  static async removeTextLineFromUrl(
+    openGraph: OpenGraph,
+    textLineToRemove: TextLine
+  ): Promise<string> {
+    const baseUrl = `${openGraph.prefixUrl}`
+    const part1 = `/c_scale,w_600,h_506,f_auto/w_1200%2Ch_830,q_100/`
+
+    // Récupérer toutes les TextLines liées à l'OpenGraph
+    const textLines = await TextLine.query().where('openGraphId', openGraph.id)
+
+    // Construire les segments d'URL pour toutes les TextLines sauf celle à supprimer
+    const textJoin = textLines
+      .filter((textLine) => textLine.id !== textLineToRemove.id) // Exclure la TextLine supprimée
+      .map((textLine) => {
+        return `l_text:${textLine.textPolice}_${textLine.textSize}_${textLine.textWeight}:${textLine.text},co_${textLine.textColor},c_fit,w_1400,h_240/fl_layer_apply,g_south_west,x_${textLine.textLongitude},y_${textLine.textLatitude}/`
+      })
+
+    const part2 = textJoin.join('/') // Rejoindre les segments restants
+    const part3 = `${openGraph.suffixUrl}`
+
+    // Reconstruire l'URL sans la TextLine supprimée
+    const url = `${baseUrl}${part1}${part2}${part3}`
+    return url
+  }
 }
