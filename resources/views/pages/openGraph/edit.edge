@@ -1,15 +1,16 @@
 @layout()
-  <div>
-    <h1 class="text-3xl font-bold text-center text-gray-900 mt-8">
-      Edit your OpenGraph
-    </h1>
-  </div>
-  <div class="bg-white shadow-xl rounded-lg p-8 mt-12 max-w-5xl mx-auto">
-    <div class="mb-6 text-center">
+<div>
+  <h1 class="text-4xl font-extrabold text-center text-indigo-600 mt-8">
+    Edit Your OpenGraph
+  </h1>
+</div>
+<div class="bg-white shadow-lg rounded-lg p-10 mt-12 max-w-6xl mx-auto">
+  <div class="relative max-w-3xl mx-auto p-8 bg-gray-100 rounded-lg shadow-md">
+    <div class="mb-8 text-center">
       <img
         src="{{ openGraph.ogUrl }}"
         alt="OpenGraph Image"
-        class=" h-40 object-contain mx-auto rounded-lg shadow-md"
+        class="h-48 object-cover mx-auto rounded-xl shadow-lg border border-gray-300"
       />
     </div>
     <form
@@ -21,86 +22,57 @@
     >
       {{ csrfField() }}
       <!-- Card Name and URL -->
-      <div class="border border-gray-300 rounded-lg bg-gray-50 p-6 shadow-sm">
+      <div class="border border-gray-300 rounded-xl bg-white p-6 shadow">
         @!form.inputfiltre({
         label: 'Text',
         name: 'text',
         type: 'text',
-        placeholder: 'Put your text',
+        placeholder: 'Enter your text',
         value: text,
-        additionalClass: 'mb-4'
+        additionalClass: 'mb-6'
         })
-        {{-- Pour plus tard utiliser une ApI qui regroupe les font disponible sur google  https://fonts.google.com/ --}}
+
         @form.inputfiltre({
-        label: 'Text police',
+        label: 'Text Font',
         name: 'textPolice',
         type: 'select',
-        placeholder: 'Put your text police',
+        placeholder: 'Choose a font',
         value: textPolice,
-        additionalClass: 'mb-4'
+        additionalClass: 'mb-6'
         })
           <option value="Arial" {{ textWeight == 'Arial' ? 'selected' : '' }}>
             Arial
           </option>
-          <option value="Courier" {{ textWeight == 'Courier' ? 'selected' : '' }}>
-            Courier
-          </option>
-          <option value="Courier New" {{ textWeight == 'Courier%20New' ? 'selected' : '' }}>
-            Courier New
+          <option value="Roboto" {{ textWeight == 'Roboto' ? 'selected' : '' }}>
+            Roboto
           </option>
           <option value="Dancing Script" {{ textWeight == 'Dancing%20Script' ? 'selected' : '' }}>
             Dancing Script
           </option>
-          <option value="Georgia" {{ textWeight == 'Georgia' ? 'selected' : '' }}>
-            Georgia
-          </option>
           <option value="Helvetica" {{ textWeight == 'Helvetica' ? 'selected' : '' }}>
             Helvetica
-          </option>
-          <option value="Impact" {{ textWeight == 'Impact' ? 'selected' : '' }}>
-            Impact
-          </option>
-          <option value="Open Sans" {{ textWeight == 'Open%20Sans' ? 'selected' : '' }}>
-            Open Sans
-          </option>
-          <option value="Pacifico" {{ textWeight == 'Pacifico' ? 'selected' : '' }}>
-            Pacifico
-          </option>
-          <option value="Palatino" {{ textWeight == 'Palatino' ? 'selected' : '' }}>
-            Palatino
-          </option>
-          <option value="Roboto" {{ textWeight == 'Roboto' ? 'selected' : '' }}>
-            Roboto
-          </option>
-          <option value="Times" {{ textWeight == 'Times' ? 'selected' : '' }}>
-            Times
           </option>
           <option value="Times New Roman" {{ textWeight == 'Times%20New%20Roman' ? 'selected' : '' }}>
             Times New Roman
           </option>
-          <option value="Ubuntu" {{ textWeight == 'Ubuntu' ? 'selected' : '' }}>
-            Ubuntu
-          </option>
-          <option value="Verdana" {{ textWeight == 'Verdana' ? 'selected' : '' }}>
-            Verdana
-          </option>
         @end
+
         @!form.inputfiltre({
-        label: 'Text Size (choose an integer from 10 to 300 (px))',
+        label: 'Text Size (10-300px)',
         name: 'textSize',
-        type: 'text',
+        type: 'number',
         placeholder: '40',
         value: textSize,
-        additionalClass: 'mb-4'
+        additionalClass: 'mb-6'
         })
-        {{-- Pour plus tard utiliser une ApI qui regroupe les weight disponible sur google --}}
+
         @form.inputfiltre({
         label: 'Text Weight',
         name: 'textWeight',
         type: 'select',
-        placeholder: 'Put your text weight',
+        placeholder: 'Choose weight',
         value: textWeight,
-        additionalClass: 'mb-4 text-base'
+        additionalClass: 'mb-6 text-base'
         })
           <option value="normal" {{ textWeight == 'normal' ? 'selected' : '' }}>
             Normal
@@ -108,100 +80,97 @@
           <option value="bold" {{ textWeight == 'bold' ? 'selected' : '' }}>
             Bold
           </option>
-          <option value="100" {{ textWeight == '100' ? 'selected' : '' }}>
-            100
-          </option>
-          <option value="200" {{ textWeight == '200' ? 'selected' : '' }}>
-            200
-          </option>
           <option value="300" {{ textWeight == '300' ? 'selected' : '' }}>
             300
-          </option>
-          <option value="400" {{ textWeight == '400' ? 'selected' : '' }}>
-            400
           </option>
           <option value="500" {{ textWeight == '500' ? 'selected' : '' }}>
             500
           </option>
-          <option value="600" {{ textWeight == '600' ? 'selected' : '' }}>
-            600
-          </option>
           <option value="700" {{ textWeight == '700' ? 'selected' : '' }}>
             700
           </option>
-          <option value="800" {{ textWeight == '800' ? 'selected' : '' }}>
-            800
-          </option>
-          <option value="900" {{ textWeight == '900' ? 'selected' : '' }}>
-            900
-          </option>
         @end
-        @!form.inputfiltre({
-        label: 'Text Color',
-        name: 'textColor',
-        type: 'color',
-        placeholder: 'Put your text color',
-        value: textColor,
-        additionalClass: 'mb-4'
-        })
 
-        <p class="url-description text-gray text-xl mb-2 mt-4 text-base font-bold">
-          text location:
-    {{-- ajouter un bouton pour copier l'URL --}}
-        </p>
-        {{-- expliquer comment choisir longitude latitude --}}
-        {{-- La longitude est l'axe horizontale si = 1 on sera tout à gauche si =500 au milieu et =900 tout à droite --}}
-        @!form.inputfiltre({
-        label: 'Text Longitude (choose an integer from 1 to 900: 1 is on the left and 900 is on the right)',
-        name: 'textLongitude',
-        type: 'text',
-        placeholder: 'Put your text longitude',
-        value: textLongitude,
-        additionalClass: 'mb-4'
-        })
-        {{-- La latitude est l'axe verticale si = 1 on sera tout en bas si =350 au milieu et =725 tout à droite --}}
-        @!form.inputfiltre({
-        label: 'Text Latitude (choose an integer from 1 to 725: 1 is at the bottom and 725 is at the top )',
-        name: 'textLatitude',
-        type: 'text',
-        placeholder: 'Put your text latitude',
-        value: textLatitude,
-        additionalClass: 'mb-4'
-        })
-
-        <div class="mt-6 text-center">
-          @button.createinput({ type: 'submit' })
-            Apply
-          @end
-        </form>
-
-       <a href="{{ route('textLines.index', { id: openGraph.id }) }}"  class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-slate-950 hover:bg-slate-700">Edit textLine</a>
-
-        <div class="url-container bg-gray-100 border border-gray-300 rounded-lg shadow-md p-4 mt-6 mx-auto">
-          <p class="url-description text-gray-600 text-xl mb-2">
-            Here is your OpenGraph URL:
-          </p>
-          <p class="url-text text-gray-700 text-sm break-words" id="ogUrl">
-            {{ openGraph.ogUrl }}
-          </p>
-          <div class="mt-4 text-center">
-            @button.createinput({ type: 'button', onclick: 'copyToClipboard()', class: 'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none' })
-              Copy URL
-            @end
+        <div class="mb-6">
+          <label for="textColor" class="block text-sm font-medium text-gray-700">Text Color</label>
+          <div class="relative mt-1">
+            <input
+              type="color"
+              id="textColor"
+              name="textColor"
+              value="{{ textColor }}"
+              class="w-full h-10 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            />
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+              <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12zm0-8a4 4 0 100-8 4 4 0 000 8z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
           </div>
         </div>
 
-        <script>
-          function copyToClipboard() {
-            const ogUrlElement = document.getElementById("ogUrl"); // Select the URL text
-            const tempInput = document.createElement("input"); // Create a temporary input element
-            tempInput.value = ogUrlElement.textContent.trim(); // Get the URL text
-            document.body.appendChild(tempInput); // Append the input to the body
-            tempInput.select(); // Select the text in the input
-            document.execCommand("copy"); // Copy the text to the clipboard
-            document.body.removeChild(tempInput); // Remove the input element
-            alert("URL copied to clipboard!"); // Notify the user
-          }
-        </script>
+        <p class="text-lg font-semibold text-gray-800 mb-4">
+          Text Location:
+        </p>
+        @!form.inputfiltre({
+        label: 'Longitude (1-900)',
+        name: 'textLongitude',
+        type: 'number',
+        placeholder: 'Enter longitude',
+        value: textLongitude,
+        additionalClass: 'mb-6'
+        })
+
+        @!form.inputfiltre({
+        label: 'Latitude (1-725)',
+        name: 'textLatitude',
+        type: 'number',
+        placeholder: 'Enter latitude',
+        value: textLatitude,
+        additionalClass: 'mb-6'
+        })
       </div>
-    @end
+
+      <div class="text-center mt-8">
+        @button.createinput({ type: 'submit', class: 'bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700' })
+          Apply Changes
+        @end
+      </div>
+    </form>
+
+    <a
+      href="{{ route('textLines.index', { id: openGraph.id }) }}"
+      class="block mt-6 text-center bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
+    >
+      Edit TextLine
+    </a>
+
+    <div class="bg-gray-100 border border-gray-400 rounded-xl shadow-md p-6 mt-8">
+      <p class="text-lg font-bold text-gray-800">
+        Your OpenGraph URL:
+      </p>
+      <p class="text-sm text-gray-700 mt-2 break-all" id="ogUrl">
+        {{ openGraph.ogUrl }}
+      </p>
+      <div class="mt-4 text-center">
+        @button.createinput({ type: 'button', onclick: 'copyToClipboard()', class: 'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700' })
+          Copy URL
+        @end
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function copyToClipboard() {
+    const ogUrlElement = document.getElementById("ogUrl");
+    const tempInput = document.createElement("input");
+    tempInput.value = ogUrlElement.textContent.trim();
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert("URL copied to clipboard!");
+  }
+</script>
+@end
