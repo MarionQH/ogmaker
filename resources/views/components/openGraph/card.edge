@@ -1,38 +1,42 @@
 <div class="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white">
   <img src="{{ openGraph.ogUrl }}" class="w-full h-56 object-cover" />
   <div class="p-4">
-    <div class="flex items-center mb-2">
-      <h2 class="text-xl font-semibold text-gray-800 tracking-tight">
-        {{ openGraph.name }}
-      </h2>
-      <!-- Bouton pour ouvrir la popup -->
-      <button
-        class="ml-2 text-black hover:text-gray-700"
-        title="Edit"
-        onclick="openEditPopup({{ openGraph.id }}, '{{ openGraph.name }}')"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-5 h-5 align-middle"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+    <div class="flex items-center justify-between mb-2">
+      <div class="flex items-center mb-2">
+        <h2 class="text-xl font-semibold text-gray-800 tracking-tight">
+          {{ openGraph.name }}
+        </h2>
+        <!-- Bouton pour ouvrir la popup -->
+        <button
+          class="ml-2 text-black hover:text-gray-700"
+          title="Edit"
+          onclick="openEditPopup({{ openGraph.id }}, '{{ openGraph.name }}')"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M11 4H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-6M16.88 3.88a3 3 0 014.24 4.24L7 21H3v-4L16.88 3.88z"
-          />
-        </svg>
-      </button>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+            />
+          </svg>
+        </button>
+      </div>
+      <a href="{{ openGraph.ogUrl }}" class ="ml-2"> Url </a>
     </div>
     <a
       href="{{ route('opengraph.show', { id: openGraph.id }) }}"
       class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-green-500 hover:bg-green-700"
     >
       Create Text Line
-</a>
+    </a>
 
     <a
       href="{{ route('textLines.index', { id: openGraph.id }) }}"

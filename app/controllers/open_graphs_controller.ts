@@ -31,12 +31,16 @@ export default class OpenGraphsController {
       meta: { userId: auth.user.id },
     })
 
-    await OpenGraph.create({
+    const openGraph = await OpenGraph.create({
       ...validatedData,
       userId: auth.user.id,
       prefixUrl: UrlMakerService.urlPrefix(validatedData.ogUrl),
       suffixUrl: UrlMakerService.urlSuffix(validatedData.ogUrl),
     })
+    // Modifier le champ ogUrl
+    openGraph.ogUrl = await UrlMakerService.urlMakerWithoutText(openGraph)
+    await openGraph.save()
+
     session.flash(
       'success',
       'OpenGraph successfully created! Check your OpenGraphs to edit and add text to them !'
