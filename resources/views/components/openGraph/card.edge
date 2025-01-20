@@ -1,11 +1,11 @@
-
-
 <div class="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white">
-  <img src="{{ openGraph.ogUrl }}" class="w-full h-48 object-cover"/>
+  <img src="{{ openGraph.ogUrl }}" class="w-full h-48 object-cover" />
   <div class="p-4">
     <div class="flex items-center mb-2">
-    <h2 class="text-xl font-semibold text-gray-800 tracking-tight">{{ openGraph.name }}</h2>
-     <!-- Bouton pour ouvrir la popup -->
+      <h2 class="text-xl font-semibold text-gray-800 tracking-tight">
+        {{ openGraph.name }}
+      </h2>
+      <!-- Bouton pour ouvrir la popup -->
       <button
         class="ml-2 text-black hover:text-gray-700"
         title="Edit"
@@ -26,16 +26,30 @@
           />
         </svg>
       </button>
-      </div>
-    <a href="{{ route('opengraph.show', { id: openGraph.id }) }}"  class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-slate-950 hover:bg-slate-700">Create Text Line</a>
-   <a href="{{ route('textLines.index', { id: openGraph.id }) }}"  class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-slate-950 hover:bg-slate-700 mt-4">Edit textLine</a>
-    <form 
-            method="POST" 
-            action="{{ route('openGraph.destroy', { id: openGraph.id }, { qs: { _method: 'DELETE' }}) }} " onsubmit="return confirm('Do you really want to delete this opengraph ?');">
-              {{ csrfField() }}
-              <button type="submit" class="mt-4 inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-red-500 hover:bg-red-700">
-                Delete
+    </div>
+    <a
+      href="{{ route('opengraph.show', { id: openGraph.id }) }}"
+      class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-green-500 hover:bg-green-700"
+    >
+      Create Text Line
+</a>
+
+    <a
+      href="{{ route('textLines.index', { id: openGraph.id }) }}"
+      class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-slate-950 hover:bg-slate-700 mt-4"
+    >Edit textLine</a>
+    <form
+      method="POST"
+      action="{{ route('openGraph.destroy', { id: openGraph.id }, { qs: { _method: 'DELETE' }}) }} "
+      onsubmit="return confirm('Do you really want to delete this opengraph ?');"
+    >
+      {{ csrfField() }}
+              <button
+        type="submit"
+        class="mt-4 inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-red-500 hover:bg-red-700"
+      >
+        Delete
               </button>
-            </form>
+    </form>
   </div>
 </div>
