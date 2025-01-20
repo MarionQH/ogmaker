@@ -27,7 +27,9 @@ export default class OpenGraphsController {
       return response.unauthorized('You must be logged in to create an OpenGraph entry.')
     }
 
-    const validatedData = await request.validateUsing(openGraphsValidator)
+    const validatedData = await request.validateUsing(openGraphsValidator, {
+      meta: { userId: auth.user.id },
+    })
 
     await OpenGraph.create({
       ...validatedData,
