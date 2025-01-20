@@ -21,5 +21,44 @@
       </div>
     </div>
   </div>
-
 @end
+
+<!-- Popup pour modifier le nom -->
+<div id="editPopup" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
+  <div class="bg-white rounded-lg shadow-lg p-6 w-1/3">
+    <h3 class="text-lg font-semibold mb-4">Edit OpenGraph Name</h3>
+    <form id="editForm" method="POST" action="/opengraph/update">
+      {{ csrfField() }}
+      <input type="hidden" name="id" id="openGraphId" />
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+        <input
+          type="text"
+          id="openGraphName"
+          name="name"
+          class="w-full border border-gray-300 rounded-md p-2"
+          required
+        />
+      </div>
+      <div class="flex justify-end space-x-2">
+        <button type="button" class="bg-gray-300 px-4 py-2 rounded-md" onclick="closeEditPopup()">Cancel</button>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Fonction pour ouvrir la popup
+  function openEditPopup(id, name) {
+    document.getElementById('editPopup').classList.remove('hidden');
+    document.getElementById('openGraphId').value = id;
+    document.getElementById('openGraphName').value = name;
+  }
+
+  // Fonction pour fermer la popup
+  function closeEditPopup() {
+    document.getElementById('editPopup').classList.add('hidden');
+  }
+</script>
+
