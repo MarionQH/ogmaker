@@ -60,6 +60,7 @@ export default defineConfig({
     },
     () => import('#start/events'),
     () => import('#start/rules/exist'),
+    () => import('#start/rules/is_unique_name'),
   ],
 
   /*

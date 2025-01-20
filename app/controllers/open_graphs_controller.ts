@@ -27,7 +27,9 @@ export default class OpenGraphsController {
       return response.unauthorized('You must be logged in to create an OpenGraph entry.')
     }
 
-    const validatedData = await request.validateUsing(openGraphsValidator)
+    const validatedData = await request.validateUsing(openGraphsValidator, {
+      meta: { userId: auth.user.id },
+    })
 
     await OpenGraph.create({
       ...validatedData,
@@ -41,6 +43,28 @@ export default class OpenGraphsController {
     )
 
     return response.redirect().toRoute('openGraphs.index')
+  }
+
+  async update({ request, response, session }: HttpContext) {
+    // Récupérer les données envoyées par le formulaire
+    const { id, name } = request.only(['id', 'name'])
+
+    try {
+      // Trouver l'OpenGraph par ID
+      const openGraph = await OpenGraph.findOrFail(id)
+
+      // Mettre à jour le nom
+      openGraph.name = name
+      await openGraph.save()
+
+      // Rediriger l'utilisateur après la mise à jour
+      session.flash('success', 'OpenGraph name updated successfully!')
+      return response.redirect().back()
+    } catch (error) {
+      // Gérer les erreurs, par exemple si l'OpenGraph n'est pas trouvé
+      session.flash('error', 'Failed to update the OpenGraph name.')
+      return response.redirect().back()
+    }
   }
 
   async show({ view, params }: HttpContext) {

@@ -27,6 +27,12 @@ router
   .as('openGraphs.create')
   .use(middleware.auth())
 
+// UPDATE OPENGRAPh
+router
+  .post('/opengraph/update', [OpenGraphsController, 'update'])
+  .as('openGraph.update')
+  .use(middleware.auth())
+
 // DESTROY OPENGRAPH
 
 router
