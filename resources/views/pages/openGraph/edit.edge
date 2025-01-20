@@ -33,27 +33,57 @@
         })
 
         @form.inputfiltre({
-        label: 'Text Font',
+        label: 'Text Police',
         name: 'textPolice',
         type: 'select',
         placeholder: 'Choose a font',
         value: textPolice,
         additionalClass: 'mb-6'
         })
-          <option value="Arial" {{ textWeight == 'Arial' ? 'selected' : '' }}>
+          <option value="Arial" {{ textPolice == 'Arial' ? 'selected' : '' }}>
             Arial
           </option>
-          <option value="Roboto" {{ textWeight == 'Roboto' ? 'selected' : '' }}>
-            Roboto
+          <option value="Courier" {{ textPolice == 'Courier' ? 'selected' : '' }}>
+            Courier
           </option>
-          <option value="Dancing Script" {{ textWeight == 'Dancing%20Script' ? 'selected' : '' }}>
+          <option value="Courier New" {{ textPolice == 'Courier%20New' ? 'selected' : '' }}>
+            Courier New
+          </option>
+          <option value="Dancing Script" {{ textPolice == 'Dancing%20Script' ? 'selected' : '' }}>
             Dancing Script
           </option>
-          <option value="Helvetica" {{ textWeight == 'Helvetica' ? 'selected' : '' }}>
+          <option value="Georgia" {{ textPolice == 'Georgia' ? 'selected' : '' }}>
+            Georgia
+          </option>
+          <option value="Helvetica" {{ textPolice == 'Helvetica' ? 'selected' : '' }}>
             Helvetica
           </option>
-          <option value="Times New Roman" {{ textWeight == 'Times%20New%20Roman' ? 'selected' : '' }}>
+          <option value="Impact" {{ textPolice == 'Impact' ? 'selected' : '' }}>
+            Impact
+          </option>
+          <option value="Open Sans" {{ textPolice == 'Open%20Sans' ? 'selected' : '' }}>
+            Open Sans
+          </option>
+          <option value="Pacifico" {{ textPolice == 'Pacifico' ? 'selected' : '' }}>
+            Pacifico
+          </option>
+          <option value="Palatino" {{ textPolice == 'Palatino' ? 'selected' : '' }}>
+            Palatino
+          </option>
+          <option value="Roboto" {{ textPolice == 'Roboto' ? 'selected' : '' }}>
+            Roboto
+          </option>
+          <option value="Times" {{ textPolice == 'Times' ? 'selected' : '' }}>
+            Times
+          </option>
+          <option value="Times New Roman" {{ textPolice == 'Times%20New%20Roman' ? 'selected' : '' }}>
             Times New Roman
+          </option>
+          <option value="Ubuntu" {{ textPolice == 'Ubuntu' ? 'selected' : '' }}>
+            Ubuntu
+          </option>
+          <option value="Verdana" {{ textPolice == 'Verdana' ? 'selected' : '' }}>
+            Verdana
           </option>
         @end
 
@@ -80,19 +110,37 @@
           <option value="bold" {{ textWeight == 'bold' ? 'selected' : '' }}>
             Bold
           </option>
+          <option value="100" {{ textWeight == '100' ? 'selected' : '' }}>
+            100
+          </option>
+          <option value="200" {{ textWeight == '200' ? 'selected' : '' }}>
+            200
+          </option>
           <option value="300" {{ textWeight == '300' ? 'selected' : '' }}>
             300
+          </option>
+          <option value="400" {{ textWeight == '400' ? 'selected' : '' }}>
+            400
           </option>
           <option value="500" {{ textWeight == '500' ? 'selected' : '' }}>
             500
           </option>
+          <option value="600" {{ textWeight == '600' ? 'selected' : '' }}>
+            600
+          </option>
           <option value="700" {{ textWeight == '700' ? 'selected' : '' }}>
             700
+          </option>
+          <option value="800" {{ textWeight == '800' ? 'selected' : '' }}>
+            800
+          </option>
+          <option value="900" {{ textWeight == '900' ? 'selected' : '' }}>
+            900
           </option>
         @end
 
         <div class="mb-6">
-          <label for="textColor" class="block text-sm font-medium text-gray-700">Text Color</label>
+          <label for="textColor" class="text-base font-bold">Text Color</label>
           <div class="relative mt-1">
             <input
               type="color"
@@ -108,7 +156,7 @@
             </div>
           </div>
         </div>
-
+        
         <p class="text-lg font-semibold text-gray-800 mb-4">
           Text Location:
         </p>
@@ -133,17 +181,19 @@
 
       <div class="text-center mt-8">
         @button.createinput({ type: 'submit', class: 'bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700' })
-          Apply Changes
+          Save TextLine
         @end
       </div>
     </form>
 
-    <a
-      href="{{ route('textLines.index', { id: openGraph.id }) }}"
-      class="block mt-6 text-center bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
-    >
-      Edit TextLine
-    </a>
+    <div class="flex justify-center mt-8">
+      <a
+        href="{{ route('textLines.index', { id: openGraph.id }) }}"
+        class="text-center bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700"
+      >
+        Edit TextLine
+      </a>
+    </div>
 
     <div class="bg-gray-100 border border-gray-400 rounded-xl shadow-md p-6 mt-8">
       <p class="text-lg font-bold text-gray-800">
