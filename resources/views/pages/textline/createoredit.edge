@@ -18,7 +18,7 @@
         enctype="multipart/form-data"
         method="POST"
         action="{{ route('openGraphs.edit', { id: openGraph.id }) }}"
-        class="space-y-6"
+        class="space-y-8"
       >
         {{ csrfField() }}
         <!-- Card Name and URL -->
@@ -192,9 +192,9 @@
       </form>
 
       <div class="max-w-4xl mx-auto px-4">
-        <div class="bg-white shadow-lg rounded-lg p-6 mt-8">
+        <div class="border border-gray-300 rounded-xl bg-white p-6 shadow mt-8">
           <table
-            class="table-auto border-collapse border border-gray-300 w-full text-left mt-4 mx-auto max-w-3xl"
+            class="table-auto border-collapse border border-gray-300 w-full text-left  mx-auto max-w-3xl"
           >
             <thead>
               <tr class="bg-gray-100">
