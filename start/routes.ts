@@ -77,6 +77,8 @@ router
   .get('opengraph/textlines/new', [TextLinesController, 'create'])
   .as('textline.create')
   .use(middleware.auth())
+router.get('textline/:id/edit', [TextLinesController, 'edit']).as('textLine.edit')
+router.post('textline/:id', [TextLinesController, 'update']).as('textLine.update')
 
 //* AUTH -> LOGIN, REGISTER, LOGOUT
 router.get('/login', [LoginController, 'show']).as('auth.login.show').use(middleware.guest())

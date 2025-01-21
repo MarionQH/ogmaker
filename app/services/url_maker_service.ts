@@ -101,4 +101,32 @@ export class UrlMakerService {
     const url = `${baseUrl}${part1}${part2}${part3}`
     return url
   }
+
+  static async updateTextLineInUrl(
+    openGraph: OpenGraph,
+    updatedTextLine: TextLine
+  ): Promise<string> {
+    const baseUrl = `${openGraph.prefixUrl}`
+    const part1 = `/c_scale,w_600,h_506,f_auto/w_1200%2Ch_830,q_100/`
+
+    // Récupérer toutes les TextLines liées à l'OpenGraph
+    const textLines = await TextLine.query().where('openGraphId', openGraph.id)
+
+    // Construire les segments d'URL avec la TextLine mise à jour
+    const textJoin = textLines.map((textLine) => {
+      // Si l'ID correspond, utiliser les propriétés mises à jour
+      if (textLine.id === updatedTextLine.id) {
+        return `l_text:${updatedTextLine.textPolice}_${updatedTextLine.textSize}_${updatedTextLine.textWeight}:${updatedTextLine.text},co_${updatedTextLine.textColor},c_fit,w_1400,h_240/fl_layer_apply,g_south_west,x_${updatedTextLine.textLongitude},y_${updatedTextLine.textLatitude}/`
+      }
+      // Sinon, utiliser les propriétés existantes
+      return `l_text:${textLine.textPolice}_${textLine.textSize}_${textLine.textWeight}:${textLine.text},co_${textLine.textColor},c_fit,w_1400,h_240/fl_layer_apply,g_south_west,x_${textLine.textLongitude},y_${textLine.textLatitude}/`
+    })
+
+    const part2 = textJoin.join('/') // Rejoindre les segments restants
+    const part3 = `${openGraph.suffixUrl}`
+
+    // Reconstruire l'URL avec la TextLine mise à jour
+    const url = `${baseUrl}${part1}${part2}${part3}`
+    return url
+  }
 }
