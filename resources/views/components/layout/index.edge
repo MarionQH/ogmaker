@@ -11,10 +11,27 @@
     <title>
        OgMaker
     </title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        /* Barre de chargement */
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background-color: #3498db;
+            width: 0%;
+            transition: width 0.1s ease-in-out;
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+    </style>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
-  <body class="bg-gray-100">
+  <body class="bg-gray-100" x-data="loadingBar()" x-init="startLoading()">
     <!-- Navigation: markup sourced from: https://devdojo.com/pines/marketing/navigations -->
     <header class="w-full px-8 text-gray-700 bg-white">
       <div class="container flex flex-col flex-wrap items-center justify-between py-3 mx-auto md:flex-row max-w-7xl">
@@ -76,6 +93,7 @@
       </div>
     </header>
     <!-- End Navigation -->
+     <div class="loading-bar" x-bind:style="{ width: progress + '%' }"x-show="!isLoaded"></div>
 
     <main class="px-8">
       {{{ await $slots.main() }}}
@@ -83,6 +101,28 @@
 
     @!toast.flash()
 
-    <script src="//unpkg.com/alpinejs" defer></script>
+   <script>
+        function loadingBar() {
+            return {
+                progress: 0,      // Progression initiale
+                isLoaded: false,  // État de chargement
+                startLoading() {
+                    const interval = setInterval(() => {
+                        if (this.progress < 90) {
+                            this.progress += 10; // Simule le chargement jusqu'à 90%
+                        } else {
+                            clearInterval(interval); // Arrête à 90%
+                        }
+                    }, 200); // Temps entre chaque incrément (200ms)
+
+                    // Fin du chargement réel
+                    window.onload = () => {
+                        this.progress = 100; // Met à 100% une fois la page chargée
+                        setTimeout(() => this.isLoaded = true, 500); // Cache la barre après 500ms
+                    };
+                }
+            };
+        }
+    </script>
   </body>
 </html>
