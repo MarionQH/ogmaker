@@ -16,7 +16,7 @@ export default class TextLinesController {
     openGraph.textline.forEach((textline) => {
       textline.text = UrlMakerService.replacePercent20WithSpace(textline.text)
     })
-    return view.render('pages/textline/createoredit', { openGraph })
+    return view.render('pages/textline/create', { openGraph })
   }
 
   async create({ request, response, auth, session, params }: HttpContext) {
@@ -43,5 +43,42 @@ export default class TextLinesController {
 
     session.flash('success', 'OpenGraph successfully modified !')
     return response.redirect().back()
+  }
+
+  // Méthode pour afficher le formulaire d'édition avec les données pré-remplies
+  async edit({ view, params }: HttpContext) {
+    const textLine = await TextLine.findOrFail(params.id)
+    const openGraph = await OpenGraph.query()
+      .where('id', textLine.openGraphId)
+      .preload('textline')
+      .firstOrFail()
+
+    openGraph.textline.forEach((textline) => {
+      textline.text = UrlMakerService.replacePercent20WithSpace(textline.text)
+    })
+
+    textLine.text = UrlMakerService.replacePercent20WithSpace(textLine.text)
+
+    return view.render('pages/textline/edit', { textLine, openGraph }) // Passez textLine à la vue
+  }
+
+  // Méthode pour mettre à jour la textline
+  async update({ request, response, params, session }: HttpContext) {
+    const validatedData = await request.validateUsing(textValidator)
+    const textLine = await TextLine.findOrFail(params.id)
+
+    textLine.merge({
+      ...validatedData,
+      text: UrlMakerService.replaceSpaces(validatedData.text),
+      textColor: UrlMakerService.hexToRgb(validatedData.textColor),
+    })
+    await textLine.save()
+
+    const openGraph = await OpenGraph.findOrFail(textLine.openGraphId)
+    openGraph.ogUrl = await UrlMakerService.updateTextLineInUrl(openGraph, textLine)
+    await openGraph.save()
+
+    session.flash('success', 'Textline successfully updated!')
+    return response.redirect().toRoute('textline.show', { id: textLine.openGraphId })
   }
 }

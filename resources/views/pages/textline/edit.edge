@@ -13,12 +13,13 @@
           class="h-48 object-cover mx-auto rounded-xl shadow-lg border border-gray-300"
         />
       </div>
+
       <form
         id="opengraphForm"
         enctype="multipart/form-data"
         method="POST"
-        action="{{ route('openGraphs.edit', { id: openGraph.id }) }}"
-        class="space-y-8"
+        action="{{ route('textLine.update', { id: textLine.id }) }}"
+        class="space-y-2"
       >
         {{ csrfField() }}
         <!-- Card Name and URL -->
@@ -64,7 +65,7 @@
           name: 'text',
           type: 'text',
           placeholder: 'Enter your text',
-          value: text,
+          value: textLine.text,
           additionalClass: 'mb-6'
           })
 
@@ -73,52 +74,52 @@
           name: 'textPolice',
           type: 'select',
           placeholder: 'Choose a font',
-          value: textPolice,
+          value: textLine.textPolice,
           additionalClass: 'mb-6'
           })
-            <option value="Arial" {{ textPolice == 'Arial' ? 'selected' : '' }}>
+            <option value="Arial" {{ textLine.textPolice == 'Arial' ? 'selected' : '' }}>
               Arial
             </option>
-            <option value="Courier" {{ textPolice == 'Courier' ? 'selected' : '' }}>
+            <option value="Courier" {{ textLine.textPolice == 'Courier' ? 'selected' : '' }}>
               Courier
             </option>
-            <option value="Courier New" {{ textPolice == 'Courier%20New' ? 'selected' : '' }}>
+            <option value="Courier%20New" {{ textLine.textPolice == 'Courier%20New' ? 'selected' : '' }}>
               Courier New
             </option>
-            <option value="Dancing Script" {{ textPolice == 'Dancing%20Script' ? 'selected' : '' }}>
+            <option value="Dancing%20Script" {{ textLine.textPolice == 'Dancing%20Script' ? 'selected' : '' }}>
               Dancing Script
             </option>
-            <option value="Georgia" {{ textPolice == 'Georgia' ? 'selected' : '' }}>
+            <option value="Georgia" {{ textLine.textPolice == 'Georgia' ? 'selected' : '' }}>
               Georgia
             </option>
-            <option value="Helvetica" {{ textPolice == 'Helvetica' ? 'selected' : '' }}>
+            <option value="Helvetica" {{ textLine.textPolice == 'Helvetica' ? 'selected' : '' }}>
               Helvetica
             </option>
-            <option value="Impact" {{ textPolice == 'Impact' ? 'selected' : '' }}>
+            <option value="Impact" {{ textLine.textPolice == 'Impact' ? 'selected' : '' }}>
               Impact
             </option>
-            <option value="Open Sans" {{ textPolice == 'Open%20Sans' ? 'selected' : '' }}>
+            <option value="Open%20Sans" {{ textLine.textPolice == 'Open%20Sans' ? 'selected' : '' }}>
               Open Sans
             </option>
-            <option value="Pacifico" {{ textPolice == 'Pacifico' ? 'selected' : '' }}>
+            <option value="Pacifico" {{ textLine.textPolice == 'Pacifico' ? 'selected' : '' }}>
               Pacifico
             </option>
-            <option value="Palatino" {{ textPolice == 'Palatino' ? 'selected' : '' }}>
+            <option value="Palatino" {{ textLine.textPolice == 'Palatino' ? 'selected' : '' }}>
               Palatino
             </option>
-            <option value="Roboto" {{ textPolice == 'Roboto' ? 'selected' : '' }}>
+            <option value="Roboto" {{ textLine.textPolice == 'Roboto' ? 'selected' : '' }}>
               Roboto
             </option>
-            <option value="Times" {{ textPolice == 'Times' ? 'selected' : '' }}>
+            <option value="Times" {{ textLine.textPolice == 'Times' ? 'selected' : '' }}>
               Times
             </option>
-            <option value="Times New Roman" {{ textPolice == 'Times%20New%20Roman' ? 'selected' : '' }}>
+            <option value="Times%20New%20Roman" {{ textLine.textPolice == 'Times%20New%20Roman' ? 'selected' : '' }}>
               Times New Roman
             </option>
-            <option value="Ubuntu" {{ textPolice == 'Ubuntu' ? 'selected' : '' }}>
+            <option value="Ubuntu" {{ textLine.textPolice == 'Ubuntu' ? 'selected' : '' }}>
               Ubuntu
             </option>
-            <option value="Verdana" {{ textPolice == 'Verdana' ? 'selected' : '' }}>
+            <option value="Verdana" {{ textLine.textPolice == 'Verdana' ? 'selected' : '' }}>
               Verdana
             </option>
           @end
@@ -128,7 +129,7 @@
           name: 'textSize',
           type: 'number',
           placeholder: '40',
-          value: textSize,
+          value: textLine.textSize,
           additionalClass: 'mb-6'
           })
 
@@ -137,35 +138,35 @@
           name: 'textWeight',
           type: 'select',
           placeholder: 'Choose weight',
-          value: textWeight,
+          value: textLine.textWeight,
           additionalClass: 'mb-6 text-base'
           })
 
-            <option value="100" {{ textWeight == '100' ? 'selected' : '' }}>
+            <option value="100" {{ textLine.textWeight == '100' ? 'selected' : '' }}>
               Thin (finer)
             </option>
-            <option value="200" {{ textWeight == '200' ? 'selected' : '' }}>
+            <option value="200" {{ textLine.textWeight == '200' ? 'selected' : '' }}>
               Extra light
             </option>
-            <option value="300" {{ textWeight == '300' ? 'selected' : '' }}>
+            <option value="300" {{ textLine.textWeight == '300' ? 'selected' : '' }}>
               Light
             </option>
-            <option value="normal" {{ textWeight == 'normal' ? 'selected' : '' }}>
+            <option value="normal" {{ textLine.textWeight == 'normal' ? 'selected' : '' }}>
               Normal
             </option>
-            <option value="500" {{ textWeight == '500' ? 'selected' : '' }}>
+            <option value="500" {{ textLine.textWeight == '500' ? 'selected' : '' }}>
               Medium
             </option>
-            <option value="600" {{ textWeight == '600' ? 'selected' : '' }}>
+            <option value="600" {{ textLine.textWeight == '600' ? 'selected' : '' }}>
               Semi Bold
             </option>
-            <option value="bold" {{ textWeight == 'bold' ? 'selected' : '' }}>
+            <option value="bold" {{ textLine.textWeight == 'bold' ? 'selected' : '' }}>
               Bold
             </option>
-            <option value="800" {{ textWeight == '800' ? 'selected' : '' }}>
+            <option value="800" {{ textLine.textWeight == '800' ? 'selected' : '' }}>
               Extra bold
             </option>
-            <option value="900" {{ textWeight == '900' ? 'selected' : '' }}>
+            <option value="900" {{ textLine.textWeight == '900' ? 'selected' : '' }}>
               Black (thicker)
             </option>
           @end
@@ -240,7 +241,7 @@
           name: 'textLongitude',
           type: 'number',
           placeholder: 'Enter longitude',
-          value: textLongitude,
+          value: textLine.textLongitude,
           additionalClass: 'mb-6'
           })
 
@@ -249,14 +250,21 @@
           name: 'textLatitude',
           type: 'number',
           placeholder: 'Enter latitude',
-          value: textLatitude,
+          value: textLine.textLatitude,
           additionalClass: 'mb-6'
           })
 
           <div class="text-center mt-8">
+            <a
+              href="{{ route('textline.show', { id: openGraph.id }) }}"
+              class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-md bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            >
+              Cancel
+  </a>
             @button.createinput({ type: 'submit', class: 'text-white px-4 py-2 bg-green-500 hover:bg-green-700 inline-flex items-center justify-center text-sm font-medium transition-colors rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2' })
-              Save Textline
+              Update textline
             @end
+            
           </div>
         </div>
       </form>
@@ -298,29 +306,38 @@
                     {{ textline.textWeight }}
                   </td>
                   <td class="border border-gray-300 px-4 py-2 text-center">
-                    <form
-                      method="POST"
-                      action="{{ route('textLine.destroy', { id: textline.id }, { qs: { _method: 'DELETE' }}) }}"
-                      onsubmit="return confirm('Do you really want to delete this textline?');"
-                    >
-                      {{ csrfField() }}
-                <button
-                        type="submit"
-                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-md bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                    <div class="flex space-x-2 justify-center">
+                      <a
+                        href="{{ route('textLine.edit', { id: textline.id }) }}"
+                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-md bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                       >
-                        Delete
+                        Edit
+                    </a>
+                      <form
+                        method="POST"
+                        action="{{ route('textLine.destroy', { id: textline.id }, { qs: { _method: 'DELETE' }}) }}"
+                        onsubmit="return confirm('Do you really want to delete this textline?');"
+                      >
+                        {{ csrfField() }}
+                <button
+                          type="submit"
+                          class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-md bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                        >
+                          Delete
                 </button>
-                    </form>
+                      </form>
+
+                    </div>
                   </td>
                 </tr>
               @endeach
             </tbody>
           </table>
           @if (openGraph.textline.length === 0)
-              <p class="mx-auto text-xl font-black leading-none text-gray-900 select-none text-center mt-8">
-                You don't have any textline yet
-              </p>
-            @end
+            <p class="mx-auto text-xl font-black leading-none text-gray-900 select-none text-center mt-8">
+              You don't have any textline yet
+            </p>
+          @end
         </div>
       </div>
 
