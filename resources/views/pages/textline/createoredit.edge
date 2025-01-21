@@ -1,0 +1,265 @@
+@layout()
+  <div>
+    <h1 class="mx-auto text-3xl font-black leading-none text-gray-900 select-none text-center mt-8">
+      Edit Your OpenGraph
+    </h1>
+  </div>
+  <div class="bg-white shadow-lg rounded-lg p-10 mt-12 max-w-6xl mx-auto">
+    <div class="relative max-w-3xl mx-auto p-8 bg-gray-100 rounded-lg shadow-md">
+      <div class="mb-8 text-center">
+        <img
+          src="{{ openGraph.ogUrl }}"
+          alt="OpenGraph Image"
+          class="h-48 object-cover mx-auto rounded-xl shadow-lg border border-gray-300"
+        />
+      </div>
+      <form
+        id="opengraphForm"
+        enctype="multipart/form-data"
+        method="POST"
+        action="{{ route('openGraphs.edit', { id: openGraph.id }) }}"
+        class="space-y-6"
+      >
+        {{ csrfField() }}
+        <!-- Card Name and URL -->
+        <div class="border border-gray-300 rounded-xl bg-white p-6 shadow">
+          @!form.inputfiltre({
+          label: 'Text',
+          name: 'text',
+          type: 'text',
+          placeholder: 'Enter your text',
+          value: text,
+          additionalClass: 'mb-6'
+          })
+
+          @form.inputfiltre({
+          label: 'Text Police',
+          name: 'textPolice',
+          type: 'select',
+          placeholder: 'Choose a font',
+          value: textPolice,
+          additionalClass: 'mb-6'
+          })
+            <option value="Arial" {{ textPolice == 'Arial' ? 'selected' : '' }}>
+              Arial
+            </option>
+            <option value="Courier" {{ textPolice == 'Courier' ? 'selected' : '' }}>
+              Courier
+            </option>
+            <option value="Courier New" {{ textPolice == 'Courier%20New' ? 'selected' : '' }}>
+              Courier New
+            </option>
+            <option value="Dancing Script" {{ textPolice == 'Dancing%20Script' ? 'selected' : '' }}>
+              Dancing Script
+            </option>
+            <option value="Georgia" {{ textPolice == 'Georgia' ? 'selected' : '' }}>
+              Georgia
+            </option>
+            <option value="Helvetica" {{ textPolice == 'Helvetica' ? 'selected' : '' }}>
+              Helvetica
+            </option>
+            <option value="Impact" {{ textPolice == 'Impact' ? 'selected' : '' }}>
+              Impact
+            </option>
+            <option value="Open Sans" {{ textPolice == 'Open%20Sans' ? 'selected' : '' }}>
+              Open Sans
+            </option>
+            <option value="Pacifico" {{ textPolice == 'Pacifico' ? 'selected' : '' }}>
+              Pacifico
+            </option>
+            <option value="Palatino" {{ textPolice == 'Palatino' ? 'selected' : '' }}>
+              Palatino
+            </option>
+            <option value="Roboto" {{ textPolice == 'Roboto' ? 'selected' : '' }}>
+              Roboto
+            </option>
+            <option value="Times" {{ textPolice == 'Times' ? 'selected' : '' }}>
+              Times
+            </option>
+            <option value="Times New Roman" {{ textPolice == 'Times%20New%20Roman' ? 'selected' : '' }}>
+              Times New Roman
+            </option>
+            <option value="Ubuntu" {{ textPolice == 'Ubuntu' ? 'selected' : '' }}>
+              Ubuntu
+            </option>
+            <option value="Verdana" {{ textPolice == 'Verdana' ? 'selected' : '' }}>
+              Verdana
+            </option>
+          @end
+          
+          @!form.inputfiltre({
+          label: 'Text Size (10-300px)',
+          name: 'textSize',
+          type: 'number',
+          placeholder: '40',
+          value: textSize,
+          additionalClass: 'mb-6'
+          })
+
+          @form.inputfiltre({
+          label: 'Text Weight',
+          name: 'textWeight',
+          type: 'select',
+          placeholder: 'Choose weight',
+          value: textWeight,
+          additionalClass: 'mb-6 text-base'
+          })
+            <option value="normal" {{ textWeight == 'normal' ? 'selected' : '' }}>
+              Normal
+            </option>
+            <option value="bold" {{ textWeight == 'bold' ? 'selected' : '' }}>
+              Bold
+            </option>
+            <option value="100" {{ textWeight == '100' ? 'selected' : '' }}>
+              100
+            </option>
+            <option value="200" {{ textWeight == '200' ? 'selected' : '' }}>
+              200
+            </option>
+            <option value="300" {{ textWeight == '300' ? 'selected' : '' }}>
+              300
+            </option>
+            <option value="400" {{ textWeight == '400' ? 'selected' : '' }}>
+              400
+            </option>
+            <option value="500" {{ textWeight == '500' ? 'selected' : '' }}>
+              500
+            </option>
+            <option value="600" {{ textWeight == '600' ? 'selected' : '' }}>
+              600
+            </option>
+            <option value="700" {{ textWeight == '700' ? 'selected' : '' }}>
+              700
+            </option>
+            <option value="800" {{ textWeight == '800' ? 'selected' : '' }}>
+              800
+            </option>
+            <option value="900" {{ textWeight == '900' ? 'selected' : '' }}>
+              900
+            </option>
+          @end
+          
+          <div class="mb-6">
+            <label for="textColor" class="text-base font-bold">Text Color</label>
+            <div class="relative mt-1">
+              <input
+                type="color"
+                id="textColor"
+                name="textColor"
+                value="{{ textColor }}"
+                class="w-full h-10 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+              <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12zm0-8a4 4 0 100-8 4 4 0 000 8z"
+                    clip-rule="evenodd"
+                  />
+
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-lg font-semibold text-gray-800 mb-4">
+            Text Location:
+          </p>
+          @!form.inputfiltre({
+          label: 'Longitude (1-900)',
+          name: 'textLongitude',
+          type: 'number',
+          placeholder: 'Enter longitude',
+          value: textLongitude,
+          additionalClass: 'mb-6'
+          })
+
+          @!form.inputfiltre({
+          label: 'Latitude (1-725)',
+          name: 'textLatitude',
+          type: 'number',
+          placeholder: 'Enter latitude',
+          value: textLatitude,
+          additionalClass: 'mb-6'
+          })
+        </div>
+
+        <div class="text-center mt-8">
+          @button.createinput({ type: 'submit', class: 'text-white px-4 py-2 rounded-lg bg-green-500 hover:bg-green-700' })
+            Save TextLine
+          @end
+        </div>
+      </form>
+
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-white shadow-lg rounded-lg p-6 mt-8">
+          <table
+            class="table-auto border-collapse border border-gray-300 w-full text-left mt-4 mx-auto max-w-3xl"
+          >
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
+                  Text
+                </th>
+                <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              @each(textline in openGraph.textline)
+                <tr class="hover:bg-gray-50">
+                  <td class="border border-gray-300 px-4 py-2 text-center">
+                    {{ textline.text }}
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2 text-center">
+                    <form
+                      method="POST"
+                      action="{{ route('textLine.destroy', { id: textline.id }, { qs: { _method: 'DELETE' }}) }}"
+                      onsubmit="return confirm('Do you really want to delete this textline?');"
+                    >
+                      {{ csrfField() }}
+                <button
+                        type="submit"
+                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-md bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                      >
+                        Delete
+                </button>
+                    </form>
+                  </td>
+                </tr>
+              @endeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bg-gray-100 border border-gray-400 rounded-xl shadow-md p-6 mt-8">
+        <p class="text-lg font-bold text-gray-800">
+          Your OpenGraph URL:
+        </p>
+        <p class="text-sm text-gray-700 mt-2 break-all" id="ogUrl">
+          {{ openGraph.ogUrl }}
+        </p>
+        <div class="mt-4 text-center">
+          @button.createinput({ type: 'button', onclick: 'copyToClipboard()', class: 'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700' })
+            Copy URL
+          @end
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function copyToClipboard() {
+      const ogUrlElement = document.getElementById("ogUrl");
+      const tempInput = document.createElement("input");
+      tempInput.value = ogUrlElement.textContent.trim();
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+      alert("URL copied to clipboard!");
+    }
+  </script>
+@end

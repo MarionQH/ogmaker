@@ -32,16 +32,16 @@
       <a href="{{ openGraph.ogUrl }}" target="_blank" class ="w-5 h-5 align-middle"> Url </a>
     </div>
     <a
-      href="{{ route('opengraph.show', { id: openGraph.id }) }}"
+      href="{{ route('textline.show', { id: openGraph.id }) }}"
       class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-green-500 hover:bg-green-700"
     >
       Create Text Line
     </a>
 
-    <a
+    {{-- <a
       href="{{ route('textLines.index', { id: openGraph.id }) }}"
       class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-slate-950 hover:bg-slate-700 mt-4"
-    >Edit textLine</a>
+    >Edit textLine</a> --}}
     <form
       method="POST"
       action="{{ route('openGraph.destroy', { id: openGraph.id }, { qs: { _method: 'DELETE' }}) }} "
