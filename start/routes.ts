@@ -10,6 +10,7 @@
 import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
 
+const TextLinesController = () => import('#controllers/text_lines_controller')
 const OpenGraphsController = () => import('#controllers/open_graphs_controller')
 const LoginController = () => import('#controllers/auth/login_controller')
 const LogoutController = () => import('#controllers/auth/logout_controller')
@@ -21,59 +22,61 @@ const HomeController = () => import('#controllers/home_controller')
 
 router.get('/', [HomeController, 'index']).as('home')
 
-// CREATE OPENGRAPH
-router
-  .get('/opengraphs/new', [OpenGraphsController, 'create'])
-  .as('openGraphs.create')
-  .use(middleware.auth())
+// OPENGRAPH
 
-// UPDATE OPENGRAPh
-router
-  .post('/opengraph/update', [OpenGraphsController, 'update'])
-  .as('openGraph.update')
-  .use(middleware.auth())
-
-// DESTROY OPENGRAPH
-
-router
-  .delete('/opengraph/:id', [OpenGraphsController, 'destroy'])
-  .as('openGraph.destroy')
-  .use(middleware.auth())
-
-// CREATE TEXTLINES
-
-router
-  .post('/opengraph/edit/:id', [OpenGraphsController, 'edit'])
-  .as('openGraphs.edit')
-  .use(middleware.auth())
-router.get('opengraph/:id', [OpenGraphsController, 'show']).as('opengraph.show')
-
-// TEXTLINES
-router
-  .get('/opengraph/textlines/:id', [OpenGraphsController, 'textlineIndex'])
-  .as('textLines.index')
-  .use(middleware.auth())
-
-// DESTROY TEXTLINES
-
-router
-  .delete('/textline/:id', [OpenGraphsController, 'destroyTextLine'])
-  .as('textLine.destroy')
-  .use(middleware.auth())
-
-// STORE METHOD FOR CREATE OPENGRAPH
-router
-  .post('/opengraphs/new', [OpenGraphsController, 'store'])
-  .as('openGraphs.store')
-  .use(middleware.auth())
-
-// OPENGRAPHS
 router
   .get('/opengraphs', [OpenGraphsController, 'index'])
   .as('openGraphs.index')
   .use(middleware.auth())
 
+router
+  .get('/opengraph/new', [OpenGraphsController, 'create'])
+  .as('openGraphs.create')
+  .use(middleware.auth())
+
+router
+  .post('/opengraph/new', [OpenGraphsController, 'store'])
+  .as('openGraphs.store')
+  .use(middleware.auth())
+
+router
+  .post('/opengraph/update', [OpenGraphsController, 'update'])
+  .as('openGraph.update')
+  .use(middleware.auth())
+
+router
+  .delete('/opengraph/delete/:id', [OpenGraphsController, 'destroy'])
+  .as('openGraph.destroy')
+  .use(middleware.auth())
+
+// TEXTLINES
+
+router
+  .post('/opengraph/textline/new/:id', [OpenGraphsController, 'edit'])
+  .as('openGraphs.edit')
+  .use(middleware.auth())
+
+router.get('opengraph/textline/new/:id', [OpenGraphsController, 'show']).as('opengraph.show')
+
+router
+  .get('/opengraph/textlines/:id', [OpenGraphsController, 'textlineIndex'])
+  .as('textLines.index')
+  .use(middleware.auth())
+
+router
+  .delete('opengraph/textline/delete/:id', [OpenGraphsController, 'destroyTextLine'])
+  .as('textLine.destroy')
+  .use(middleware.auth())
+
 router.on('/jumpstart').render('pages/jumpstart').as('jumpstart')
+
+// ESSAI DE FORMULAIRE IMBRIQUES
+
+router.get('opengraph/textlines/new/:id', [TextLinesController, 'show']).as('textline.show')
+router
+  .get('opengraph/textlines/new', [TextLinesController, 'create'])
+  .as('textline.create')
+  .use(middleware.auth())
 
 //* AUTH -> LOGIN, REGISTER, LOGOUT
 router.get('/login', [LoginController, 'show']).as('auth.login.show').use(middleware.guest())
