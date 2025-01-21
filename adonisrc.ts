@@ -59,7 +59,6 @@ export default defineConfig({
       environment: ['web'],
     },
     () => import('#start/events'),
-    () => import('#start/rules/exist'),
     () => import('#start/rules/is_unique_name'),
   ],
 
