@@ -113,4 +113,32 @@ export default class TextLinesController {
 
     return response.redirect().back()
   }
+
+  async destroyAllTextLines({ response, params, session }: HttpContext) {
+    try {
+      const openGraph = await OpenGraph.query()
+        .where('id', params.id)
+        .preload('textline')
+        .firstOrFail()
+
+      const textLines = openGraph.textline
+      if (textLines.length === 0) {
+        session.flash('error', 'No text lines found for this OpenGraph.')
+        return response.redirect().back()
+      }
+
+      await TextLine.query().where('open_graph_id', openGraph.id).delete()
+
+      const newOgUrl = await UrlMakerService.urlMakerWithoutText(openGraph)
+      openGraph.merge({ ogUrl: newOgUrl })
+      await openGraph.save()
+
+      session.flash('success', 'All text lines for the OpenGraph have been successfully deleted!')
+    } catch (error) {
+      console.error(error)
+      session.flash('error', 'An error occurred while deleting the text lines for this OpenGraph.')
+    }
+
+    return response.redirect().back()
+  }
 }

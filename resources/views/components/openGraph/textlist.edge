@@ -76,7 +76,7 @@
                     <form
                       method="POST"
                       action="{{ route('textLine.destroy', { id: textline.id }, { qs: { _method: 'DELETE' }}) }}"
-                      onsubmit="return confirm('Do you really want to delete this textline?');"
+                      onsubmit="return confirm('Do you really want to delete this textline ?');"
                     >
                       {{ csrfField() }}
                   <button
@@ -92,7 +92,19 @@
             @endeach
           </tbody>
         </table>
-      @endif
+        <form
+          method="POST"
+          action="{{ route('alltextLine.destroy', { id: openGraph.id }, { qs: { _method: 'DELETE' }}) }}"
+          onsubmit="return confirm('Do you really want to delete all textlines ?');"
+        >
+          {{ csrfField() }}
+                  <button
+            type="submit"
+            class="mt-2 inline-flex items-center justify-center px-2 py-1 text-xs font-medium text-white transition-colors rounded-md bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+          >
+            Delete all
+                  </button>
+        @endif
+      </div>
     </div>
   </div>
-</div>

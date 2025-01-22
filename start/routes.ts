@@ -58,6 +58,11 @@ router
   .as('textLine.destroy')
   .use(middleware.auth())
 
+router
+  .delete('opengraph/:id/textlines/delete', [TextLinesController, 'destroyAllTextLines'])
+  .as('alltextLine.destroy')
+  .use(middleware.auth())
+
 //* AUTH -> LOGIN, REGISTER, LOGOUT
 router.get('/login', [LoginController, 'show']).as('auth.login.show').use(middleware.guest())
 router.post('/login', [LoginController, 'store']).as('auth.login.store').use([middleware.guest()])
