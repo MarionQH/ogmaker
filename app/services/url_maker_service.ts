@@ -25,9 +25,8 @@ export class UrlMakerService {
     return url
   }
   private static uploadSegment = '/image/upload'
-  private static versionPattern = /\/v[0-9]+\// // Matches '/v<number>/'
+  private static versionPattern = /\/v[0-9]+\//
 
-  // Extract the prefix part of the URL
   static urlPrefix(ogUrl: string): string {
     const uploadIndex = ogUrl.indexOf(this.uploadSegment)
 
@@ -52,10 +51,8 @@ export class UrlMakerService {
   }
 
   static hexToRgb(hex: string): string {
-    // Retirer le # du début
     hex = hex.replace('#', '')
 
-    // Vérifier si la chaîne hexadécimale est valide
     if (hex.length !== 6) {
       throw new Error('La valeur hexadécimale doit être de 6 caractères.')
     }
@@ -83,8 +80,6 @@ export class UrlMakerService {
   ): Promise<string> {
     const baseUrl = `${openGraph.prefixUrl}`
     const part1 = `/c_scale,w_600,h_506,f_auto/w_1200%2Ch_830,q_100/`
-
-    // Récupérer toutes les TextLines liées à l'OpenGraph
     const textLines = await TextLine.query().where('openGraphId', openGraph.id)
 
     // Construire les segments d'URL pour toutes les TextLines sauf celle à supprimer
@@ -94,10 +89,8 @@ export class UrlMakerService {
         return `l_text:${textLine.textPolice}_${textLine.textSize}_${textLine.textWeight}:${textLine.text},co_${textLine.textColor},c_fit,w_1400,h_240/fl_layer_apply,g_south_west,x_${textLine.textLongitude},y_${textLine.textLatitude}/`
       })
 
-    const part2 = textJoin.join('/') // Rejoindre les segments restants
+    const part2 = textJoin.join('/')
     const part3 = `${openGraph.suffixUrl}`
-
-    // Reconstruire l'URL sans la TextLine supprimée
     const url = `${baseUrl}${part1}${part2}${part3}`
     return url
   }
@@ -108,8 +101,6 @@ export class UrlMakerService {
   ): Promise<string> {
     const baseUrl = `${openGraph.prefixUrl}`
     const part1 = `/c_scale,w_600,h_506,f_auto/w_1200%2Ch_830,q_100/`
-
-    // Récupérer toutes les TextLines liées à l'OpenGraph
     const textLines = await TextLine.query().where('openGraphId', openGraph.id)
 
     // Construire les segments d'URL avec la TextLine mise à jour
@@ -122,11 +113,10 @@ export class UrlMakerService {
       return `l_text:${textLine.textPolice}_${textLine.textSize}_${textLine.textWeight}:${textLine.text},co_${textLine.textColor},c_fit,w_1400,h_240/fl_layer_apply,g_south_west,x_${textLine.textLongitude},y_${textLine.textLatitude}/`
     })
 
-    const part2 = textJoin.join('/') // Rejoindre les segments restants
+    const part2 = textJoin.join('/')
     const part3 = `${openGraph.suffixUrl}`
-
-    // Reconstruire l'URL avec la TextLine mise à jour
     const url = `${baseUrl}${part1}${part2}${part3}`
+
     return url
   }
 }

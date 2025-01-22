@@ -5,8 +5,8 @@ export const openGraphsValidator = vine.compile(
     name: vine.string().maxLength(100).isUniqueByUser({
       table: 'open_graphs',
       column: 'name',
-      userColumn: 'user_id', // Colonne représentant l'utilisateur
-      userId: '12345', // ID de l'utilisateur (vous pouvez le passer dynamiquement)
+      userColumn: 'user_id',
+      userId: '12345',
     }),
     ogUrl: vine.string().maxLength(3000),
   })
