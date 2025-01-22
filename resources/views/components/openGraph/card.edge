@@ -1,5 +1,9 @@
 <div class="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white">
-  <img src="{{ openGraph.ogUrl }}" class="w-full h-56 object-cover" />
+  <img 
+    src="{{ openGraph.ogUrl }}" 
+    class="w-full h-56 object-contain bg-gray-100" 
+    alt="OpenGraph Image"
+  />
   <div class="p-4">
     <div class="flex items-center justify-between mb-2">
       <div class="flex items-center mb-2">
@@ -11,7 +15,6 @@
           title="Edit"
           onclick="openEditPopup({{ openGraph.id }}, '{{ openGraph.name }}')"
         >
-
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -42,12 +45,12 @@
       onsubmit="return confirm('Do you really want to delete this opengraph ?');"
     >
       {{ csrfField() }}
-              <button
+      <button
         type="submit"
         class="mt-4 inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-red-500 hover:bg-red-700"
       >
         Delete
-              </button>
+      </button>
     </form>
   </div>
 </div>
