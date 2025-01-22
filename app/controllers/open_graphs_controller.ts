@@ -1,9 +1,8 @@
 import OpenGraph from '#models/open_graph'
-import TextLine from '#models/text_line'
 import { UrlMakerService } from '#services/url_maker_service'
 import { openGraphsValidator } from '#validators/graph'
 import { HttpContext } from '@adonisjs/core/http'
-import { textValidator } from '#validators/text'
+import db from '@adonisjs/lucid/services/db'
 
 export default class OpenGraphsController {
   async index({ view, auth }: HttpContext) {
@@ -17,7 +16,7 @@ export default class OpenGraphsController {
   }
 
   async create({ view }: HttpContext) {
-    return view.render('pages/openGraph/create', {})
+    return view.render('pages/openGraph/create')
   }
 
   async store({ request, response, auth, session }: HttpContext) {
@@ -28,55 +27,51 @@ export default class OpenGraphsController {
     const validatedData = await request.validateUsing(openGraphsValidator, {
       meta: { userId: auth.user.id },
     })
+    const trx = await db.transaction()
+    try {
+      const openGraph = await OpenGraph.create(
+        {
+          ...validatedData,
+          userId: auth.user.id,
+          prefixUrl: UrlMakerService.urlPrefix(validatedData.ogUrl),
+          suffixUrl: UrlMakerService.urlSuffix(validatedData.ogUrl),
+        },
+        { client: trx }
+      )
+      openGraph.ogUrl = await UrlMakerService.urlMakerWithoutText(openGraph)
+      await openGraph.useTransaction(trx).save()
 
-    const openGraph = await OpenGraph.create({
-      ...validatedData,
-      userId: auth.user.id,
-      prefixUrl: UrlMakerService.urlPrefix(validatedData.ogUrl),
-      suffixUrl: UrlMakerService.urlSuffix(validatedData.ogUrl),
-    })
-    openGraph.ogUrl = await UrlMakerService.urlMakerWithoutText(openGraph)
-    await openGraph.save()
+      await trx.commit()
 
-    session.flash(
-      'success',
-      'OpenGraph successfully created! Check your OpenGraphs to edit and add text to them !'
-    )
-
+      session.flash(
+        'success',
+        'OpenGraph successfully created! Check your OpenGraphs to edit and add text to them !'
+      )
+    } catch (error) {
+      await trx.rollback()
+      console.error(error)
+      session.flash('error', 'An error occurred while created the OpenGraph')
+    }
     return response.redirect().toRoute('openGraphs.index')
   }
 
   async update({ request, response, session }: HttpContext) {
     const { id, name } = request.only(['id', 'name'])
+    const trx = await db.transaction()
 
     try {
       const openGraph = await OpenGraph.findOrFail(id)
 
       openGraph.name = name
-      await openGraph.save()
+      await openGraph.useTransaction(trx).save()
+
+      await trx.commit()
 
       session.flash('success', 'OpenGraph name updated successfully!')
-      return response.redirect().back()
     } catch (error) {
+      await trx.rollback()
       session.flash('error', 'Failed to update the OpenGraph name.')
-      return response.redirect().back()
     }
-  }
-
-  async edit({ response, session, request, params }: HttpContext) {
-    const openGraph = await OpenGraph.findOrFail(params.id)
-    const validatedData = await request.validateUsing(textValidator)
-    await TextLine.create({
-      ...validatedData,
-      openGraphId: openGraph.id,
-      textColor: UrlMakerService.hexToRgb(validatedData.textColor),
-      text: UrlMakerService.replaceSpaces(validatedData.text),
-    })
-    const newOgUrl = await UrlMakerService.urlMaker(openGraph)
-    openGraph.merge({ ogUrl: newOgUrl })
-    await openGraph.save()
-
-    session.flash('success', 'OpenGraph successfully modified !')
     return response.redirect().back()
   }
 

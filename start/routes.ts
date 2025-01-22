@@ -28,45 +28,35 @@ router
   .get('/opengraphs', [OpenGraphsController, 'index'])
   .as('openGraphs.index')
   .use(middleware.auth())
-
 router
   .get('/opengraph/new', [OpenGraphsController, 'create'])
   .as('openGraphs.create')
   .use(middleware.auth())
-
 router
   .post('/opengraph/new', [OpenGraphsController, 'store'])
   .as('openGraphs.store')
   .use(middleware.auth())
-
-router
-  .post('/opengraph/textline/new/:id', [OpenGraphsController, 'edit'])
-  .as('openGraphs.edit')
-  .use(middleware.auth())
-
 router
   .post('/opengraph/update', [OpenGraphsController, 'update'])
   .as('openGraph.update')
   .use(middleware.auth())
-
 router
   .delete('/opengraph/delete/:id', [OpenGraphsController, 'destroy'])
   .as('openGraph.destroy')
   .use(middleware.auth())
 
 // TEXTLINES
-router
-  .delete('opengraph/textline/delete/:id', [TextLinesController, 'destroyTextLine'])
-  .as('textLine.destroy')
-  .use(middleware.auth())
-
 router.get('opengraph/textlines/new/:id', [TextLinesController, 'show']).as('textline.show')
 router
-  .get('opengraph/textlines/new', [TextLinesController, 'create'])
+  .post('opengraph/textlines/new/:id', [TextLinesController, 'create'])
   .as('textline.create')
   .use(middleware.auth())
 router.get('textline/:id/edit', [TextLinesController, 'edit']).as('textLine.edit')
 router.post('textline/:id', [TextLinesController, 'update']).as('textLine.update')
+router
+  .delete('opengraph/textline/delete/:id', [TextLinesController, 'destroyTextLine'])
+  .as('textLine.destroy')
+  .use(middleware.auth())
 
 //* AUTH -> LOGIN, REGISTER, LOGOUT
 router.get('/login', [LoginController, 'show']).as('auth.login.show').use(middleware.guest())

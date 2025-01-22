@@ -3,6 +3,7 @@ import TextLine from '#models/text_line'
 import { UrlMakerService } from '#services/url_maker_service'
 import { textValidator } from '#validators/text'
 import { HttpContext } from '@adonisjs/core/http'
+import db from '@adonisjs/lucid/services/db'
 
 export default class TextLinesController {
   async show({ view, params }: HttpContext) {
@@ -17,29 +18,27 @@ export default class TextLinesController {
     return view.render('pages/textline/create', { openGraph })
   }
 
-  async create({ request, response, auth, session, params }: HttpContext) {
-    if (!auth.user) {
-      return response.unauthorized('You must be logged in to create textlines.')
-    }
-
-    const validatedData = await request.validateUsing(textValidator, {
-      meta: { userId: auth.user.id },
-    })
-
+  async create({ request, response, session, params }: HttpContext) {
     const openGraph = await OpenGraph.findOrFail(params.id)
+    const validatedData = await request.validateUsing(textValidator)
+    try {
+      await TextLine.create({
+        ...validatedData,
+        openGraphId: openGraph.id,
+        textColor: UrlMakerService.hexToRgb(validatedData.textColor),
+        text: UrlMakerService.replaceSpaces(validatedData.text),
+      })
+      const newOgUrl = await UrlMakerService.urlMaker(openGraph)
 
-    await TextLine.create({
-      ...validatedData,
-      openGraphId: openGraph.id,
-      textColor: UrlMakerService.hexToRgb(validatedData.textColor),
-      text: UrlMakerService.replaceSpaces(validatedData.text),
-    })
+      openGraph.merge({ ogUrl: newOgUrl })
 
-    const newOgUrl = await UrlMakerService.urlMaker(openGraph)
-    openGraph.merge({ ogUrl: newOgUrl })
-    await openGraph.save()
+      await openGraph.save()
 
-    session.flash('success', 'OpenGraph successfully modified !')
+      session.flash('success', 'OpenGraph successfully modified !')
+    } catch (error) {
+      console.error(error)
+      session.flash('error', 'An error occurred while created the textline')
+    }
     return response.redirect().back()
   }
 
@@ -62,23 +61,31 @@ export default class TextLinesController {
   async update({ request, response, params, session }: HttpContext) {
     const validatedData = await request.validateUsing(textValidator)
     const textLine = await TextLine.findOrFail(params.id)
+    const trx = await db.transaction()
+    try {
+      textLine.useTransaction(trx).merge({
+        ...validatedData,
+        text: UrlMakerService.replaceSpaces(validatedData.text),
+        textColor: UrlMakerService.hexToRgb(validatedData.textColor),
+      })
+      await textLine.useTransaction(trx).save()
 
-    textLine.merge({
-      ...validatedData,
-      text: UrlMakerService.replaceSpaces(validatedData.text),
-      textColor: UrlMakerService.hexToRgb(validatedData.textColor),
-    })
-    await textLine.save()
+      const openGraph = await OpenGraph.findOrFail(textLine.openGraphId)
+      openGraph.ogUrl = await UrlMakerService.updateTextLineInUrl(openGraph, textLine)
+      await openGraph.useTransaction(trx).save()
 
-    const openGraph = await OpenGraph.findOrFail(textLine.openGraphId)
-    openGraph.ogUrl = await UrlMakerService.updateTextLineInUrl(openGraph, textLine)
-    await openGraph.save()
-
-    session.flash('success', 'Textline successfully updated!')
+      await trx.commit()
+      session.flash('success', 'Textline successfully updated!')
+    } catch (error) {
+      await trx.rollback()
+      console.error(error)
+      session.flash('error', 'An error occurred while updated the TextLine.')
+    }
     return response.redirect().toRoute('textline.show', { id: textLine.openGraphId })
   }
 
   async destroyTextLine({ response, params, session }: HttpContext) {
+    const trx = await db.transaction()
     try {
       const textLine = await TextLine.query()
         .where('id', params.id)
@@ -88,15 +95,18 @@ export default class TextLinesController {
       const openGraph = textLine.openGraph
       if (!openGraph) {
         session.flash('error', 'Associated OpenGraph not found.')
+        await trx.rollback()
         return response.redirect().back()
       }
       const newOgUrl = await UrlMakerService.removeTextLineFromUrl(openGraph, textLine)
       openGraph.merge({ ogUrl: newOgUrl })
-      await openGraph.save()
+      await openGraph.useTransaction(trx).save()
 
-      await textLine.delete()
+      await textLine.useTransaction(trx).delete()
+      await trx.commit()
       session.flash('success', 'TextLine successfully deleted!')
     } catch (error) {
+      await trx.rollback()
       console.error(error)
       session.flash('error', 'An error occurred while deleting the TextLine.')
     }
