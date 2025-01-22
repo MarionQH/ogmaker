@@ -7,7 +7,7 @@ import { config } from 'dotenv'
 
 // Charger les variables d'environnement en fonction de l'environnement
 if (process.env.NODE_ENV === 'testing') {
-  config({ path: '.env.test' })
+  config({ path: '.env.testing' })
 } else {
   config()
 }
