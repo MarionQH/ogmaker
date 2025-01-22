@@ -6,13 +6,7 @@
   </div>
   <div class="bg-white shadow-lg rounded-lg p-10 mt-12 max-w-6xl mx-auto">
     <div class="relative max-w-3xl mx-auto p-8 bg-gray-100 rounded-lg shadow-md">
-      <div class="mb-8 text-center">
-        <img
-          src="{{ openGraph.ogUrl }}"
-          alt="OpenGraph Image"
-          class="h-48 object-cover mx-auto rounded-xl shadow-lg border border-gray-300"
-        />
-      </div>
+      @!openGraph.image({ openGraph}) 
 
       <form
         id="opengraphForm"
@@ -95,6 +89,9 @@
             </option>
             <option value="Impact" {{ textLine.textPolice == 'Impact' ? 'selected' : '' }}>
               Impact
+            </option>
+            <option value="Montserrat" {{ textPolice == 'Montserrat' ? 'selected' : '' }}>
+              Montserrat
             </option>
             <option value="Open%20Sans" {{ textLine.textPolice == 'Open%20Sans' ? 'selected' : '' }}>
               Open Sans
@@ -262,118 +259,9 @@
           </div>
         </div>
       </form>
-      <div>
-        <h2 class="mx-auto text-2xl font-black leading-none text-gray-900 select-none text-center mt-8">
-          Manage your textlines:
-        </h2>
-      </div>
-       <div class="max-w-4xl mx-auto px-4 mt-8">
-        <div class="border border-gray-300 rounded-xl bg-white p-6 shadow flex justify-center">
-          <!-- Conteneur du tableau -->
-          <div class="w-full overflow-hidden">
-            <table class="table-auto border-collapse border border-gray-300 mx-auto text-left w-full">
-              <thead>
-                <tr class="bg-gray-100">
-                  <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
-                    Text
-                  </th>
-                  <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
-                    Color
-                  </th>
-                  <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
-                    Weight
-                  </th>
-                  <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
-                    Horizontal
-                  </th>
-                  <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
-                    Vertical
-                  </th>
-                  <th class="border border-gray-300 px-2 py-2 text-sm font-semibold text-gray-600 text-center w-32">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                @each(textline in openGraph.textline)
-                  <tr class="hover:bg-gray-50">
-                    <td class="border border-gray-300 px-4 py-2 text-center">
-                      {{ textline.text }}
-                    </td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">
-                      {{ textline.textColor }}
-                    </td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">
-                      {{ textline.textWeight }}
-                    </td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">
-                      {{ textline.textLongitude }}
-                    </td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">
-                      {{ textline.textLatitude }}
-                    </td>
-                    <td class="border border-gray-300 px-2 py-2 text-center">
-                      <div class="flex space-x-2 justify-center">
-                        <a
-                          href="{{ route('textLine.edit', { id: textline.id }) }}"
-                          class="inline-flex items-center justify-center px-3 py-1 text-sm font-medium text-white transition-colors rounded-md bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                        >
-                          Edit
-                  </a>
-                        <form
-                          method="POST"
-                          action="{{ route('textLine.destroy', { id: textline.id }, { qs: { _method: 'DELETE' }}) }}"
-                          onsubmit="return confirm('Do you really want to delete this textline?');"
-                        >
-                          {{ csrfField() }}
-                    <button
-                            type="submit"
-                            class="inline-flex items-center justify-center px-3 py-1 text-sm font-medium text-white transition-colors rounded-md bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-                          >
-                            Delete
-                    </button>
-                        </form>
-                      </div>
-                    </td>
-                  </tr>
-                @endeach
-              </tbody>
-            </table>
-          </div>
-        </div>
-        @if (openGraph.textline.length === 0)
-          <p class="mx-auto text-xl font-black leading-none text-gray-900 select-none text-center mt-8">
-            You don't have any textline yet
-          </p>
-        @end
-      </div>
 
-      <div class="bg-gray-100 border border-gray-400 rounded-xl shadow-md p-6 mt-8">
-        <p class="text-lg font-bold text-gray-800">
-          Your OpenGraph URL:
-        </p>
-        <p class="text-sm text-gray-700 mt-2 break-all" id="ogUrl">
-          {{ openGraph.ogUrl }}
-        </p>
-        <div class="mt-4 text-center">
-          @button.createinput({ type: 'button', onclick: 'copyToClipboard()', class: 'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700' })
-            Copy URL
-          @end
-        </div>
-      </div>
-    </div>
-  </div>
+      @!openGraph.textlist({ openGraph })
 
-  <script>
-    function copyToClipboard() {
-      const ogUrlElement = document.getElementById("ogUrl");
-      const tempInput = document.createElement("input");
-      tempInput.value = ogUrlElement.textContent.trim();
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand("copy");
-      document.body.removeChild(tempInput);
-      alert("URL copied to clipboard!");
-    }
-  </script>
-@end
+      @!openGraph.copyurl({ openGraph })
+
+    @end
