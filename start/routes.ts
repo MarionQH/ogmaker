@@ -20,10 +20,10 @@ const ProfileController = () => import('#controllers/settings/profile_controller
 const AccountController = () => import('#controllers/settings/account_controller')
 const HomeController = () => import('#controllers/home_controller')
 
+// HOME
 router.get('/', [HomeController, 'index']).as('home')
 
 // OPENGRAPH
-
 router
   .get('/opengraphs', [OpenGraphsController, 'index'])
   .as('openGraphs.index')
@@ -40,6 +40,11 @@ router
   .use(middleware.auth())
 
 router
+  .post('/opengraph/textline/new/:id', [OpenGraphsController, 'edit'])
+  .as('openGraphs.edit')
+  .use(middleware.auth())
+
+router
   .post('/opengraph/update', [OpenGraphsController, 'update'])
   .as('openGraph.update')
   .use(middleware.auth())
@@ -50,27 +55,10 @@ router
   .use(middleware.auth())
 
 // TEXTLINES
-
 router
-  .post('/opengraph/textline/new/:id', [OpenGraphsController, 'edit'])
-  .as('openGraphs.edit')
-  .use(middleware.auth())
-
-router.get('opengraph/textline/new/:id', [OpenGraphsController, 'show']).as('opengraph.show')
-
-router
-  .get('/opengraph/textlines/:id', [OpenGraphsController, 'textlineIndex'])
-  .as('textLines.index')
-  .use(middleware.auth())
-
-router
-  .delete('opengraph/textline/delete/:id', [OpenGraphsController, 'destroyTextLine'])
+  .delete('opengraph/textline/delete/:id', [TextLinesController, 'destroyTextLine'])
   .as('textLine.destroy')
   .use(middleware.auth())
-
-router.on('/jumpstart').render('pages/jumpstart').as('jumpstart')
-
-// ESSAI DE FORMULAIRE IMBRIQUES
 
 router.get('opengraph/textlines/new/:id', [TextLinesController, 'show']).as('textline.show')
 router
@@ -134,3 +122,5 @@ router
   .put('/settings/profile', [ProfileController, 'update'])
   .as('settings.profile.update')
   .use(middleware.auth())
+
+router.on('/jumpstart').render('pages/jumpstart').as('jumpstart')

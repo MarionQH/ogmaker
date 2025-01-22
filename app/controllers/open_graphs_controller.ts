@@ -1,5 +1,3 @@
-// import type { HttpContext } from '@adonisjs/core/http'
-
 import OpenGraph from '#models/open_graph'
 import TextLine from '#models/text_line'
 import { UrlMakerService } from '#services/url_maker_service'
@@ -37,7 +35,6 @@ export default class OpenGraphsController {
       prefixUrl: UrlMakerService.urlPrefix(validatedData.ogUrl),
       suffixUrl: UrlMakerService.urlSuffix(validatedData.ogUrl),
     })
-    // Modifier le champ ogUrl
     openGraph.ogUrl = await UrlMakerService.urlMakerWithoutText(openGraph)
     await openGraph.save()
 
@@ -50,33 +47,20 @@ export default class OpenGraphsController {
   }
 
   async update({ request, response, session }: HttpContext) {
-    // Récupérer les données envoyées par le formulaire
     const { id, name } = request.only(['id', 'name'])
 
     try {
-      // Trouver l'OpenGraph par ID
       const openGraph = await OpenGraph.findOrFail(id)
 
-      // Mettre à jour le nom
       openGraph.name = name
       await openGraph.save()
 
-      // Rediriger l'utilisateur après la mise à jour
       session.flash('success', 'OpenGraph name updated successfully!')
       return response.redirect().back()
     } catch (error) {
-      // Gérer les erreurs, par exemple si l'OpenGraph n'est pas trouvé
       session.flash('error', 'Failed to update the OpenGraph name.')
       return response.redirect().back()
     }
-  }
-
-  async show({ view, params }: HttpContext) {
-    const openGraph = await OpenGraph.query()
-      .where('id', params.id)
-      .preload('textline') // Charge les TextLine associés
-      .firstOrFail()
-    return view.render('pages/openGraph/edit', { openGraph })
   }
 
   async edit({ response, session, request, params }: HttpContext) {
@@ -103,64 +87,4 @@ export default class OpenGraphsController {
 
     return response.redirect().back()
   }
-
-  async destroyTextLine({ response, params, session }: HttpContext) {
-    try {
-      // Récupérer la TextLine avec son OpenGraph associé
-      const textLine = await TextLine.query()
-        .where('id', params.id)
-        .preload('openGraph') // Charge l'OpenGraph lié
-        .firstOrFail()
-
-      // Vérifier si l'OpenGraph existe bien (préchargé via preload)
-      const openGraph = textLine.openGraph
-      if (!openGraph) {
-        session.flash('error', 'Associated OpenGraph not found.')
-        return response.redirect().back()
-      }
-
-      // Mettre à jour l'ogUrl de l'OpenGraph sans la TextLine supprimée
-      const newOgUrl = await UrlMakerService.removeTextLineFromUrl(openGraph, textLine)
-      openGraph.merge({ ogUrl: newOgUrl })
-      await openGraph.save()
-
-      // Supprimer la TextLine
-      await textLine.delete()
-
-      // Message de succès
-      session.flash('success', 'TextLine successfully deleted!')
-    } catch (error) {
-      // Gestion des erreurs
-      console.error(error)
-      session.flash('error', 'An error occurred while deleting the TextLine.')
-    }
-
-    // Redirection vers la page précédente
-    return response.redirect().back()
-  }
-
-  async textlineIndex({ view, params }: HttpContext) {
-    const openGraph = await OpenGraph.query()
-      .where('id', params.id)
-      .preload('textline') // Charge les TextLine associés
-      .firstOrFail()
-
-    openGraph.textline.forEach((textline) => {
-      textline.text = UrlMakerService.replacePercent20WithSpace(textline.text)
-    })
-
-    return view.render('pages/textline/index', { openGraph })
-  }
-
-  // async store({ request, response, auth }: HttpContext) {
-  //   const { textline, ...data } = await request.validateUsing(openGraphsValidator)
-  //   if (auth.user) {
-  //     data.userId = auth.user.id
-  //   }
-  //   await db.transaction(async (trx) => {
-  //     const opengraph = await OpenGraph.create(data, { client: trx })
-  //     await OpenGraphService.syncTextline(opengraph, textline)
-  //   })
-  //   return response.redirect().toRoute('openGraphs.create')
-  // }
 }

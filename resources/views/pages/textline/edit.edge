@@ -22,15 +22,13 @@
         class="space-y-2"
       >
         {{ csrfField() }}
-        <!-- Card Name and URL -->
         <div class="border border-gray-300 rounded-xl bg-white p-6 shadow">
           <div class="flex items-center justify-between mb-4">
-            <!-- Texte à gauche -->
+
             <p class="text-lg font-semibold text-gray-800">
               Text appearance:
             </p>
 
-            <!-- SVG à droite avec le tooltip -->
             <div class="relative group">
               <svg
                 class="w-6 h-6 text-gray-800 hover:text-gray-700 cursor-pointer"
@@ -45,12 +43,12 @@
                   clip-rule="evenodd"
                 />
               </svg>
-              <!-- Tooltip -->
+
               <div
                 class="absolute top-full mt-2 w-48 bg-gray-900 text-white text-sm rounded-lg px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
               >
                 <div class="space-y-4">
-                  <!-- Ligne pour l'axe horizontal -->
+
                   <div>
                     <span class="font-bold">Text size:</span>
                     <span>choose an integer from 10 to 260 (px): 10 is the smallest size and 260 the largest</span>
@@ -68,7 +66,7 @@
           value: textLine.text,
           additionalClass: 'mb-6'
           })
-
+          {{-- utiliser une API --}}
           @form.inputfiltre({
           label: 'Police',
           name: 'textPolice',
@@ -195,12 +193,9 @@
           </div>
 
           <div class="flex items-center justify-between mb-4">
-            <!-- Texte à gauche -->
             <p class="text-lg font-semibold text-gray-800">
               Text Location:
             </p>
-
-            <!-- SVG à droite avec le tooltip -->
             <div class="relative group">
               <svg
                 class="w-6 h-6 text-gray-800 hover:text-gray-700 cursor-pointer"
@@ -215,18 +210,17 @@
                   clip-rule="evenodd"
                 />
               </svg>
-              <!-- Tooltip -->
+
               <div
                 class="absolute top-full mt-2 w-48 bg-gray-900 text-white text-sm rounded-lg px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
               >
                 <div class="space-y-4">
-                  <!-- Ligne pour l'axe horizontal -->
+
                   <div>
                     <span class="font-bold">Horizontal axis:</span>
                     <span>choose an integer from 1 to 900: 1 is on the left and 900 is on the right.</span>
                   </div>
 
-                  <!-- Ligne pour l'axe vertical -->
                   <div>
                     <span class="font-bold">Vertical axis:</span>
                     <span>choose an integer from 1 to 725: 1 is at the bottom and 725 is at the top.</span>

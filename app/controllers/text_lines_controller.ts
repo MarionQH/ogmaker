@@ -1,5 +1,3 @@
-// import type { HttpContext } from '@adonisjs/core/http'
-
 import OpenGraph from '#models/open_graph'
 import TextLine from '#models/text_line'
 import { UrlMakerService } from '#services/url_maker_service'
@@ -45,7 +43,6 @@ export default class TextLinesController {
     return response.redirect().back()
   }
 
-  // Méthode pour afficher le formulaire d'édition avec les données pré-remplies
   async edit({ view, params }: HttpContext) {
     const textLine = await TextLine.findOrFail(params.id)
     const openGraph = await OpenGraph.query()
@@ -59,10 +56,9 @@ export default class TextLinesController {
 
     textLine.text = UrlMakerService.replacePercent20WithSpace(textLine.text)
 
-    return view.render('pages/textline/edit', { textLine, openGraph }) // Passez textLine à la vue
+    return view.render('pages/textline/edit', { textLine, openGraph })
   }
 
-  // Méthode pour mettre à jour la textline
   async update({ request, response, params, session }: HttpContext) {
     const validatedData = await request.validateUsing(textValidator)
     const textLine = await TextLine.findOrFail(params.id)
@@ -80,5 +76,31 @@ export default class TextLinesController {
 
     session.flash('success', 'Textline successfully updated!')
     return response.redirect().toRoute('textline.show', { id: textLine.openGraphId })
+  }
+
+  async destroyTextLine({ response, params, session }: HttpContext) {
+    try {
+      const textLine = await TextLine.query()
+        .where('id', params.id)
+        .preload('openGraph')
+        .firstOrFail()
+
+      const openGraph = textLine.openGraph
+      if (!openGraph) {
+        session.flash('error', 'Associated OpenGraph not found.')
+        return response.redirect().back()
+      }
+      const newOgUrl = await UrlMakerService.removeTextLineFromUrl(openGraph, textLine)
+      openGraph.merge({ ogUrl: newOgUrl })
+      await openGraph.save()
+
+      await textLine.delete()
+      session.flash('success', 'TextLine successfully deleted!')
+    } catch (error) {
+      console.error(error)
+      session.flash('error', 'An error occurred while deleting the TextLine.')
+    }
+
+    return response.redirect().back()
   }
 }
