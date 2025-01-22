@@ -5,7 +5,7 @@ export class UrlMakerService {
   static async urlMaker(openGraph: OpenGraph) {
     const textLines = await TextLine.query().where('openGraphId', openGraph.id)
     const baseUrl = `${openGraph.prefixUrl}`
-    const part1 = `/c_scale,w_600,h_506,f_auto/w_1200%2Ch_830,q_100/`
+    const part1 = `/c_scale,w_900,h_506,f_auto/w_1200%2Ch_830,q_100/`
 
     const textJoin = textLines.map((textLine) => {
       return `l_text:${textLine.textPolice}_${textLine.textSize}_${textLine.textWeight}:${textLine.text},co_${textLine.textColor},c_fit,w_1400,h_240/fl_layer_apply,g_south_west,x_${textLine.textLongitude},y_${textLine.textLatitude}/`
@@ -19,7 +19,7 @@ export class UrlMakerService {
   }
   static async urlMakerWithoutText(openGraph: Partial<OpenGraph>) {
     const baseUrl = `${openGraph.prefixUrl}`
-    const part1 = `/c_scale,w_600,h_506,f_auto/w_1200%2Ch_830,q_100/`
+    const part1 = `/c_scale,w_900,h_506,f_auto/w_1200%2Ch_830,q_100/`
     const part2 = `${openGraph.suffixUrl}`
     const url = `${baseUrl}${part1}${part2}`
     return url
@@ -79,7 +79,7 @@ export class UrlMakerService {
     textLineToRemove: TextLine
   ): Promise<string> {
     const baseUrl = `${openGraph.prefixUrl}`
-    const part1 = `/c_scale,w_600,h_506,f_auto/w_1200%2Ch_830,q_100/`
+    const part1 = `/c_scale,w_900,h_506,f_auto/w_1200%2Ch_830,q_100/`
     const textLines = await TextLine.query().where('openGraphId', openGraph.id)
 
     // Construire les segments d'URL pour toutes les TextLines sauf celle à supprimer
@@ -100,7 +100,7 @@ export class UrlMakerService {
     updatedTextLine: TextLine
   ): Promise<string> {
     const baseUrl = `${openGraph.prefixUrl}`
-    const part1 = `/c_scale,w_600,h_506,f_auto/w_1200%2Ch_830,q_100/`
+    const part1 = `/c_scale,w_900,h_506,f_auto/w_1200%2Ch_830,q_100/`
     const textLines = await TextLine.query().where('openGraphId', openGraph.id)
 
     // Construire les segments d'URL avec la TextLine mise à jour
@@ -118,5 +118,52 @@ export class UrlMakerService {
     const url = `${baseUrl}${part1}${part2}${part3}`
 
     return url
+  }
+
+  static async extractAndCreateTextLinesFromUrl(ogUrl: string, openGraphId: number) {
+    // Décoder l'URL pour garantir une analyse correcte
+    ogUrl = decodeURIComponent(ogUrl)
+
+    // Définition du pattern pour extraire les informations des lignes de texte
+    const textLinePattern =
+      /l_text:(?<textPolice>[a-zA-Z0-9_]+)_(?<textSize>[0-9]+)_(?<textWeight>[a-zA-Z]+):(?<text>[^,]+),co_(?<textColor>[a-zA-Z0-9:]+),[^x]*x_(?<textLongitude>[0-9]+),y_(?<textLatitude>[0-9]+)/g
+
+    console.log('URL analysée:', ogUrl)
+    console.log('Regex utilisée:', textLinePattern)
+
+    // Extraction des correspondances avec le pattern
+    const matches = [...ogUrl.matchAll(textLinePattern)]
+    console.log('Matches trouvés:', matches)
+
+    // Si aucune correspondance, lever une erreur
+    if (matches.length === 0) {
+      console.log('No text lines found in the URL.')
+      return []
+    }
+
+    // Transformation des correspondances en objets TextLine
+    const textLines = matches.map((match) => ({
+      openGraphId: openGraphId,
+      textPolice: match.groups?.textPolice || '',
+      textSize: (match.groups?.textSize || '0').toString(),
+      textWeight: match.groups?.textWeight || '',
+      text: match.groups?.text || '',
+      textColor: match.groups?.textColor || '',
+      textLongitude: (match.groups?.textLongitude || '0').toString(),
+      textLatitude: (match.groups?.textLatitude || '0').toString(),
+    }))
+
+    // Validation des lignes extraites
+    textLines.forEach((line, index) => {
+      console.log(`Ligne ${index + 1}:`, line)
+    })
+
+    // Insérer chaque ligne de texte dans la base de données
+    for (const textLine of textLines) {
+      await TextLine.create(textLine)
+    }
+
+    // Retourner les lignes de texte créées pour un éventuel usage
+    return textLines
   }
 }

@@ -27,28 +27,29 @@ export default class OpenGraphsController {
     const validatedData = await request.validateUsing(openGraphsValidator, {
       meta: { userId: auth.user.id },
     })
-    const trx = await db.transaction()
     try {
-      const openGraph = await OpenGraph.create(
-        {
-          ...validatedData,
-          userId: auth.user.id,
-          prefixUrl: UrlMakerService.urlPrefix(validatedData.ogUrl),
-          suffixUrl: UrlMakerService.urlSuffix(validatedData.ogUrl),
-        },
-        { client: trx }
+      const openGraph = await OpenGraph.create({
+        ...validatedData,
+        userId: auth.user.id,
+        prefixUrl: UrlMakerService.urlPrefix(validatedData.ogUrl),
+        suffixUrl: UrlMakerService.urlSuffix(validatedData.ogUrl),
+      })
+
+      // Extraire et créer les TextLines à partir de l'URL
+      const textLines = await UrlMakerService.extractAndCreateTextLinesFromUrl(
+        validatedData.ogUrl,
+        openGraph.id
       )
-      openGraph.ogUrl = await UrlMakerService.urlMakerWithoutText(openGraph)
-      await openGraph.useTransaction(trx).save()
 
-      await trx.commit()
-
+      if (textLines.length === 0) {
+        openGraph.ogUrl = await UrlMakerService.urlMakerWithoutText(openGraph)
+        await openGraph.save()
+      }
       session.flash(
         'success',
         'OpenGraph successfully created! Check your OpenGraphs to edit and add text to them !'
       )
     } catch (error) {
-      await trx.rollback()
       console.error(error)
       session.flash('error', 'An error occurred while created the OpenGraph')
     }
