@@ -3,6 +3,14 @@ import app from '@adonisjs/core/services/app'
 import type { Config } from '@japa/runner/types'
 import { pluginAdonisJS } from '@japa/plugin-adonisjs'
 import testUtils from '@adonisjs/core/services/test_utils'
+import { config } from 'dotenv'
+
+// Charger les variables d'environnement en fonction de l'environnement
+if (process.env.NODE_ENV === 'testing') {
+  config({ path: '.env.test' })
+} else {
+  config()
+}
 
 /**
  * This file is imported by the "bin/test.ts" entrypoint file
@@ -15,7 +23,7 @@ import testUtils from '@adonisjs/core/services/test_utils'
 export const plugins: Config['plugins'] = [assert(), pluginAdonisJS(app)]
 
 /**
- * Configure lifecycle function to run before and after all the
+ * Configure lifecycle functions to run before and after all the
  * tests.
  *
  * The setup functions are executed before all the tests

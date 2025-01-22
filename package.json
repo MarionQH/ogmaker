@@ -8,7 +8,7 @@
     "start": "node bin/server.js",
     "build": "node ace build",
     "dev": "node ace serve --hmr",
-    "test": "node ace test",
+    "test": "cross-env NODE_ENV=testing node ace test",
     "lint": "eslint .",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit"
@@ -86,5 +86,8 @@
       "strtok3": "8.0.1"
     }
   },
-  "prettier": "@adonisjs/prettier-config"
+  "prettier": "@adonisjs/prettier-config",
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
 }
