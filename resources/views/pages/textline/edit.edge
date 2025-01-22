@@ -267,72 +267,85 @@
           Manage your textlines:
         </h2>
       </div>
-      <div class="max-w-4xl mx-auto px-4">
-        <div class="border border-gray-300 rounded-xl bg-white p-6 shadow mt-8">
-
-          <table class="table-auto border-collapse border border-gray-300 w-full text-left  mx-auto max-w-3xl">
-            <thead>
-              <tr class="bg-gray-100">
-                <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
-                  Text
-                </th>
-                <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
-                  Color
-                </th>
-                <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
-                  Weight
-                </th>
-                <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              @each(textline in openGraph.textline)
-                <tr class="hover:bg-gray-50">
-                  <td class="border border-gray-300 px-4 py-2 text-center">
-                    {{ textline.text }}
-                  </td>
-                  <td class="border border-gray-300 px-4 py-2 text-center">
-                    {{ textline.textColor }}
-                  </td>
-                  <td class="border border-gray-300 px-4 py-2 text-center">
-                    {{ textline.textWeight }}
-                  </td>
-                  <td class="border border-gray-300 px-4 py-2 text-center">
-                    <div class="flex space-x-2 justify-center">
-                      <a
-                        href="{{ route('textLine.edit', { id: textline.id }) }}"
-                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-md bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                      >
-                        Edit
-                    </a>
-                      <form
-                        method="POST"
-                        action="{{ route('textLine.destroy', { id: textline.id }, { qs: { _method: 'DELETE' }}) }}"
-                        onsubmit="return confirm('Do you really want to delete this textline?');"
-                      >
-                        {{ csrfField() }}
-                <button
-                          type="submit"
-                          class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-md bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                        >
-                          Delete
-                </button>
-                      </form>
-
-                    </div>
-                  </td>
+       <div class="max-w-4xl mx-auto px-4 mt-8">
+        <div class="border border-gray-300 rounded-xl bg-white p-6 shadow flex justify-center">
+          <!-- Conteneur du tableau -->
+          <div class="w-full overflow-hidden">
+            <table class="table-auto border-collapse border border-gray-300 mx-auto text-left w-full">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
+                    Text
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
+                    Color
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
+                    Weight
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
+                    Horizontal
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-600 text-center">
+                    Vertical
+                  </th>
+                  <th class="border border-gray-300 px-2 py-2 text-sm font-semibold text-gray-600 text-center w-32">
+                    Action
+                  </th>
                 </tr>
-              @endeach
-            </tbody>
-          </table>
-          @if (openGraph.textline.length === 0)
-            <p class="mx-auto text-xl font-black leading-none text-gray-900 select-none text-center mt-8">
-              You don't have any textline yet
-            </p>
-          @end
+              </thead>
+              <tbody>
+                @each(textline in openGraph.textline)
+                  <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                      {{ textline.text }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                      {{ textline.textColor }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                      {{ textline.textWeight }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                      {{ textline.textLongitude }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                      {{ textline.textLatitude }}
+                    </td>
+                    <td class="border border-gray-300 px-2 py-2 text-center">
+                      <div class="flex space-x-2 justify-center">
+                        <a
+                          href="{{ route('textLine.edit', { id: textline.id }) }}"
+                          class="inline-flex items-center justify-center px-3 py-1 text-sm font-medium text-white transition-colors rounded-md bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        >
+                          Edit
+                  </a>
+                        <form
+                          method="POST"
+                          action="{{ route('textLine.destroy', { id: textline.id }, { qs: { _method: 'DELETE' }}) }}"
+                          onsubmit="return confirm('Do you really want to delete this textline?');"
+                        >
+                          {{ csrfField() }}
+                    <button
+                            type="submit"
+                            class="inline-flex items-center justify-center px-3 py-1 text-sm font-medium text-white transition-colors rounded-md bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                          >
+                            Delete
+                    </button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                @endeach
+              </tbody>
+            </table>
+          </div>
         </div>
+        @if (openGraph.textline.length === 0)
+          <p class="mx-auto text-xl font-black leading-none text-gray-900 select-none text-center mt-8">
+            You don't have any textline yet
+          </p>
+        @end
       </div>
 
       <div class="bg-gray-100 border border-gray-400 rounded-xl shadow-md p-6 mt-8">
