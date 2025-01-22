@@ -53,3 +53,7 @@ Password : 12345678
 ## Type of URL needed for the OpenGraph's images
 
 Not all URLs works for uploading a new graph with an image. To ensure it works, you have to use an URL from [Cloudinary](https://cloudinary.com)
+
+## Testing
+
+If you want to try and do the tests, [everything you need to know is here](TESTING.md)
