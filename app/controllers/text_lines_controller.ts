@@ -56,6 +56,7 @@ export default class TextLinesController {
 
     textLine.text = UrlMakerService.replacePercent20WithSpace(textLine.text)
     textLine.textPolice = UrlMakerService.replacePercent20WithSpace(textLine.textPolice)
+    textLine.textColor = UrlMakerService.rgbToHex(textLine.textColor)
 
     return view.render('pages/textline/edit', { textLine, openGraph })
   }
