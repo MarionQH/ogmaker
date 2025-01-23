@@ -19,9 +19,13 @@ const ForgotPasswordController = () => import('#controllers/auth/forgot_password
 const ProfileController = () => import('#controllers/settings/profile_controller')
 const AccountController = () => import('#controllers/settings/account_controller')
 const HomeController = () => import('#controllers/home_controller')
+const InfosController = () => import('#controllers/http/infos_controller')
 
 // HOME
 router.get('/', [HomeController, 'index']).as('home')
+
+//INFOS
+router.get('/qna', [InfosController, 'infos']).as('qna')
 
 // OPENGRAPH
 router

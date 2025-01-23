@@ -1,0 +1,89 @@
+@layout()
+
+<div class="mx-auto text-3xl font-black text-center mt-8 text-gray-900">
+  <h1>OgMaker Q&A</h1>
+</div>
+
+<div class="bg-white shadow-lg rounded-lg p-6 mt-8 max-w-5xl mx-auto space-y-4">
+  <!-- About the Project -->
+  <div>
+    <button
+      class="w-full text-left font-semibold text-gray-900 bg-gray-100 px-4 py-3 rounded-lg shadow focus:outline-none focus:ring focus:ring-blue-300"
+      onclick="toggleAnswer('about-project')"
+    >
+      About the Project
+    </button>
+    <div id="about-project" class="hidden px-4 py-3 space-y-2">
+      <p><strong>What is OgMaker?</strong> OgMaker is a tool for generating URLs with your chosen images and text.</p>
+      <p><strong>Why did you create OgMaker?</strong> We created OgMaker to help people quickly and easily create images for their projects or other uses.</p>
+      <p><strong>Who is this tool for?</strong> OgMaker is for developers, marketers, designers, or anyone who needs it.</p>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div>
+    <button
+      class="w-full text-left font-semibold text-gray-900 bg-gray-100 px-4 py-3 rounded-lg shadow focus:outline-none focus:ring focus:ring-blue-300"
+      onclick="toggleAnswer('features')"
+    >
+      Features
+    </button>
+    <div id="features" class="hidden px-4 py-3 space-y-2">
+      <p><strong>What features does OgMaker offer?</strong> OgMaker lets you generate an image URL with the help of Cloudinary. You can add text to your chosen image with customizable options for color, font, size, and position.</p>
+      <p><strong>Can I use my own images for the cards?</strong> Yes, but you need to use the Cloudinary image URL.</p>
+      <p><strong>Does OgMaker support multiple languages?</strong> Not yet, but it’s in development.</p>
+    </div>
+  </div>
+
+  <!-- Usage -->
+  <div>
+    <button
+      class="w-full text-left font-semibold text-gray-900 bg-gray-100 px-4 py-3 rounded-lg shadow focus:outline-none focus:ring focus:ring-blue-300"
+      onclick="toggleAnswer('usage')"
+    >
+      Usage
+    </button>
+    <div id="usage" class="hidden px-4 py-3 space-y-2">
+      <p><strong>How do I get started with OgMaker?</strong> Provide a brief explanation or link to a guide/tutorial. (To be added later.)</p>
+      <p><strong>Do I need to create an account to use OgMaker?</strong> Yes, you need an account.</p>
+      <p><strong>Can I share the cards directly on social media?</strong> (To be added later.)</p>
+    </div>
+  </div>
+
+  <!-- Technical Details -->
+  <div>
+    <button
+      class="w-full text-left font-semibold text-gray-900 bg-gray-100 px-4 py-3 rounded-lg shadow focus:outline-none focus:ring focus:ring-blue-300"
+      onclick="toggleAnswer('technical-details')"
+    >
+      Technical Details
+    </button>
+    <div id="technical-details" class="hidden px-4 py-3 space-y-2">
+      <p><strong>Is OgMaker free to use?</strong> Yes, it is completely free!</p>
+      <p><strong>What technologies power OgMaker?</strong> OgMaker is built using AdonisJS, TailwindCSS, and PostgreSQL.</p>
+    </div>
+  </div>
+
+  <!-- Miscellaneous -->
+  <div>
+    <button
+      class="w-full text-left font-semibold text-gray-900 bg-gray-100 px-4 py-3 rounded-lg shadow focus:outline-none focus:ring focus:ring-blue-300"
+      onclick="toggleAnswer('miscellaneous')"
+    >
+      Miscellaneous
+    </button>
+    <div id="miscellaneous" class="hidden px-4 py-3 space-y-2">
+      <p><strong>What’s the story behind the name OgMaker?</strong> (To be added later.)</p>
+      <p><strong>Who worked on this project?</strong> (To be added later.)</p>
+      <p><strong>What are the future plans for OgMaker?</strong> (To be added later.)</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleAnswer(sectionId) {
+    const section = document.getElementById(sectionId);
+    section.classList.toggle('hidden');
+  }
+</script>
+@end
