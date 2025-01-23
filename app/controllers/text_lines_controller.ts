@@ -1,6 +1,7 @@
 import OpenGraph from '#models/open_graph'
 import TextLine from '#models/text_line'
 import { UrlMakerService } from '#services/url_maker_service'
+import { ApifontService } from '#services/apifont_service'
 import { textValidator } from '#validators/text'
 import { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
@@ -16,6 +17,15 @@ export default class TextLinesController {
       textline.text = UrlMakerService.replacePercent20WithSpace(textline.text)
       textline.textPolice = UrlMakerService.replacePercent20WithSpace(textline.textPolice)
     })
+
+    ApifontService.fetchGoogleFonts()
+      .then((data: { items: any[] }) => {
+        const fontFamilies = data.items.map((item) => item.family)
+        console.log('Familles de polices :', fontFamilies)
+      })
+      .catch((error: any) => {
+        console.error('Erreur :', error)
+      })
     return view.render('pages/textline/create', { openGraph })
   }
 
