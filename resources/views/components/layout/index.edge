@@ -21,18 +21,20 @@
             <a href="{{ route('home') }}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Home</a>
             @if (await auth.check())
             <a href="{{ route('openGraphs.index') }}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">OpenGraph</a>
-            <a href="{{ route('openGraphs.create')}}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Create OpenGraph</a>
+            <a href="{{ route('openGraphs.create') }}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Create OpenGraph</a>
             @endif
+            <!-- Added Q&A Link -->
+            <a href="{{ route('qna') }}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Q&A</a>
           </nav>
         </div>
-
+    
         <div class="inline-flex items-center ml-5 space-x-3 lg:justify-end">
           @if (await auth.check())
           <div x-data="{ dropdownOpen: false }" class="relative">
             <button @click="dropdownOpen=true" class="inline-flex items-center justify-center w-10 h-10 text-sm font-medium transition-colors bg-white border rounded-full hover:bg-gray-100 active:bg-white focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-200/60 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none">
               @!svg('ph:user', { class: 'w-5 h-5' })
             </button>
-
+    
             <div
               x-show="dropdownOpen"
               @click.away="dropdownOpen=false"
@@ -49,9 +51,9 @@
                 <a href="{{ route('settings.account') }}" @click="menuBarOpen=false" class="relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-gray-100 hover:text-gray-900 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
                   <span>Account Settings</span>
                 </a>
-
+    
                 <div class="h-px my-1 -mx-1 bg-gray-200"></div>
-
+    
                 @form({ action: route('auth.logout') })
                 <button type="submit" class="relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-gray-100 hover:text-gray-900 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
                   <span>Logout</span>
@@ -64,7 +66,7 @@
           @button({ href: route('auth.login.show'), variant: 'ghost' })
           Login
           @end
-
+    
           @button({ href: route('auth.register.show') })
           Register
           @end
@@ -72,6 +74,7 @@
         </div>
       </div>
     </header>
+    
     <!-- End Header -->
 
     <!-- Main Content -->
@@ -82,15 +85,15 @@
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-4">
       <div class="container mx-auto flex flex-wrap items-center justify-between px-4">
-        <!-- Left Section: Logo and Text -->
+        <!-- Logo and Text -->
         <div class="flex items-center space-x-2">
           <!-- Logo -->
           <img src="/public/favicon.ico" alt="OgMaker Logo" class="h-8 w-8">
           <!-- Text -->
-          <span class="text-sm">© Tout droit réservé - OgMaker</span>
+          <span class="text-sm">© All rights reserved - OgMaker</span>
         </div>
 
-        <!-- Right Section: GitHub Link -->
+        <!-- Links -->
         <div>
           <a href="https://github.com/MarionQH/ogmaker" target="_blank" class="text-gray-400 hover:text-white">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
