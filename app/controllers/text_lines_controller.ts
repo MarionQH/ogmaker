@@ -1,10 +1,10 @@
 import OpenGraph from '#models/open_graph'
 import TextLine from '#models/text_line'
 import { UrlMakerService } from '#services/url_maker_service'
+import { ApifontService } from '#services/apifont_service'
 import { textValidator } from '#validators/text'
 import { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
-import { log } from 'node:console'
 
 export default class TextLinesController {
   async show({ view, params }: HttpContext) {
@@ -17,28 +17,19 @@ export default class TextLinesController {
       textline.text = UrlMakerService.replacePercent20WithSpace(textline.text)
       textline.textPolice = UrlMakerService.replacePercent20WithSpace(textline.textPolice)
     })
+
+    ApifontService.fetchGoogleFonts()
+      .then((data: { items: any[] }) => {
+        const fontFamilies = data.items.map((item) => item.family)
+        console.log('Familles de polices :', fontFamilies)
+      })
+      .catch((error: any) => {
+        console.error('Erreur :', error)
+      })
     return view.render('pages/textline/create', { openGraph })
   }
 
   async create({ request, response, session, params }: HttpContext) {
-    const API_URL = `https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBicTt2n0zylKvLZ04aMAIguZFF5YY1ZSw`
-    const results = await fetch(API_URL)
-    if (!results.ok) {
-      throw new Error('Erreur lors de la récupération des polices.')
-    }
-    type GoogleFontsApiResponse = {
-      items: {
-        family: string
-        variants: string[]
-        subsets: string[]
-        category: string
-      }[]
-    }
-    const data = (await response.json()) as GoogleFontsApiResponse
-    const fontFamilies = data.items.map((item) => item.family)
-
-    console.log(fontFamilies)
-
     const openGraph = await OpenGraph.findOrFail(params.id)
     const validatedData = await request.validateUsing(textValidator)
     try {

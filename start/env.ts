@@ -50,4 +50,11 @@ export default await Env.create(new URL('../', import.meta.url), {
   |----------------------------------------------------------
   */
   APP_URL: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring API connection
+  |----------------------------------------------------------
+  */
+  GOOGLE_FONTS_API_KEY: Env.schema.string(),
 })
