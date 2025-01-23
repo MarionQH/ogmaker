@@ -1,7 +1,7 @@
 import OpenGraph from '#models/open_graph'
 import TextLine from '#models/text_line'
 import { UrlMakerService } from '#services/url_maker_service'
-import { ApifontService } from '#services/apifont_service'
+import { ApipoliceService } from '#services/apipolice_service'
 import { textValidator } from '#validators/text'
 import { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
@@ -18,15 +18,10 @@ export default class TextLinesController {
       textline.textPolice = UrlMakerService.replacePercent20WithSpace(textline.textPolice)
     })
 
-    ApifontService.fetchGoogleFonts()
-      .then((data: { items: any[] }) => {
-        const fontFamilies = data.items.map((item) => item.family)
-        console.log('Familles de polices :', fontFamilies)
-      })
-      .catch((error: any) => {
-        console.error('Erreur :', error)
-      })
-    return view.render('pages/textline/create', { openGraph })
+    const latinFontFamilies = await ApipoliceService.getLatinFonts()
+    console.log('Polices qui supportent le latin :', latinFontFamilies)
+
+    return view.render('pages/textline/create', { openGraph, latinFontFamilies })
   }
 
   async create({ request, response, session, params }: HttpContext) {
@@ -68,7 +63,10 @@ export default class TextLinesController {
     textLine.textPolice = UrlMakerService.replacePercent20WithSpace(textLine.textPolice)
     textLine.textColor = UrlMakerService.rgbToHex(textLine.textColor)
 
-    return view.render('pages/textline/edit', { textLine, openGraph })
+    const latinFontFamilies = await ApipoliceService.getLatinFonts()
+    console.log('Polices qui supportent le latin :', latinFontFamilies)
+
+    return view.render('pages/textline/edit', { textLine, openGraph, latinFontFamilies })
   }
 
   async update({ request, response, params, session }: HttpContext) {
