@@ -14,6 +14,7 @@ export default class TextLinesController {
 
     openGraph.textline.forEach((textline) => {
       textline.text = UrlMakerService.replacePercent20WithSpace(textline.text)
+      textline.textPolice = UrlMakerService.replacePercent20WithSpace(textline.textPolice)
     })
     return view.render('pages/textline/create', { openGraph })
   }
@@ -54,6 +55,8 @@ export default class TextLinesController {
     })
 
     textLine.text = UrlMakerService.replacePercent20WithSpace(textLine.text)
+    textLine.textPolice = UrlMakerService.replacePercent20WithSpace(textLine.textPolice)
+    textLine.textColor = UrlMakerService.rgbToHex(textLine.textColor)
 
     return view.render('pages/textline/edit', { textLine, openGraph })
   }

@@ -90,7 +90,7 @@
             <option value="Impact" {{ textLine.textPolice == 'Impact' ? 'selected' : '' }}>
               Impact
             </option>
-            <option value="Montserrat" {{ textPolice == 'Montserrat' ? 'selected' : '' }}>
+            <option value="Montserrat" {{ textLine.textPolice == 'Montserrat' ? 'selected' : '' }}>
               Montserrat
             </option>
             <option value="Open%20Sans" {{ textLine.textPolice == 'Open%20Sans' ? 'selected' : '' }}>
@@ -173,7 +173,7 @@
                 type="color"
                 id="textColor"
                 name="textColor"
-                value="{{ textColor }}"
+                value="{{ textLine.textColor }}"
                 class="w-full h-10 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               />
               <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">

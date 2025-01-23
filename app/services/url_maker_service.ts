@@ -66,6 +66,23 @@ export class UrlMakerService {
     return `rgb:${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toLowerCase()
   }
 
+  static rgbToHex(rgb: string): string {
+    // Vérifier si le format est correct
+    if (!rgb.startsWith('rgb:') || rgb.length !== 10) {
+      throw new Error('Le format RGB attendu est "rgb:XXXXXX" où XXXXXX représente les couleurs.')
+    }
+
+    // Extraire les valeurs hexadécimales après "rgb:"
+    const hex = rgb.substring(4).toLowerCase()
+
+    // Vérifier que les caractères extraits sont bien en format hexadécimal
+    if (!/^[0-9a-f]{6}$/.test(hex)) {
+      throw new Error('Les caractères après "rgb:" doivent être un code hexadécimal valide.')
+    }
+
+    return `#${hex}`
+  }
+
   static replaceSpaces(input: string): string {
     return input.replace(/ /g, '%20')
   }
