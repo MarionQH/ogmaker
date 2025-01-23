@@ -67,19 +67,30 @@ export class UrlMakerService {
   }
 
   static rgbToHex(rgb: string): string {
-    // Vérifier si le format est correct
-    if (!rgb.startsWith('rgb:') || rgb.length !== 10) {
-      throw new Error('Le format RGB attendu est "rgb:XXXXXX" où XXXXXX représente les couleurs.')
+    // Vérifier si le format commence par "rgb:"
+    if (!rgb.startsWith('rgb:')) {
+      throw new Error('Le format RGB attendu est "rgb:XXXXXX" ou "rgbXXX".')
     }
 
-    // Extraire les valeurs hexadécimales après "rgb:"
-    const hex = rgb.substring(4).toLowerCase()
+    // Extraire les valeurs après "rgb:"
+    let hex = rgb.substring(4).toLowerCase()
 
-    // Vérifier que les caractères extraits sont bien en format hexadécimal
+    // Si le format est compact (ex: rgb000), le convertir au format standard (ex: rgb:000000)
+    if (/^[0-9a-f]{3}$/.test(hex)) {
+      hex = hex
+        .split('')
+        .map((char) => char + char)
+        .join('')
+    }
+
+    // Vérifier que le format est maintenant valide (6 caractères hexadécimaux)
     if (!/^[0-9a-f]{6}$/.test(hex)) {
-      throw new Error('Les caractères après "rgb:" doivent être un code hexadécimal valide.')
+      throw new Error(
+        'Les caractères après "rgb:" doivent être un code hexadécimal valide de 3 ou 6 caractères.'
+      )
     }
 
+    // Retourner le code hexadécimal avec un #
     return `#${hex}`
   }
 
