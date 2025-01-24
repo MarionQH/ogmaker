@@ -76,10 +76,12 @@ export default class OpenGraphsController {
     return response.redirect().back()
   }
 
-  async destroy({ response, params }: HttpContext) {
+  async destroy({ response, params, session }: HttpContext) {
     const openGraph = await OpenGraph.findOrFail(params.id)
 
     await openGraph.delete()
+
+    session.flash('success', 'OpenGraph deleted successfully!')
 
     return response.redirect().back()
   }
