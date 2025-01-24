@@ -53,6 +53,7 @@
     "@types/luxon": "^3.4.2",
     "@types/node": "^22.10.2",
     "@vinejs/vine": "^3.0.0",
+    "alpinejs": "^3.14.8",
     "autoprefixer": "^10.4.20",
     "edge-iconify": "^2.0.1",
     "edge.js": "^6.2.0",
