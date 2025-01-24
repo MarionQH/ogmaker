@@ -61,62 +61,18 @@
           additionalClass: 'mb-6'
           })
           {{-- utiliser une API --}}
-          @form.inputfiltre({
+
+          @form.selectsearch({
           label: 'Police',
           name: 'textPolice',
-          type: 'select',
-          placeholder: 'Choose a font',
-          value: textLine.textPolice,
-          additionalClass: 'mb-6'
+          placeholder: 'Search and select a font',
+          value: textLine.textPolice
           })
-            <option value="Arial" {{ textLine.textPolice == 'Arial' ? 'selected' : '' }}>
-              Arial
-            </option>
-            <option value="Courier" {{ textLine.textPolice == 'Courier' ? 'selected' : '' }}>
-              Courier
-            </option>
-            <option value="Courier%20New" {{ textLine.textPolice == 'Courier%20New' ? 'selected' : '' }}>
-              Courier New
-            </option>
-            <option value="Dancing%20Script" {{ textLine.textPolice == 'Dancing%20Script' ? 'selected' : '' }}>
-              Dancing Script
-            </option>
-            <option value="Georgia" {{ textLine.textPolice == 'Georgia' ? 'selected' : '' }}>
-              Georgia
-            </option>
-            <option value="Helvetica" {{ textLine.textPolice == 'Helvetica' ? 'selected' : '' }}>
-              Helvetica
-            </option>
-            <option value="Impact" {{ textLine.textPolice == 'Impact' ? 'selected' : '' }}>
-              Impact
-            </option>
-            <option value="Montserrat" {{ textLine.textPolice == 'Montserrat' ? 'selected' : '' }}>
-              Montserrat
-            </option>
-            <option value="Open%20Sans" {{ textLine.textPolice == 'Open%20Sans' ? 'selected' : '' }}>
-              Open Sans
-            </option>
-            <option value="Pacifico" {{ textLine.textPolice == 'Pacifico' ? 'selected' : '' }}>
-              Pacifico
-            </option>
-            <option value="Palatino" {{ textLine.textPolice == 'Palatino' ? 'selected' : '' }}>
-              Palatino
-            </option>
-            <option value="Roboto" {{ textLine.textPolice == 'Roboto' ? 'selected' : '' }}>
-              Roboto
-            </option>
-            <option value="Times" {{ textLine.textPolice == 'Times' ? 'selected' : '' }}>
-              Times
-            </option>
-            <option value="Times%20New%20Roman" {{ textLine.textPolice == 'Times%20New%20Roman' ? 'selected' : '' }}>
-              Times New Roman
-            </option>
-            <option value="Ubuntu" {{ textLine.textPolice == 'Ubuntu' ? 'selected' : '' }}>
-              Ubuntu
-            </option>
-            <option value="Verdana" {{ textLine.textPolice == 'Verdana' ? 'selected' : '' }}>
-              Verdana
-            </option>
+            @each (font in latinFontFamilies)
+              <option value="{{ font }}">
+                {{ font }}
+              </option>
+            @endeach
           @end
           
           @!form.inputfiltre({

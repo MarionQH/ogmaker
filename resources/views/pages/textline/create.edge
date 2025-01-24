@@ -6,7 +6,7 @@
   </div>
   <div class="bg-white shadow-lg rounded-lg p-10 mt-12 max-w-6xl mx-auto">
     <div class="relative max-w-3xl mx-auto p-8 bg-gray-100 rounded-lg shadow-md">
-      @!openGraph.image({ openGraph}) 
+      @!openGraph.image({ openGraph})
       <form
         id="opengraphForm"
         enctype="multipart/form-data"
@@ -48,6 +48,10 @@
                     <span class="font-bold">Text size:</span>
                     <span>choose an integer from 10 to 260 (px): 10 is the smallest size and 260 the largest</span>
                   </div>
+                   <div>
+                    <span class="font-bold">Text police:</span>
+                    <span>If some fonts are not supported, you can download them from google font and load them onto cloudinary to use them.</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -62,64 +66,19 @@
           additionalClass: 'mb-6'
           })
 
-          @form.inputfiltre({
+          @form.selectsearch({
           label: 'Police',
           name: 'textPolice',
-          type: 'select',
-          placeholder: 'Choose a font',
-          value: textPolice,
-          additionalClass: 'mb-6'
+          placeholder: 'Search and select a font',
+          value: textPolice
           })
-            <option value="Arial" {{ textPolice == 'Arial' ? 'selected' : '' }}>
-              Arial
-            </option>
-            <option value="Courier" {{ textPolice == 'Courier' ? 'selected' : '' }}>
-              Courier
-            </option>
-            <option value="Courier New" {{ textPolice == 'Courier%20New' ? 'selected' : '' }}>
-              Courier New
-            </option>
-            <option value="Dancing Script" {{ textPolice == 'Dancing%20Script' ? 'selected' : '' }}>
-              Dancing Script
-            </option>
-            <option value="Georgia" {{ textPolice == 'Georgia' ? 'selected' : '' }}>
-              Georgia
-            </option>
-            <option value="Helvetica" {{ textPolice == 'Helvetica' ? 'selected' : '' }}>
-              Helvetica
-            </option>
-            <option value="Impact" {{ textPolice == 'Impact' ? 'selected' : '' }}>
-              Impact
-            </option>
-            <option value="Montserrat" {{ textPolice == 'Montserrat' ? 'selected' : '' }}>
-              Montserrat
-            </option>
-            <option value="Open Sans" {{ textPolice == 'Open%20Sans' ? 'selected' : '' }}>
-              Open Sans
-            </option>
-            <option value="Pacifico" {{ textPolice == 'Pacifico' ? 'selected' : '' }}>
-              Pacifico
-            </option>
-            <option value="Palatino" {{ textPolice == 'Palatino' ? 'selected' : '' }}>
-              Palatino
-            </option>
-            <option value="Roboto" {{ textPolice == 'Roboto' ? 'selected' : '' }}>
-              Roboto
-            </option>
-            <option value="Times" {{ textPolice == 'Times' ? 'selected' : '' }}>
-              Times
-            </option>
-            <option value="Times New Roman" {{ textPolice == 'Times%20New%20Roman' ? 'selected' : '' }}>
-              Times New Roman
-            </option>
-            <option value="Ubuntu" {{ textPolice == 'Ubuntu' ? 'selected' : '' }}>
-              Ubuntu
-            </option>
-            <option value="Verdana" {{ textPolice == 'Verdana' ? 'selected' : '' }}>
-              Verdana
-            </option>
+            @each (font in latinFontFamilies)
+              <option value="{{ font }}">
+                {{ font }}
+              </option>
+            @endeach
           @end
-          
+                   
           @!form.inputfiltre({
           label: 'Size 10 - 260',
           name: 'textSize',

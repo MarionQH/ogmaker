@@ -1,0 +1,36 @@
+@let(valueOld = name ? old(name) : '')
+@let(value = $props.value || valueOld)
+
+<div class="flex flex-col mt-2">
+  <!-- Label -->
+  @if ($slots.label || label)
+    <label class="text-base font-bold mb-2">
+      @if ($slots.label)
+        {{{ await $slots.label() }}}
+      @else
+        {{ label }}
+      @endif
+    </label>
+  @endif
+
+  <!-- Input avec datalist -->
+  <input type="text"
+         list="{{ name }}-list"
+         name="{{ name || '' }}"
+         placeholder="{{ placeholder || 'Choose or search...' }}"
+         value="{{ value || '' }}"
+         class="py-3 px-4 block w-full border border-gray-200 rounded text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none {{ additionalClass || '' }}" />
+
+  <datalist id="{{ name }}-list">
+    {{{ await $slots.main() }}}
+  </datalist>
+
+  <!-- Message d'erreur -->
+  @if(name)
+    @inputError(name)
+      <p class="text-sm text-red-500 mt-2">
+        {{ $messages.join(', ') }}
+      </p>
+    @end
+  @endif
+</div>
