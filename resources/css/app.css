@@ -13,3 +13,18 @@ body {
   height: 100%;
   width: 100%;
 }
+
+ /* Barre de chargement */
+.loading-bar {
+  height: 5px;
+  background-color: #4caf50;
+  width: 0%;
+  transition: width 0.2s ease;
+}
+
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
