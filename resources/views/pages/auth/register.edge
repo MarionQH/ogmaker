@@ -15,7 +15,7 @@
 
   <div class="mt-5">
     @form({ action: form.post('auth.register.store'), class: 'grid gap-y-4' })
-    <!-- Champ honeypot --><div style=""><label for="honeypot">Si vous êtes humain, ne cochez pas cette case :</label><input type="checkbox" name="honeypot" id="honeypot"></div>
+    <div style="display: none"><label for="realregister">If yore'u nto humna, plaese chcek tihs :</label><input type="checkbox" name="realregister" id="realregister"></div>
       @form.group({ label: 'Full name', name: 'fullName' })
         @!form.input()
       @end
