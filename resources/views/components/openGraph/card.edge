@@ -1,8 +1,9 @@
 <div class="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white">
-  <img 
-    src="{{ openGraph.ogUrl }}" 
-    class="w-full h-56 object-contain bg-gray-100" 
+  <img
+    src="{{ openGraph.ogUrl }}"
+    class="w-full h-56 object-contain bg-gray-100"
     alt="OpenGraph Image"
+    onerror="handleImageError(this)"
   />
   <div class="p-4">
     <div class="flex items-center justify-between mb-2">
@@ -31,7 +32,7 @@
           </svg>
         </button>
       </div>
-      <a href="{{ openGraph.ogUrl }}" target="_blank" class ="w-5 h-5 align-middle"> Url </a>
+      <a href="{{ openGraph.ogUrl }}" target="_blank" class="w-5 h-5 align-middle">Url </a>
     </div>
     <a
       href="{{ route('textline.show', { id: openGraph.id }) }}"
@@ -54,3 +55,14 @@
     </form>
   </div>
 </div>
+
+<script>
+  function handleImageError(imgElement) {
+    // Remplace l'image par défaut ou affiche un message d'erreur
+    imgElement.style.display = "none"; // Cache l'image défectueuse
+    const errorMessage = document.createElement("div");
+    errorMessage.classList.add("text-center", "text-gray-500", "font-bold", "text-sm", "mt-4", "p-16");
+    errorMessage.innerText = "There's something wrong with your url, which may be due to the font.";
+    imgElement.parentNode.insertBefore(errorMessage, imgElement);
+  }
+</script>

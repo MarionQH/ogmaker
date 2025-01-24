@@ -33,6 +33,7 @@ export default class TextLinesController {
         openGraphId: openGraph.id,
         textColor: UrlMakerService.hexToRgb(validatedData.textColor),
         text: UrlMakerService.replaceSpaces(validatedData.text),
+        textPolice: UrlMakerService.replaceSpaces(validatedData.textPolice),
       })
       const newOgUrl = await UrlMakerService.urlMaker(openGraph)
 
@@ -78,6 +79,7 @@ export default class TextLinesController {
         ...validatedData,
         text: UrlMakerService.replaceSpaces(validatedData.text),
         textColor: UrlMakerService.hexToRgb(validatedData.textColor),
+        textPolice: UrlMakerService.replaceSpaces(validatedData.textPolice),
       })
       await textLine.useTransaction(trx).save()
 
