@@ -13,13 +13,13 @@ export function loadingBar() {
                 }
             }, 200);
 
-            // Lorsque la page est complètement chargée
+            // Mise à jour de la barre de progression après le chargement des images
             window.addEventListener('load', () => {
                 this.progress = 100; // Passe directement à 100%
                 setTimeout(() => {
                     this.isLoaded = true; // Change l'état à `true`
                 }, 500); // Attente de 500ms avant de masquer la barre
             });
-        },
+        }
     };
 }

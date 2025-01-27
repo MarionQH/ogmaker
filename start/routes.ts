@@ -50,13 +50,22 @@ router
   .use(middleware.auth())
 
 // TEXTLINES
-router.get('opengraph/textline/new/:id', [TextLinesController, 'show']).as('textline.show')
+router
+  .get('opengraph/textline/new/:id', [TextLinesController, 'show'])
+  .as('textline.show')
+  .use(middleware.auth())
 router
   .post('opengraph/textline/new/:id', [TextLinesController, 'create'])
   .as('textline.create')
   .use(middleware.auth())
-router.get('opengraph/textline/edit/:id', [TextLinesController, 'edit']).as('textLine.edit')
-router.post('opengraph/textline/update/:id', [TextLinesController, 'update']).as('textLine.update')
+router
+  .get('opengraph/textline/edit/:id', [TextLinesController, 'edit'])
+  .as('textLine.edit')
+  .use(middleware.auth())
+router
+  .post('opengraph/textline/update/:id', [TextLinesController, 'update'])
+  .as('textLine.update')
+  .use(middleware.auth())
 router
   .delete('opengraph/textline/delete/:id', [TextLinesController, 'destroyTextLine'])
   .as('textLine.destroy')
