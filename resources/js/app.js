@@ -8,52 +8,59 @@ import { openEditPopup, closeEditPopup } from './namepopup.js';
 // Déclare le composant `loadingBar` pour Alpine
 window.Alpine = Alpine;
 
+// Initialisation du composant loadingBar dans Alpine
 document.addEventListener('alpine:init', () => {
     Alpine.data('loadingBar', loadingBar);
 });
 
-// Gestion des erreurs pour les images générales
-const globalImages = document.querySelectorAll('.global-img');
-globalImages.forEach((img) => {
-  img.addEventListener('error', () => handleImageError(img));
-});
+// Fonction pour gérer les erreurs d'image (image générale et image de formulaire)
+function setupImageErrorHandling() {
+  // Gestion des erreurs pour les images générales
+  const globalImages = document.querySelectorAll('.global-img');
+  globalImages.forEach((img) => {
+    img.addEventListener('error', () => handleImageError(img));
+  });
 
-// Gestion des erreurs pour les images des formulaires
-const formImages = document.querySelectorAll('.form-img');
-formImages.forEach((img) => {
-  img.addEventListener('error', () => handleImageErrorform(img));
-});
+  // Gestion des erreurs pour les images des formulaires
+  const formImages = document.querySelectorAll('.form-img');
+  formImages.forEach((img) => {
+    img.addEventListener('error', () => handleImageErrorform(img));
+  });
+}
 
-// Attache un gestionnaire d'événements après le chargement du DOM
-document.addEventListener('DOMContentLoaded', () => {
+// Fonction pour gérer le bouton de copie
+function setupCopyButton() {
   const copyButton = document.querySelector('[data-action="copy-url"]');
   if (copyButton) {
     copyButton.addEventListener('click', copyToClipboard);
   }
-});
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Gère le clic sur les boutons d'édition
+// Fonction pour gérer les boutons d'édition
+function setupEditButtons() {
   document.querySelectorAll('.edit-button').forEach((button) => {
     button.addEventListener('click', (event) => {
-      const id = button.dataset.id; // Récupère l'ID
-      const name = button.dataset.name; // Récupère le nom
+      const id = button.dataset.id;  // Récupère l'ID
+      const name = button.dataset.name;  // Récupère le nom
       openEditPopup(id, name);
     });
   });
 
-  // Gère le clic sur le bouton de fermeture
+  // Gestion du clic sur le bouton de fermeture de la popup
   const closeButton = document.querySelector('#editPopup button[onclick="closeEditPopup()"]');
   if (closeButton) {
-    closeButton.addEventListener('click', () => {
-      closeEditPopup();
-    });
+    closeButton.addEventListener('click', closeEditPopup);
   }
+}
+
+// Lancer les initialisations une fois que le DOM est chargé
+document.addEventListener('DOMContentLoaded', () => {
+  setupImageErrorHandling();  // Configurer la gestion des erreurs pour les images
+  setupCopyButton();  // Configurer le bouton de copie
+  setupEditButtons();  // Configurer les boutons d'édition
 });
 
-
-
-// Lance Alpine.js
+// Démarre Alpine.js
 Alpine.start();
 
 console.log('Alpine.js et loadingBar initialisés avec succès');
