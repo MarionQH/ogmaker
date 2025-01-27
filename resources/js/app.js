@@ -1,34 +1,15 @@
 import Alpine from 'alpinejs';
-import { loadingBar } from './loadingbar.js';
-import { handleImageError } from './imageerror.js';
-import { handleImageErrorform } from './formimageerror.js';
 import { copyToClipboard } from './copyurl.js';
 import { openEditPopup, closeEditPopup } from './namepopup.js';
+import 'unpoly/unpoly.css';
+import 'unpoly/unpoly.js';
 
 // Déclare le composant `loadingBar` pour Alpine
 window.Alpine = Alpine;
 
-// Initialisation du composant loadingBar dans Alpine
-document.addEventListener('alpine:init', () => {
-    Alpine.data('loadingBar', loadingBar);
-});
-
-// Fonction pour gérer les erreurs d'image (image générale et image de formulaire)
-function setupImageErrorHandling() {
-  // Gestion des erreurs pour les images générales
-  const globalImages = document.querySelectorAll('.global-img');
-  globalImages.forEach((img) => {
-    img.addEventListener('error', () => handleImageError(img));
-  });
-
-  // Gestion des erreurs pour les images des formulaires
-  const formImages = document.querySelectorAll('.form-img');
-  formImages.forEach((img) => {
-    img.addEventListener('error', () => handleImageErrorform(img));
-  });
-}
-
-// Fonction pour gérer le bouton de copie
+/**
+ * Fonction pour gérer le bouton de copie d'URL.
+ */
 function setupCopyButton() {
   const copyButton = document.querySelector('[data-action="copy-url"]');
   if (copyButton) {
@@ -53,45 +34,39 @@ function setupEditButtons() {
   }
 }
 
-function checkLoadingCompletion() {
-    // Sélectionne toutes les images
-    const allImages = document.querySelectorAll('img');
-    let loadedImages = 0;
+// function spinner() {
+//   const spinner = document.getElementById('loading-spinner'); // Le spinner
+//   const image = document.getElementById('openGraphImage'); // L'image à charger
 
-    allImages.forEach(img => {
-        if (img.complete || img.style.display === "none") {
-            loadedImages++;
-        }
-    });
+//   // Fonction pour afficher le spinner
+//   function showSpinner() {
+//     spinner.classList.remove('hidden');  // Afficher le spinner
+//   }
 
-    // Si toutes les images sont chargées (ou échouées), mettre à jour la barre de progression
-    if (loadedImages === allImages.length) {
-        // Mise à jour de la barre de progression (fin de chargement)
-        const alpineData = document.querySelector('[x-data="loadingBar()"]');
-        if (alpineData) {
-            alpineData.__x.$data.isLoaded = true;
-        }
-    }
-}
+//   // Fonction pour cacher le spinner lorsque l'image est chargée
+//   function hideSpinner() {
+//     spinner.classList.add('hidden');  // Cacher le spinner
+//   }
+
+//   // Afficher le spinner au début du chargement de l'image
+//   showSpinner();
+
+//   // Vérifier si l'image est déjà dans le cache
+//   if (image.complete) {
+//     hideSpinner(); // Si l'image est déjà complètement chargée (cache), cacher le spinner
+//   } else {
+//     // Sinon, attacher les événements d'image
+//     image.onload = hideSpinner; // Masquer le spinner une fois l'image chargée
+//     image.onerror = function() {  // En cas d'erreur, cacher le spinner et afficher un message d'erreur
+//       hideSpinner();};  
+//   }
+// }
 
 document.addEventListener('DOMContentLoaded', () => {
-    setupImageErrorHandling(); 
-    setupCopyButton();
-    setupEditButtons();
-
-    // Ajouter des événements pour surveiller le chargement des images
-    const images = document.querySelectorAll('img');
-    images.forEach((img) => {
-        img.addEventListener('load', () => checkLoadingCompletion());
-        img.addEventListener('error', () => checkLoadingCompletion());
-    });
-
-    // Vérifier l'état des images au départ
-    checkLoadingCompletion();
+  setupCopyButton(); // Initialisation du bouton de copie
+  setupEditButtons(); // Initialisation des boutons d'édition
+  // spinner();
 });
 
-
-Alpine.start();
-
-
-console.log('Alpine.js et loadingBar initialisés avec succès');
+// Démarrage d'Alpine.js
+  Alpine.start();

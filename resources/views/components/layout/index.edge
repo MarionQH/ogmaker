@@ -14,17 +14,8 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
-  <body class="bg-gray-100 flex flex-col min-h-screen" x-data="loadingBar()" x-init="startLoading()">
-     <!-- Barre de chargement gérée par Alpine.js -->
-    <div 
-        class="loading-bar" 
-        :style="{ width: progress + '%' }" 
-        x-show="!isLoaded"
-        x-transition:leave="transition-opacity ease-linear duration-300"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0">
-    </div>
-    </div>
+  <body class="bg-gray-100 flex flex-col min-h-screen">
+  
     <header class="w-full px-8 text-gray-700 bg-white">
       <div
         class="container flex flex-col flex-wrap items-center justify-between py-3 mx-auto md:flex-row max-w-7xl"
@@ -33,11 +24,12 @@
           <a
             href="{{ route('home') }}"
             class="mx-auto text-xl font-black leading-none text-gray-900 select-none"
+            up-target=".main"
           >OgMaker</a>
           <nav
             class="flex flex-wrap items-center mb-5 text-sm md:mb-0 md:pl-8 md:ml-8 md:border-l md:border-gray-200"
           >
-            <a href="{{ route('home') }}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Home</a>
+            <a href="{{ route('home') }}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900" up-target=".main">Home</a>
             @if (await auth.check())
               <a
                 href="{{ route('openGraphs.index') }}"
@@ -46,10 +38,11 @@
               <a
                 href="{{ route('openGraphs.create') }}"
                 class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900"
+                up-target=".main"
               >Create OpenGraph</a>
             @endif
             <!-- Added Q&A Link -->
-            <a href="{{ route('qna') }}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Q&A</a>
+            <a href="{{ route('qna') }}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900" up-target=".main">Q&A</a>
           </nav>
         </div>
 
@@ -77,6 +70,7 @@
                     href="{{ route('settings.profile') }}"
                     @click="menuBarOpen=false"
                     class="relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-gray-100 hover:text-gray-900 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none"
+                    up-target=".main"
                   >
                     <span>Profile Settings</span>
                   </a>
@@ -84,6 +78,7 @@
                     href="{{ route('settings.account') }}"
                     @click="menuBarOpen=false"
                     class="relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-gray-100 hover:text-gray-900 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none"
+                    up-target=".main"
                   >
                     <span>Account Settings</span>
                   </a>

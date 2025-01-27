@@ -13,6 +13,7 @@
         method="POST"
         action="{{ route('textline.create', { id: openGraph.id }) }}"
         class="space-y-2"
+        up-target=".main"
       >
         {{ csrfField() }}
         <!-- Card Name and URL -->

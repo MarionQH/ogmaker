@@ -1,11 +1,18 @@
 <div class="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white">
+ 
+  <!-- Animation de chargement -->
+  <div id="loading-spinner" class="hidden">
+    <div class="spinner"></div>
+  </div>
+   <div id="image-content">
   <img
     src="{{ openGraph.ogUrl }}"
     class="w-full h-56 object-contain bg-gray-100 global-img"
     loading="lazy"
     alt="OpenGraph Image"
-    onerror="handleImageError(this)"
+    onerror="this.outerHTML='<div class=\'error-message text-center text-gray-500 font-bold text-sm mt-4 p-16\'>There s something wrong with your url, which may be due to the font.</div>'"
   />
+</div>
   <div class="p-4">
     <div class="flex items-center justify-between mb-2">
       <div class="flex items-center mb-2">
