@@ -32,6 +32,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Create .env file from .env.example
+      - name: Create .env file
+        run: cp .env.example .env
+
       # Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
