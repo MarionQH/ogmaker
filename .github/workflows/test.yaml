@@ -1,0 +1,62 @@
+name: Run Unit Tests
+
+on:
+  push:
+    branches:
+      - main  # Run tests on commits to the 'main' branch
+  pull_request:
+    branches:
+      - main  # Run tests on pull requests to the 'main' branch
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: user_ogmaker_test
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: db_ogmaker_test
+        options: >-
+          --health-cmd "pg_isready -U user_ogmaker_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      # Check out the code from the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18  # Use the Node.js version specified in your project
+
+      # Set up PostgreSQL environment variables
+      - name: Set up environment variables
+        run: |
+          echo "DB_HOST=127.0.0.1" >> $GITHUB_ENV
+          echo "DB_PORT=5432" >> $GITHUB_ENV
+          echo "DB_USER=user_ogmaker_test" >> $GITHUB_ENV
+          echo "DB_PASSWORD=test_password" >> $GITHUB_ENV
+          echo "DB_DATABASE=db_ogmaker_test" >> $GITHUB_ENV
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run migrations and seeds
+      - name: Run migrations and seeds
+        run: |
+          node ace migration:run
+          node ace db:seed
+
+      # Run unit tests
+      - name: Run Unit Tests
+        run: npm run test
