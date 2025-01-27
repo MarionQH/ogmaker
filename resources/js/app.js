@@ -53,14 +53,45 @@ function setupEditButtons() {
   }
 }
 
-// Lancer les initialisations une fois que le DOM est chargé
+function checkLoadingCompletion() {
+    // Sélectionne toutes les images
+    const allImages = document.querySelectorAll('img');
+    let loadedImages = 0;
+
+    allImages.forEach(img => {
+        if (img.complete || img.style.display === "none") {
+            loadedImages++;
+        }
+    });
+
+    // Si toutes les images sont chargées (ou échouées), mettre à jour la barre de progression
+    if (loadedImages === allImages.length) {
+        // Mise à jour de la barre de progression (fin de chargement)
+        const alpineData = document.querySelector('[x-data="loadingBar()"]');
+        if (alpineData) {
+            alpineData.__x.$data.isLoaded = true;
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  setupImageErrorHandling();  // Configurer la gestion des erreurs pour les images
-  setupCopyButton();  // Configurer le bouton de copie
-  setupEditButtons();  // Configurer les boutons d'édition
+    setupImageErrorHandling(); 
+    setupCopyButton();
+    setupEditButtons();
+
+    // Ajouter des événements pour surveiller le chargement des images
+    const images = document.querySelectorAll('img');
+    images.forEach((img) => {
+        img.addEventListener('load', () => checkLoadingCompletion());
+        img.addEventListener('error', () => checkLoadingCompletion());
+    });
+
+    // Vérifier l'état des images au départ
+    checkLoadingCompletion();
 });
 
-// Démarre Alpine.js
+
 Alpine.start();
+
 
 console.log('Alpine.js et loadingBar initialisés avec succès');
