@@ -14,6 +14,7 @@
         method="POST"
         action="{{ route('textLine.update', { id: textLine.id }) }}"
         class="space-y-2"
+        up-target=".main"
       >
         {{ csrfField() }}
         <div class="border border-gray-300 rounded-xl bg-white p-6 shadow">
@@ -208,7 +209,8 @@
             >
               Cancel
   </a>
-            @button.createinput({ type: 'submit', class: 'text-white px-4 py-2 bg-green-500 hover:bg-green-700 inline-flex items-center justify-center text-sm font-medium transition-colors rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2' })
+            @button.createinput({ type: 'submit', 
+            class: 'text-white px-4 py-2 bg-green-500 hover:bg-green-700 inline-flex items-center justify-center text-sm font-medium transition-colors rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'})
               Update textline
             @end
             

@@ -1,9 +1,16 @@
-<div class="mb-8 text-center">
+ <div id="image-container" class="relative">
+ <!-- Animation de chargement -->
+  <div id="loading-spinner" class="hidden">
+    <div class="spinner"></div>
+  </div>
+
+<div class="mb-8 text-center" id="image-content">
   <img
     src="{{ openGraph.ogUrl }}"
     alt="OpenGraph Image"
     class="h-48 object-cover mx-auto rounded-xl shadow-lg border border-gray-300 form-img "
-    loading="lazy"
-    onerror="handleImageErrorform(this)"
+    loading="lazy" 
+    onerror="this.outerHTML='<div class=\'error-message bg-red-100 text-red-700 text-center py-2 rounded-md\'>This font is not supported by cloudinary, please choose another one</div>'"
   />
+</div>
 </div>

@@ -14,17 +14,44 @@ body {
   width: 100%;
 }
 
- /* Barre de chargement */
-.loading-bar {
-  height: 5px;
-  background-color: #4caf50;
-  width: 0%;
-  transition: width 0.2s ease;
+
+/* Spinner circulaire */
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  /* Couleur du bord extérieur */
+  border-top-color: #3498db;
+  /* Couleur du bord animé */
+  border-radius: 50%;
+  /* Cercle parfait */
+  width: 50px;
+  /* Taille du spinner */
+  height: 50px;
+  animation: spin 1s linear infinite;
+  /* Animation de rotation */
 }
 
-.loading-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+/* Animation de rotation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Position du spinner au centre */
+#loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  /* Par-dessus tout */
+}
+
+/* Cacher le spinner (par défaut) */
+.hidden {
+  display: none;
 }
