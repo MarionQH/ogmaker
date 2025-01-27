@@ -36,4 +36,20 @@ test.group('User Registration', () => {
       assert.strictEqual(err.name, 'AssertionError')
     }
   })
+
+  test('quand je crée un utilisateur sans champs obligatoires, il échoue avec une erreur', async ({
+    assert,
+  }) => {
+    // Arrange
+    const user = new User()
+    // Act
+    try {
+      await user.save()
+      assert.fail('User.save() should have thrown an error')
+    } catch (err) {
+      // Assert
+      console.log('Actual error message:', err.message)
+      assert.match(err.message, /insert into "users"/)
+    }
+  })
 })
