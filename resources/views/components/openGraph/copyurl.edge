@@ -6,23 +6,10 @@
           {{ openGraph.ogUrl }}
         </p>
         <div class="mt-4 text-center">
-          @button.createinput({ type: 'button', onclick: 'copyToClipboard()', class: 'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700' })
+          @button.createinput({ type: 'button', 'data-action': 'copy-url' , class: 'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700' })
             Copy URL
           @end
         </div>
       </div>
     </div>
   </div>
-
-  <script>
-    function copyToClipboard() {
-      const ogUrlElement = document.getElementById("ogUrl");
-      const tempInput = document.createElement("input");
-      tempInput.value = ogUrlElement.textContent.trim();
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand("copy");
-      document.body.removeChild(tempInput);
-      alert("URL copied to clipboard!");
-    }
-  </script>
