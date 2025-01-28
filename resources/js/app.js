@@ -7,6 +7,8 @@ import 'unpoly/unpoly.js';
 // Déclare le composant `loadingBar` pour Alpine
 window.Alpine = Alpine;
 
+console.log('Script loaded'); // Log pour vérifier que le script est chargé
+
 /**
  * Fonction pour gérer le bouton de copie d'URL.
  */
@@ -34,38 +36,57 @@ function setupEditButtons() {
   }
 }
 
-// function spinner() {
-//   const spinner = document.getElementById('loading-spinner'); // Le spinner
-//   const image = document.getElementById('openGraphImage'); // L'image à charger
+function spinner() {
+  const spinner = document.getElementById('loading-spinner'); // Le spinner
+  const image = document.getElementById('openGraphImage'); // L'image à charger
 
-//   // Fonction pour afficher le spinner
-//   function showSpinner() {
-//     spinner.classList.remove('hidden');  // Afficher le spinner
-//   }
+  console.log('Spinner element:', spinner); // Log pour vérifier que le spinner est sélectionné
+  console.log('Image element:', image); // Log pour vérifier que l'image est sélectionnée
 
-//   // Fonction pour cacher le spinner lorsque l'image est chargée
-//   function hideSpinner() {
-//     spinner.classList.add('hidden');  // Cacher le spinner
-//   }
+  // Fonction pour afficher le spinner
+  function showSpinner() {
+    console.log('Showing spinner');
+    spinner.classList.remove('hidden');  // Afficher le spinner
+  }
 
-//   // Afficher le spinner au début du chargement de l'image
-//   showSpinner();
+  // Fonction pour cacher le spinner lorsque l'image est chargée
+  function hideSpinner() {
+    console.log('Hiding spinner');
+    spinner.classList.add('hidden');  // Cacher le spinner
+  }
 
-//   // Vérifier si l'image est déjà dans le cache
-//   if (image.complete) {
-//     hideSpinner(); // Si l'image est déjà complètement chargée (cache), cacher le spinner
-//   } else {
-//     // Sinon, attacher les événements d'image
-//     image.onload = hideSpinner; // Masquer le spinner une fois l'image chargée
-//     image.onerror = function() {  // En cas d'erreur, cacher le spinner et afficher un message d'erreur
-//       hideSpinner();};  
-//   }
-// }
+  // Afficher le spinner au début du chargement de l'image
+  showSpinner();
+
+  // Ajouter un paramètre de requête unique pour forcer le chargement de l'image
+  const uniqueParam = `?cacheBuster=${new Date().getTime()}`;
+  image.src = image.src + uniqueParam;
+
+  // Vérifier si l'image est déjà dans le cache
+  if (image.complete) {
+    console.log('Image already loaded from cache');
+    hideSpinner(); // Si l'image est déjà complètement chargée (cache), cacher le spinner
+  } else {
+    // Sinon, attacher les événements d'image
+    image.onload = function() {
+      console.log('Image loaded');
+      hideSpinner(); // Masquer le spinner une fois l'image chargée
+    };
+     // Utiliser l'attribut onerror défini dans le HTML pour gérer les erreurs
+    image.onerror = function() {
+      console.log('Image load error');
+      hideSpinner(); // En cas d'erreur, cacher le spinner
+      // Appeler la fonction définie dans l'attribut onerror du HTML
+      eval(image.getAttribute('onerror'));
+    };
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOMContentLoaded event fired'); // Log pour vérifier que l'événement DOMContentLoaded est déclenché
   setupCopyButton(); // Initialisation du bouton de copie
   setupEditButtons(); // Initialisation des boutons d'édition
-  // spinner();
+  spinner();
 });
 
 // Démarrage d'Alpine.js
