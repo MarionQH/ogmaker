@@ -72,9 +72,12 @@ function spinner() {
       console.log('Image loaded');
       hideSpinner(); // Masquer le spinner une fois l'image chargée
     };
+     // Utiliser l'attribut onerror défini dans le HTML pour gérer les erreurs
     image.onerror = function() {
       console.log('Image load error');
-      hideSpinner(); // En cas d'erreur, cacher le spinner et afficher un message d'erreur
+      hideSpinner(); // En cas d'erreur, cacher le spinner
+      // Appeler la fonction définie dans l'attribut onerror du HTML
+      eval(image.getAttribute('onerror'));
     };
   }
 }
