@@ -90,6 +90,8 @@
   },
   "prettier": "@adonisjs/prettier-config",
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "@types/supertest": "^6.0.2",
+    "cross-env": "^7.0.3",
+    "supertest": "^7.0.0"
   }
 }
