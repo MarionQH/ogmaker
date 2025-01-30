@@ -43,16 +43,20 @@ function spinner() {
   console.log('Spinner element:', spinner); // Log pour vérifier que le spinner est sélectionné
   console.log('Image element:', image); // Log pour vérifier que l'image est sélectionnée
 
-  // Fonction pour afficher le spinner
+ // Fonction pour afficher le spinner
   function showSpinner() {
-    console.log('Showing spinner');
-    spinner.classList.remove('hidden');  // Afficher le spinner
+    if (spinner) {
+      console.log('Showing spinner');
+      spinner.classList.remove('hidden');  // Afficher le spinner
+    }
   }
 
   // Fonction pour cacher le spinner lorsque l'image est chargée
   function hideSpinner() {
-    console.log('Hiding spinner');
-    spinner.classList.add('hidden');  // Cacher le spinner
+    if (spinner) {
+      console.log('Hiding spinner');
+      spinner.classList.add('hidden');  // Cacher le spinner
+    }
   }
 
   // Afficher le spinner au début du chargement de l'image
@@ -86,8 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('DOMContentLoaded event fired'); // Log pour vérifier que l'événement DOMContentLoaded est déclenché
   setupCopyButton(); // Initialisation du bouton de copie
   setupEditButtons(); // Initialisation des boutons d'édition
-  spinner();
+const imageElement = document.getElementById('openGraphImage');
+   if (imageElement) {
+    spinner();
+  }
 });
+
 
 // Démarrage d'Alpine.js
   Alpine.start();
