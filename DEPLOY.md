@@ -56,3 +56,17 @@ NODE_ENV=production
 **Warning** as part of an adonis JS 6 project, you need to move the devdependencies to dependencies in the package.json file.
 
 And now you can deploy your project
+
+Once successfully deployed, retrieve the URL of your site :
+
+![site_url](imgdeploy/image-6.png)
+
+and modify the environment variables as follows:
+
+![APP_URL](imgdeploy/image-7.png)
+
+```config
+APP_URL=https://YOURURL
+```
+
+Well done ! Your application has been deployed !
