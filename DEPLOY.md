@@ -53,7 +53,7 @@ HOST=0.0.0.0
 NODE_ENV=production
 ```
 
-**Warning** as part of an adonis JS 6 project, you need to move the devdependencies to dependencies in the package.json file.
+**Warning** as part of an adonis JS 6 project, you need to move the `devDependencies` to `Dependencies` in the `package.json` file.
 
 And now you can deploy your project
 
