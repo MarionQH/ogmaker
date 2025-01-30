@@ -24,6 +24,9 @@ const InfosController = () => import('#controllers/http/infos_controller')
 // HOME
 router.get('/', [HomeController, 'index']).as('home')
 
+//ABOUT
+router.get('/about', [HomeController, 'about']).as('about')
+
 //INFOS
 router.get('/qna', [InfosController, 'infos']).as('qna')
 
