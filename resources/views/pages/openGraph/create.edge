@@ -12,6 +12,7 @@
         method="POST"
         action="{{ route('openGraphs.store') }}"
         class="space-y-6"
+        x-data="{ isWorking: false }"
       >
         {{ csrfField() }}
         <div class="grid gap-4">

@@ -156,16 +156,11 @@ export class UrlMakerService {
     const textLinePattern =
       /l_text:(?<textPolice>[a-zA-Z0-9_]+)_(?<textSize>[0-9]+)_(?<textWeight>[a-zA-Z]+):(?<text>[^,]+),co_(?<textColor>[a-zA-Z0-9:]+),[^x]*x_(?<textLongitude>[0-9]+),y_(?<textLatitude>[0-9]+)/g
 
-    console.log('URL analysée:', ogUrl)
-    console.log('Regex utilisée:', textLinePattern)
-
     // Extraction des correspondances avec le pattern
     const matches = [...ogUrl.matchAll(textLinePattern)]
-    console.log('Matches trouvés:', matches)
 
     // Si aucune correspondance, lever une erreur
     if (matches.length === 0) {
-      console.log('No text lines found in the URL.')
       return []
     }
 
