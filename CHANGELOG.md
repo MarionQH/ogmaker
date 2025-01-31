@@ -1,6 +1,6 @@
 # OpenGraph Changelog
 
-## v.? (28/01/25)
+## v.1.0.0 (28/01/25)
 
 ## 🚀 Enhancements
 
@@ -29,7 +29,7 @@
 * [#89](https://github.com/MarionQH/ogmaker/commit/5c2bdf179bc4ebabf8e204780d7386fb8e0f2653) [BUGFIX] Fixed regex for text validation.
 * [#84](https://github.com/MarionQH/ogmaker/commit/f75e2a144fabf472a2315b2ab21a347dc8f87457) [BUGFIX] Added `.env` file to the CI/CD workflow.
 
-## v.? (23/01/25)
+## v.0.9.0 (23/01/25)
 
 ## 🚀 Enhancements
 
@@ -46,7 +46,6 @@
 
 ## 🏗️ Tech
 
-* [#75](https://github.com/MarionQH/ogmaker/commit/838df5aec662e69e458ff601b5c4db1d0993157a) [TECH] Upgraded Vite from 6.0.7 to 6.0.11.
 * [#72](https://github.com/MarionQH/ogmaker/commit/0a8d9f7cc6f1189a2a05c75b1826f07797665ba0) [TECH] Modified the controller to retrieve fonts from the API.
 * [#71](https://github.com/MarionQH/ogmaker/commit/7066de60498e6adfc9ca6c10da865dc4a6bef9a9) [TECH] Removed `.env.test` file from github.
 * [#63](https://github.com/MarionQH/ogmaker/commit/3e6bfe136ba7183b2adcacd14ecd7a5d4e483614) [TECH] Created a separate database for testing.
@@ -62,8 +61,12 @@
 * [#69](https://github.com/MarionQH/ogmaker/commit/160e4c283503b2c06894eb1b0b14a810383efbd7) [BUGFIX] Fixed Montserrat option in the edit page.
 * [#69](https://github.com/MarionQH/ogmaker/commit/5792495fab7fdbb28c1dea7ff693fa9e5d9d8434) [BUGFIX] Removed `%20` encoding from font names in the table.
 * [#65](https://github.com/MarionQH/ogmaker/commit/daafde795d7f4e3da6790d4e1f0da85abf11cf9d) [BUGFIX] Ensured full image visibility in cards, adding a gray frame if the size does not match the slot.
+  
+## Version Upgrade
 
-## v.? (21/01/25)
+* [#75](https://github.com/MarionQH/ogmaker/commit/838df5aec662e69e458ff601b5c4db1d0993157a) [BUMP] Upgraded Vite from 6.0.7 to 6.0.11.
+
+## v.0.7.0 (21/01/25)
 
 ## 🚀 Enhancements
 
@@ -90,7 +93,7 @@
 * [#56](https://github.com/MarionQH/ogmaker/commit/5ed8617b277fcab423e92b7ad486e5fd6c54268b) [BUGFIX] Corrections for `card.edge` style.
 * [#51](https://github.com/MarionQH/ogmaker/commit/f826c9dea624996c0d25301c794b975588616ded) [BUGFIX] Updated button appearance for consistency.
 
-## v.? (17/01/25)
+## v.0.4.0 (17/01/25)
 
 ## 🚀 Enhancements
 
@@ -138,7 +141,7 @@
 * [#37](https://github.com/MarionQH/ogmaker/commit/f32f1d2603912535621bb2713be1f2351e1f3163) [BUGFIX] Fixed an `await` issue in asynchronous code execution.
 * [#44](https://github.com/MarionQH/ogmaker/commit/a93416867e3f16915c7e8d034d74812bcca01a34) [BUGFIX] Fixed font selection dropdown.
 
-## v.? (15/01/25)
+## v.0.1.0 (15/01/25)
 
 ## 🚀 Enhancements
 
